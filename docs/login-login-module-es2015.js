@@ -187,6 +187,9 @@ let LoginComponent = class LoginComponent {
             password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]],
         });
     }
+    get f() { return this.myForm.controls; }
+    onSubmit() {
+    }
 };
 LoginComponent.ctorParameters = () => [
     { type: _angular_forms__WEBPACK_IMPORTED_MODULE_4__["FormBuilder"] },

@@ -13,6 +13,11 @@ const routes: Routes = [
     component: AllModulesComponent,
     children: [
 
+      {
+        path: 'sales',
+        loadChildren: () => import('./sales/sales.module').then(m => m.SalesModule)
+      },
+
 
     ]
   }

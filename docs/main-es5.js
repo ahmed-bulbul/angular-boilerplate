@@ -67,8 +67,7 @@
 
       var environment = {
         production: false,
-        baseUrl: 'http://localhost:7272/census_api',
-        contextPath: ''
+        baseUrl: "https://spring-boot-boilerplate.herokuapp.com"
       };
       /*
        * For easier debugging in development mode, you can import the following file

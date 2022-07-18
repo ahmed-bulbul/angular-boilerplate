@@ -1,0 +1,50 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Show data on table -->
+<div class="row">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title">Sales</h4>
+              <h6 class="card-subtitle">Sales</h6>
+              <div class="table-responsive">
+                  <table class="table table-bordered">
+                      <thead>
+                          <tr>
+                              <th>#ID</th>
+                              <th>productId</th>
+                              <th>quantity</th>
+                              <th>totalPrice</th>
+                              <th>discount</th>
+                              <th>totalPriceAfterDiscount</th>
+                              <th>totalPriceAfterTax</th>
+                              <th>tax</th>
+                              <th>Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let sale of salesData">
+                              <td>{{sale.id}}</td>
+                              <td>{{sale.productId}}</td>
+                              <td>{{sale.quantity}}</td>
+                              <td>{{sale.totalPrice}}</td>
+                              <td>{{sale.discount}}</td>
+                              <td>{{sale.totalPriceAfterDiscount}}</td>
+                              <td>{{sale.totalPriceAfterTax}}</td>
+                              <td>{{sale.tax}}</td>
+                              <td>
+                                  <a class="btn btn-primary" (click)="editSale(sale)">Edit</a>
+                                  <a class="btn btn-danger" (click)="deleteSale(sale)">Delete</a>
+                              </td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </div>
+
+</div>
+
+

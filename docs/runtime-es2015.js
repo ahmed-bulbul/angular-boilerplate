@@ -64,7 +64,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"default~all-modules-all-modules-module~login-login-module":"default~all-modules-all-modules-module~login-login-module","all-modules-all-modules-module":"all-modules-all-modules-module","login-login-module":"login-login-module","errorpages-errorpages-module":"errorpages-errorpages-module"}[chunkId]||chunkId) + "-es2015.js"
+/******/ 		return __webpack_require__.p + "" + ({"default~all-modules-all-modules-module~login-login-module":"default~all-modules-all-modules-module~login-login-module","all-modules-all-modules-module":"all-modules-all-modules-module","login-login-module":"login-login-module","errorpages-errorpages-module":"errorpages-errorpages-module","sales-sales-module":"sales-sales-module"}[chunkId]||chunkId) + "-es2015.js"
 /******/ 	}
 /******/
 /******/ 	// The require function

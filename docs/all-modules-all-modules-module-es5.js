@@ -4856,7 +4856,18 @@
       }, {
         path: '',
         component: _all_modules_component__WEBPACK_IMPORTED_MODULE_3__["AllModulesComponent"],
-        children: []
+        children: [{
+          path: 'sales',
+          loadChildren: function loadChildren() {
+            return __webpack_require__.e(
+            /*! import() | sales-sales-module */
+            "sales-sales-module").then(__webpack_require__.bind(null,
+            /*! ./sales/sales.module */
+            "f40N")).then(function (m) {
+              return m.SalesModule;
+            });
+          }
+        }]
       }];
 
       var AllModulesRoutingModule = function AllModulesRoutingModule() {

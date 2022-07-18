@@ -3471,7 +3471,12 @@ const routes = [
     {
         path: '',
         component: _all_modules_component__WEBPACK_IMPORTED_MODULE_3__["AllModulesComponent"],
-        children: []
+        children: [
+            {
+                path: 'sales',
+                loadChildren: () => __webpack_require__.e(/*! import() | sales-sales-module */ "sales-sales-module").then(__webpack_require__.bind(null, /*! ./sales/sales.module */ "f40N")).then(m => m.SalesModule)
+            },
+        ]
     }
 ];
 let AllModulesRoutingModule = class AllModulesRoutingModule {

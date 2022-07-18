@@ -347,6 +347,14 @@
               password: ['', [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].minLength(4), _angular_forms__WEBPACK_IMPORTED_MODULE_4__["Validators"].required]]
             });
           }
+        }, {
+          key: "f",
+          get: function get() {
+            return this.myForm.controls;
+          }
+        }, {
+          key: "onSubmit",
+          value: function onSubmit() {}
         }]);
 
         return LoginComponent;
