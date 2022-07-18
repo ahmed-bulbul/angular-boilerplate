@@ -20,6 +20,8 @@
                               <th>totalPriceAfterDiscount</th>
                               <th>totalPriceAfterTax</th>
                               <th>tax</th>
+                              <th>Created At </th>
+                              <th>Updated At </th>
                               <th>Action</th>
                           </tr>
                       </thead>
@@ -33,6 +35,8 @@
                               <td>{{sale.totalPriceAfterDiscount}}</td>
                               <td>{{sale.totalPriceAfterTax}}</td>
                               <td>{{sale.tax}}</td>
+                              <td>{{sale.createdAt | date:'dd-MM-yyyy hh:mm:ss a'}}</td>
+                              <td>{{sale.updatedAt | date:'dd-MM-yyyy hh:mm:ss a'}}</td>
                               <td>
                                   <a class="btn btn-primary" (click)="editSale(sale)">Edit</a>
                                   <a class="btn btn-danger" (click)="deleteSale(sale)">Delete</a>
