@@ -1,0 +1,44 @@
+@import "~ngx-toastr/toastr.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+.toast-custom {
+    top: 62px;
+    right: 0px;
+}
+
+#toast-container > div {
+    max-width: 700px;
+    width: 1200px; /* width: 100% */
+    width: 100%;
+    min-width: 400px;
+}
+
+
+/* ----------------- Pagination CSS Start ------------------------------ */
+.pgn-pageSliceCt ul.ngx-pagination {
+	padding-left: 5px !important;
+}
+
+.pgn-pageSizeOption {
+    height: 30px;
+    border: 1px solid #dee2e6;
+}
+
+.ngx-pagination li {
+    margin-right: 0px !important;
+    position: relative;
+    color: #0d6efd;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+}
+.ngx-pagination li a {
+    color: #0d6efd !important;
+}
+/* ----------------- Pagination CSS End ------------------------------ */
+
+.ng-select.custom-ng-select .ng-select-container {
+    border-color: #667eea;
+	border-left: 3px solid #667eea;
+    box-shadow: none;
+    height: 43px;
+}

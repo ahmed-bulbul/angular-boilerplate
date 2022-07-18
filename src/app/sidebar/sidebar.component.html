@@ -1,0 +1,60 @@
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-inner slimscroll">
+    <perfect-scrollbar [scrollIndicators]="false">
+      <div id="sidebar-menu" [innerHTML]=""  class="sidebar-menu">  <!-- [innerHTML]="menuData" -->
+
+        <ul id="_leftMenuContainer">
+          <li class="menu-title">
+            <span>Menus</span>
+          </li>
+          <li class="submenu" [ngClass]="{ 'active' : urlComplete.mainUrl === 'dashboard' }">
+            <a href="javascript:" [ngClass]="{ 'subdrop' : urlComplete.mainUrl === 'dashboard' }">
+              <i class="la la-dashboard"></i>
+              <span>Dashboard</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul style="display: none;"
+              [ngStyle]="{ 'display' : urlComplete.mainUrl === 'dashboard' ? 'block' : 'none' }">
+              <li routerLink="/dashboard/admin"><a [ngClass]="{ 'active' : urlComplete.subUrl === 'admin' }"
+                  href="javascript:">Admin
+                  Dashboard</a></li>
+              <li routerLink="/dashboard/employee"><a [ngClass]="{ 'active' : urlComplete.subUrl === 'employee' }"
+                  href="javascript:">Employee Dashboard</a></li>
+            </ul>
+          </li>
+
+
+          <li class="submenu" [ngClass]="{ 'active' : urlComplete.mainUrl === 'users' }">
+            <a href="javascript:" [ngClass]="{ 'subdrop' : urlComplete.mainUrl === 'users' }">
+              <i class="la la-windows"></i>
+              <span>System</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul style="display: none;" [ngStyle]="{ 'display' : urlComplete.mainUrl === 'users' ? 'block' : 'none' }">
+
+              <li routerLink="/users/user/list">
+                <a [ngClass]="{ 'active' : urlComplete.subUrl === 'user' }" href="javascript:"> Users</a>
+              </li>
+
+              <li routerLink="/dashboard/employee"><a [ngClass]="{ 'active' : urlComplete.subUrl === 'employee' }"
+                  href="javascript:">Resources</a></li>
+            </ul>
+          </li>
+
+        <li>
+            <a href="javascript:"><i class="la la-file-text"></i> <span>Documentation</span></a>
+        </li>
+        <li>
+            <a href="javascript:"><i class="la la-info"></i> <span>Change Log</span> <span
+                    class="badge badge-primary ml-auto">v3.2</span></a>
+        </li>
+      </ul>
+
+
+
+      </div>
+    </perfect-scrollbar>
+  </div>
+</div>
+<!-- /Sidebar -->
