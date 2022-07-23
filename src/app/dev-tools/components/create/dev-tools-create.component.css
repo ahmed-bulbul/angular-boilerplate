@@ -1,0 +1,5 @@
+input,
+textarea {
+  width: 500px;
+  box-sizing: border-box;
+}

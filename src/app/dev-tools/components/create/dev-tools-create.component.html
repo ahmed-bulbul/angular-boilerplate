@@ -1,0 +1,74 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+
+    <h3 class="text-center"> Create DevTools </h3>
+    <hr />
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+          <label> Souce URL</label>
+          <input type="text" class="form-control" id="sourceUrl" [(ngModel)]="devTools.sourceUrl" name="sourceUrl">
+        </div>
+
+        <div class="form-group">
+          <label> Package Name</label>
+          <input type="text" class="form-control" id="packageName" [(ngModel)]="devTools.packageName"
+            name="packageName">
+        </div>
+
+        <div class="form-group">
+          <label> Domain Name</label>
+          <input type="text" class="form-control" id="domainName" [(ngModel)]="devTools.domainName" name="domainName">
+        </div>
+
+        <br />
+        <button class="btn btn-success" type="submit">Save</button>
+      </form>
+    </div>
+  </div>
+  </div>
+
+  <div class=" col-md-6">
+
+    <div class="card">
+
+    <h3 class="text-center"> Add Attribute </h3>
+    <hr />
+    <div class="card-body">
+
+      <!-- push to addAttributes form  -->
+      <form (ngSubmit)="onSubmitAttributes()" [formGroup]="attributeForm">
+        <div class="form-group">
+          <label> Attributes Type </label>
+          <input type="text" class="form-control" id="attributes" formControlName="type">
+        </div>
+        <div class="form-group">
+          <label> Attributes Name </label>
+          <input type="text" class="form-control" id="attributes" formControlName="name">
+        </div>
+        <br />
+        <button class="btn btn-success" type="submit">Add Attribute </button>
+      </form>
+    </div>
+  </div>
+  </div>
+ </div>
+
+  <div class="row">
+    <!-- display -->
+    <div class="card col-md-12">
+      <div class="row">
+        <h3 class="text-center"> Display DevTools </h3>
+        <hr />
+        <div class="card-body">
+          <pre>{{ devTools | json }}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
