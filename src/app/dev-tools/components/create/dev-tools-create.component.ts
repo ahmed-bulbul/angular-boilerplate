@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 
+
 @Component({
   selector: 'app-dev-tools-create',
   templateUrl: './dev-tools-create.component.html',
@@ -14,7 +15,6 @@ import { ToastrService } from 'ngx-toastr';
 export class DevToolsCreateComponent implements OnInit {
 
  // public devTools: DevToolsModel[]; // for the list of dev tools
-
 
  public devTools: DevToolsModel = new DevToolsModel(); // for the form
  public attributeForm:FormGroup;
@@ -29,9 +29,7 @@ export class DevToolsCreateComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
     this.initAttributes();
-
   }
 
   initAttributes(){
@@ -49,9 +47,6 @@ export class DevToolsCreateComponent implements OnInit {
     this.initAttributes();
 
   }
-
-  //prepair the attribute model
-
 
   saveDevTools(){
     this.devToolService.createDevTools(this.devTools).subscribe( data =>{
