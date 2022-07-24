@@ -2,6 +2,9 @@
 <div class="content container-fluid">
 
 <div class="row">
+  <div class="col-md-12">
+    <h2 class="text-center">Code Automation DevTools</h2>
+  </div>
   <div class="col-md-6">
     <div class="card">
 
@@ -17,15 +20,24 @@
         </div>
 
         <div class="form-group">
+          <label> Module Name</label>
+          <input type="text" class="form-control" id="moduleName" [(ngModel)]="devTools.moduleName" name="moduleName" placeholder="auth">
+        </div>
+
+        <div class="form-group">
           <label> Package Name</label>
           <input type="text" class="form-control" id="packageName" [(ngModel)]="devTools.packageName"
             name="packageName"  placeholder="sales">
         </div>
 
+
+
         <div class="form-group">
           <label> Entity Name</label>
           <input type="text" class="form-control" id="domainName" [(ngModel)]="devTools.domainName" name="domainName" placeholder="Sales">
         </div>
+
+
 
         <br />
         <button class="btn btn-success" type="submit">Save</button>

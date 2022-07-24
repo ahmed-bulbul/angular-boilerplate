@@ -19,12 +19,12 @@ export class DevToolsCreateComponent implements OnInit {
  public devTools: DevToolsModel = new DevToolsModel(); // for the form
  public attributeForm:FormGroup;
 
-
   constructor(
     private devToolService:DevToolsService,
     private router: Router,
     private toastr:ToastrService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder
+    ){
 
     }
 
@@ -37,7 +37,6 @@ export class DevToolsCreateComponent implements OnInit {
       name: [""],
       type: [""],
     });
-
   }
 
   onSubmitAttributes(){
@@ -45,12 +44,10 @@ export class DevToolsCreateComponent implements OnInit {
     this.devTools.attributes = this.devTools.attributes || [];
     this.devTools.attributes.push(this.attributeForm.value);
     this.initAttributes();
-
   }
 
   saveDevTools(){
     this.devToolService.createDevTools(this.devTools).subscribe( data =>{
-      // if status is true then show the message
       if(data['status'] === true){
         this.toastr.success(data['message']);
         this.router.navigate(['/dev-tools/create']);

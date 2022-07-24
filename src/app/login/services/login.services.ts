@@ -20,5 +20,10 @@ export class LoginService {
 
   constructor(private http: HttpClient, private toastr: ToastrService,private router: Router,) {}
 
+  public sendGetRequest(apiURL, queryParams){
+    console.log('@sendGetRequest');
+    return this.http.get<any>(apiURL, {params: queryParams}).pipe( retry(3));
+  }
+
 
 }
