@@ -14,6 +14,8 @@ import { DatePipe } from '@angular/common';
 
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { authInterceptorProviders } from './security/interceptor/auth.interceptor';
+
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     ),
   ],
   providers: [
+    authInterceptorProviders,
     DatePipe,
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],

@@ -47,7 +47,7 @@
     "ng-drag-drop": "^5.0.0",
     "ng-select2": "^1.2.2",
     "ng2-search-filter": "^0.5.1",
-    "ngx-bootstrap": "^5.6.2",
+    "ngx-bootstrap": "^5.2.0",
     "ngx-filepond": "^5.0.1",
     "ngx-mask": "^10.0.1",
     "ngx-pagination": "^5.1.1",
@@ -60,6 +60,7 @@
     "primeng": "^10.0.0",
     "raphael": "^2.3.0",
     "rxjs": "^6.5.4",
+    "sweetalert2": "^11.4.24",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"
   },

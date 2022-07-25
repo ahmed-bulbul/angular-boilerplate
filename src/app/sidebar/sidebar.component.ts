@@ -79,7 +79,7 @@ export class SidebarComponent implements OnInit {
 
     const self = this;
 
-    this._getPermittedMenu();
+   // this._getPermittedMenu();
 
 
 

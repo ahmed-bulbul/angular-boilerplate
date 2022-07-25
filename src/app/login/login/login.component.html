@@ -11,7 +11,7 @@
     <div class="account-box">
       <div class="account-wrapper">
         <h3 class="account-title">Login</h3>
-        <p class="account-subtitle">Welcome to Cencus Ticket Support</p>
+        <p class="account-subtitle">Welcome to Login Panel</p>
 
         <!-- Account Form -->
         <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
@@ -37,7 +37,19 @@
             </div>
           </div>
           <div class="form-group text-center">
-            <button class="btn btn-primary account-btn custom-button" type="submit">Login</button>
+
+            <button [disabled]="myForm.invalid" class="btn btn-primary" type="submit">
+
+              <span *ngIf="!isLoading">
+                Login
+              </span>
+
+              <span *ngIf="isLoading" class="indicator-progress" [style.display]="'block'">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+
+            </button>
           </div>
           <div class="account-footer">
             <!-- <p>Don't have an account yet? <a routerLink="/login/register">Register</a></p> -->
@@ -49,5 +61,8 @@
     </div>
   </div>
 </div>
+<!--
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner> -->
 
-<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
