@@ -245,91 +245,91 @@ export class SidebarComponent implements OnInit {
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' +token);
 
     const queryParams: any = {};
-    this.loginService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
-      // append response
+    // this.loginService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+    //   // append response
 
-      let menuStr = this._hardCodeMenuString();
+    //   let menuStr = this._hardCodeMenuString();
 
-      let data = {
-        "DASHBOARD_ADMIN": {
-            "id": 1,
-            "code": "DASHBOARD_ADMIN",
-            "description": "Dashboard",
-            "openUrl": "/dashboard",
-            "iconHtml": "fa fa-dashboard",
-            "hasChild": false,
-            "level": 0,
-            "child": {}
-        },
-        "DASHBOARD_USER": {
-            "id": 2,
-            "code": "DASHBOARD_USER",
-            "description": "Dashboard",
-            "openUrl": "/dashboard/patient",
-            "iconHtml": "fa fa-dashboard",
-            "hasChild": false,
-            "level": 0,
-            "child": {}
-        },
-        "LAYOUT_BUILDER": {
-            "id": 3,
-            "code": "LAYOUT_BUILDER",
-            "description": "Layout Builder",
-            "openUrl": "/builder",
-            "iconHtml": "fa fa-th",
-            "hasChild": false,
-            "level": 0,
-            "child": {}
-        },
-        "ACCEPTANCE_REQUIREMENTS": {
-            "id": 4,
-            "code": "ACCEPTANCE_REQUIREMENTS",
-            "description": "Acceptance Requirements",
-            "openUrl": "/acceptance-requirements",
-            "iconHtml": "fa fa-th",
-            "hasChild": true,
-            "level": 0,
-            "child": {
-                "ACCEPTANCE_REQUIREMENTS_CREATE": {
-                    "id": 5,
-                    "code": "ACCEPTANCE_REQUIREMENTS_CREATE",
-                    "description": "Create",
-                    "openUrl": "/acceptance-requirements/create",
-                    "iconHtml": "fa fa-th",
-                    "hasChild": false,
-                    "level": 1,
-                    "child": {}
-                },
-                "ACCEPTANCE_REQUIREMENTS_LIST": {
-                    "id": 6,
-                    "code": "ACCEPTANCE_REQUIREMENTS_LIST",
-                    "description": "List",
-                    "openUrl": "/acceptance-requirements/list",
-                    "iconHtml": "fa fa-th",
-                    "hasChild": false,
-                    "level": 1,
-                    "child": {}
-                }
-            }
-        },
-        "MANAGE_USERS": {
-            "id": 7,
-            "code": "MANAGE_USERS",
-            "description": "Manage Users",
-            "openUrl": "/users",
-            "iconHtml": "fa fa-th",
-            "hasChild": false,
-            "level": 0,
-            "child": {}
-        }
-    }
-       menuStr = this._generateMenuHTML( data );
-    //   menuStr = this._generateMenuHTML( response.data );
-      $('#_leftMenuContainer').append( menuStr );
-      $('i.la-sm').css('font-size', '.875em');
+    //   let data = {
+    //     "DASHBOARD_ADMIN": {
+    //         "id": 1,
+    //         "code": "DASHBOARD_ADMIN",
+    //         "description": "Dashboard",
+    //         "openUrl": "/dashboard",
+    //         "iconHtml": "fa fa-dashboard",
+    //         "hasChild": false,
+    //         "level": 0,
+    //         "child": {}
+    //     },
+    //     "DASHBOARD_USER": {
+    //         "id": 2,
+    //         "code": "DASHBOARD_USER",
+    //         "description": "Dashboard",
+    //         "openUrl": "/dashboard/patient",
+    //         "iconHtml": "fa fa-dashboard",
+    //         "hasChild": false,
+    //         "level": 0,
+    //         "child": {}
+    //     },
+    //     "LAYOUT_BUILDER": {
+    //         "id": 3,
+    //         "code": "LAYOUT_BUILDER",
+    //         "description": "Layout Builder",
+    //         "openUrl": "/builder",
+    //         "iconHtml": "fa fa-th",
+    //         "hasChild": false,
+    //         "level": 0,
+    //         "child": {}
+    //     },
+    //     "ACCEPTANCE_REQUIREMENTS": {
+    //         "id": 4,
+    //         "code": "ACCEPTANCE_REQUIREMENTS",
+    //         "description": "Acceptance Requirements",
+    //         "openUrl": "/acceptance-requirements",
+    //         "iconHtml": "fa fa-th",
+    //         "hasChild": true,
+    //         "level": 0,
+    //         "child": {
+    //             "ACCEPTANCE_REQUIREMENTS_CREATE": {
+    //                 "id": 5,
+    //                 "code": "ACCEPTANCE_REQUIREMENTS_CREATE",
+    //                 "description": "Create",
+    //                 "openUrl": "/acceptance-requirements/create",
+    //                 "iconHtml": "fa fa-th",
+    //                 "hasChild": false,
+    //                 "level": 1,
+    //                 "child": {}
+    //             },
+    //             "ACCEPTANCE_REQUIREMENTS_LIST": {
+    //                 "id": 6,
+    //                 "code": "ACCEPTANCE_REQUIREMENTS_LIST",
+    //                 "description": "List",
+    //                 "openUrl": "/acceptance-requirements/list",
+    //                 "iconHtml": "fa fa-th",
+    //                 "hasChild": false,
+    //                 "level": 1,
+    //                 "child": {}
+    //             }
+    //         }
+    //     },
+    //     "MANAGE_USERS": {
+    //         "id": 7,
+    //         "code": "MANAGE_USERS",
+    //         "description": "Manage Users",
+    //         "openUrl": "/users",
+    //         "iconHtml": "fa fa-th",
+    //         "hasChild": false,
+    //         "level": 0,
+    //         "child": {}
+    //     }
+    // }
+    //    menuStr = this._generateMenuHTML( data );
+    // //   menuStr = this._generateMenuHTML( response.data );
+    //   $('#_leftMenuContainer').append( menuStr );
+    //   $('i.la-sm').css('font-size', '.875em');
 
 
-    });
+    // });
 
   }
 

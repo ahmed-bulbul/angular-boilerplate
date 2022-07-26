@@ -73,6 +73,8 @@ export class LoginComponent implements OnInit {
       if(data['status'] === true){
         console.log(data['user']);
         this.setToken(data['accessToken'],data['user']);
+        // this.loginService.loginStatusSubject.next(true);
+        this.setObserver();
         Swal.fire({
          // login success
           icon: 'success',
@@ -86,13 +88,26 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
       }else{
         this.isLoading = false;
-        this.toastr.info(data['message']);
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: data['message'],
+        });
       }
     },
     error => {
       this.isLoading = false;
-      this.toastr.error(error['error']['message']);
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: error.message,
+      });
     });
+  }
+
+  setObserver (){
+    this.loginService.loginStatusSubject.next(true);
+    this.loginService.currentUserSubject.next(this.localStorageService.getUser());
   }
 
   //set token and user

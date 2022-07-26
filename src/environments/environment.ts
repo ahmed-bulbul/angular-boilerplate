@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   baseUrl:"http://localhost:5555",
-  //contextPath:''
+ // baseUrl:"https://spring-boot-boilerplate.herokuapp.com"
 };
 
 /*

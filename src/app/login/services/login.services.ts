@@ -2,8 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, of, Subject, Subscription } from "rxjs";
 import { retry } from "rxjs/operators";
+import { LocalstorageService } from "src/app/security/service/localstorage.service";
 import { environment } from "src/environments/environment";
 import { Login } from "../model/login";
 
@@ -12,28 +13,37 @@ import { Login } from "../model/login";
   providedIn: "root",
 })
 export class LoginService {
+
+
   baseUrl = environment.baseUrl+'/api/v1/auth';
+  loginStatusSubject: BehaviorSubject<boolean>;
+  loginStatusSubject$: Observable<boolean>;
+  currentUser$: Observable<any>;
+  currentUserSubject: BehaviorSubject<any>;
+  private unsubscribe: Subscription[] = [];
 
 
 
-  public loginStatusSubject = new Subject<boolean>();
   clearTimeout: any;
 
-  constructor(private http: HttpClient, private toastr: ToastrService,private router: Router,) {}
+  constructor(private http: HttpClient, private toastr: ToastrService,private router: Router,private localstorageService:LocalstorageService) {
+    this.loginStatusSubject = new BehaviorSubject<boolean>(false);
+    this.loginStatusSubject$ = this.loginStatusSubject.asObservable();
+    this.currentUserSubject = new BehaviorSubject<Object>(undefined);
+    this.currentUser$ = this.currentUserSubject.asObservable();
 
-  public sendGetRequest(apiURL, queryParams){
-    console.log('@sendGetRequest');
-    return this.http.get<any>(apiURL, {params: queryParams}).pipe( retry(3));
   }
+
+
+
 
   public login(formData:Login): Observable<Object>{
     return this.http.post(`${this.baseUrl}`+'/login', formData);
 
   }
 
-  // createDevTools(formData: DevToolsModel): Observable<Object>{
-  //   return this.httpClient.post(`${this.baseUrl}`+'/create', formData);
+  // getsubject():Observable<boolean>{
+  //   return this.$loginStatusSubject.asObservable();
   // }
-
 
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +25,7 @@ export class LocalstorageService {
   }
 
   //get user from local storage
-  getUser() {
+  getUser(): Observable<any> {
     return JSON.parse(localStorage.getItem('user'));
   }
 
