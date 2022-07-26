@@ -28,13 +28,13 @@ export class AuthInterceptor implements HttpInterceptor{
         }else if(err.status === 500){
             console.log(err.message);
             if(err.message.includes('jwt token has expired')){
-                this.localStorageService.logout();
+                //this.localStorageService.logout();
                 this.router.navigate(['login']);
             }
            // this.router.navigate(['error/error500']);
         }else if(err.status === 401){
             console.log("From 401");
-            this.localStorageService.logout();
+            //this.localStorageService.logout();
             this.router.navigate(['login']);
             window.location.reload();
         }else if(err.status === 404){

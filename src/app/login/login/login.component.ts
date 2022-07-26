@@ -35,6 +35,11 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
+    if(this.localStorageService.isLoggedIn()){
+      this.router.navigate(['/dashboard/admin']);
+    }
+
     this._initForm();
 
     //myForm data assign to formData variable
@@ -62,20 +67,23 @@ export class LoginComponent implements OnInit {
 
   login(){
     this.isLoading = true;
+    //set time 30 seconds
+
     this.loginService.login(this.formData).subscribe( data =>{
       if(data['status'] === true){
         console.log(data['user']);
         this.setToken(data['accessToken'],data['user']);
         Swal.fire({
-          position: 'top-end',
+         // login success
           icon: 'success',
-          title: data['message'],
+          title: 'Login Successful',
+          text: data['message'],
           showConfirmButton: false,
           timer: 1500
-        })
-
+        }).then(() => {
+          this.router.navigate(['/dashboard/admin']);
+        });
         this.isLoading = false;
-        this.router.navigate(['/sales']);
       }else{
         this.isLoading = false;
         this.toastr.info(data['message']);
