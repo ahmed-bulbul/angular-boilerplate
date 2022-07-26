@@ -42,11 +42,10 @@ export class AuthInterceptor implements HttpInterceptor{
         }else if(err.status === 0){
           //toaster show 30 seconds on top of the page
           Swal.fire(
-            'Info!',
-            'Server is not responding. Please try again later.',
-            'info'
+            'Sorry...',
+            'Something went wrong! Server is not responding...',
+            'warning'
           )
-
           return throwError('Unable to Connect to the Server');
         }
         return throwError(err);

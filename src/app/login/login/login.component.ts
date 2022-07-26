@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     if(this.localStorageService.isLoggedIn()){
       this.router.navigate(['/dashboard/admin']);
     }
-
     this._initForm();
 
     //myForm data assign to formData variable
@@ -76,7 +75,7 @@ export class LoginComponent implements OnInit {
         // this.loginService.loginStatusSubject.next(true);
         this.setObserver();
         Swal.fire({
-         // login success
+         // login success position right top small
           icon: 'success',
           title: 'Login Successful',
           text: data['message'],
@@ -97,11 +96,7 @@ export class LoginComponent implements OnInit {
     },
     error => {
       this.isLoading = false;
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: error.message,
-      });
+      console.log(error);
     });
   }
 

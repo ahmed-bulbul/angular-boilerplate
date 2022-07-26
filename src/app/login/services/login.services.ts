@@ -20,13 +20,15 @@ export class LoginService {
   loginStatusSubject$: Observable<boolean>;
   currentUser$: Observable<any>;
   currentUserSubject: BehaviorSubject<any>;
-  private unsubscribe: Subscription[] = [];
-
-
-
+  unsubscribe: Subscription[] = [];
   clearTimeout: any;
 
-  constructor(private http: HttpClient, private toastr: ToastrService,private router: Router,private localstorageService:LocalstorageService) {
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private router: Router,
+    private localstorageService:LocalstorageService
+    ) {
     this.loginStatusSubject = new BehaviorSubject<boolean>(false);
     this.loginStatusSubject$ = this.loginStatusSubject.asObservable();
     this.currentUserSubject = new BehaviorSubject<Object>(undefined);
@@ -34,16 +36,9 @@ export class LoginService {
 
   }
 
-
-
-
   public login(formData:Login): Observable<Object>{
     return this.http.post(`${this.baseUrl}`+'/login', formData);
 
   }
-
-  // getsubject():Observable<boolean>{
-  //   return this.$loginStatusSubject.asObservable();
-  // }
 
 }

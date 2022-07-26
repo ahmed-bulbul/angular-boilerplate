@@ -25,12 +25,12 @@ export class AuthGuard implements CanActivate {
       return true;
     }else{
       //sweet alert
-      Swal.fire({
-        icon:'warning',
-        title: 'Oops...',
-        text: 'You are not logged in! Please login to continue.',
+      // Swal.fire({
+      //   icon:'warning',
+      //   title: 'Oops...',
+      //   text: 'You are not logged in! Please login to continue.',
 
-      })
+      // })
       // go to login page
       this.localstorageService.logout();
       return false;

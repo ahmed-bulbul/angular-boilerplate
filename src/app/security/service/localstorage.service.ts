@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class LocalstorageService {
 
+  clearTimeout: any;
+
   constructor(private router: Router,) { }
 
   // set token in local storage
@@ -46,10 +48,12 @@ export class LocalstorageService {
 
   //logout user
   logout() {
-    this.removeUser();
-    this.removeToken();
-    // navigate to login page
-     this.router.navigate(['/login']);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    if (this.clearTimeout) {
+      clearTimeout(this.clearTimeout);
+    }
+    return true;
   }
 
 

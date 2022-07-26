@@ -9,6 +9,8 @@ const routes: Routes = [
   { path: 'error', loadChildren: () => import(`./errorpages/errorpages.module`).then(m => m.ErrorpagesModule) },
   { path: '', loadChildren: () => import(`./all-modules/all-modules.module`).then(m => m.AllModulesModule),canActivate:[AuthGuard] },
   { path: '**', loadChildren: () => import(`./login/login.module`).then(m => m.LoginModule) },
+  //empty path redirect to login
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
 
 ];
 
