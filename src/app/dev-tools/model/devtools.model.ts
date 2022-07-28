@@ -1,11 +1,11 @@
 import { AttributeModel } from "./attribute.model";
 
 export class DevToolsModel {
-  public sourceUrl: string;
-  public packageName: string;
-  public domainName: string;
+  public rootDirectory: string;
+  public rootPackage: string;
   public moduleName: string;
-  public tableName: string;
+  public subModuleName: string;
+  public domainName: string;
   public attributes: AttributeModel[];
 }
 
