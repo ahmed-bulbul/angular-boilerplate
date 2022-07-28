@@ -61,4 +61,18 @@ export class DevToolsCreateComponent implements OnInit {
     this.saveDevTools();
   }
 
+  copyToClipboard(text: string, field:string) {
+    navigator.clipboard.writeText(text);
+    this.toastr.success(`${field} copied to clipboard`, 'Copied',{positionClass: 'toast-top-right',timeOut:5000});
+    //click css event color change cursor hand
+    if(field === 'rootDirectory'){
+     $('.copy-to-clipboard-dir').css('color', '#00bcd4');
+     $('.copy-to-clipboard-pac').css('color', '#000');
+    }else if(field === 'rootPackage'){
+      $('.copy-to-clipboard-pac').css('color', '#00bcd4');
+      $('.copy-to-clipboard-dir').css('color', '#000');
+    }
+
+  }
+
 }

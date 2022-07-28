@@ -16,13 +16,19 @@
       <form (ngSubmit)="onSubmit()">
 
         <div class="form-group">
-          <label>File Creating Root Directory(Untill com)</label>
+          <label>File Creating Root Directory (Copy)
+          <!-- copy icon -->
+          <i  class="fa fa-copy copy-to-clipboard-dir" aria-hidden="true" (click)="copyToClipboard('F:\\My Projects\\Spring Boot And Angular Boilerplate\\Backend\\spring-boot-boilerplate\\src\\main\\java\\com','rootDirectory')"></i>
+          </label>
           <input type="text" class="form-control" id="sourceUrl" [(ngModel)]="devTools.rootDirectory" name="rootDirectory"
-          placeholder="Paste directory untill com" value="F:\My Projects\Spring Boot And Angular Boilerplate\Backend\spring-boot-boilerplate\src\main\java\com">
+          placeholder="copy paste directory path" value="F:\My Projects\Spring Boot And Angular Boilerplate\Backend\spring-boot-boilerplate\src\main\java\com">
         </div>
 
         <div class="form-group">
-          <label> Root Package Name</label>
+          <label> Root Package Name
+          <!-- copy icon -->
+          <i class="fa fa-copy copy-to-clipboard-pac" aria-hidden="true" (click)="copyToClipboard('springbootboilerplate','rootPackage')"></i>
+          </label>
           <input type="text" class="form-control" id="rootPackage" [(ngModel)]="devTools.rootPackage"
             name="rootPackage"  placeholder="springbootboilerplate">
         </div>
@@ -35,14 +41,14 @@
         <div class="form-group">
           <label> Sub Module Name</label>
           <input type="text" class="form-control" id="subModuleName" [(ngModel)]="devTools.subModuleName"
-            name="subModuleName"  placeholder="sales">
+            name="subModuleName"  placeholder="user">
         </div>
 
 
 
         <div class="form-group">
           <label> Entity Name</label>
-          <input type="text" class="form-control" id="domainName" [(ngModel)]="devTools.domainName" name="domainName" placeholder="Sales">
+          <input type="text" class="form-control" id="domainName" [(ngModel)]="devTools.domainName" name="domainName" placeholder="User">
         </div>
 
 
@@ -84,7 +90,7 @@
     <!-- display -->
     <div class="card">
     <div class="col-md-12">
-        <h3 class="text-center"> Your Generated Entity Object  </h3>
+        <h3 class="text-center"> Your Generated Entity  </h3>
         <hr />
         <div class="card-body">
           <pre>{{ devTools | json }}</pre>

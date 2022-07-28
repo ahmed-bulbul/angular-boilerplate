@@ -3,3 +3,11 @@ textarea {
   width: 500px;
   box-sizing: border-box;
 }
+.content {
+	padding: 60px;
+}
+
+.copy-to-clipboard-dir,.copy-to-clipboard-pac
+{
+  cursor: pointer;
+}
