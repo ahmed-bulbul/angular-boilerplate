@@ -34,7 +34,7 @@ steps:
   inputs:  
     CopyRoot: dist  
     Contents: '**'  
-    ArtifactName: test  
+    ArtifactName:   
     ArtifactType: Container
   
 
