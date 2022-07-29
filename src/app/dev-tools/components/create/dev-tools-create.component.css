@@ -11,3 +11,17 @@ textarea {
 {
   cursor: pointer;
 }
+
+.fixed {
+  /* width 100 %  fixed bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+
+}
+
+.json-beautify{
+  width: 100%;
+
+}

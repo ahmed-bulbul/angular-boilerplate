@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class DevToolsService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/devTools';
+  public baseUrl = environment.baseUrl + '/api/v1/devTools';
 
   constructor(private httpClient: HttpClient) { }
 

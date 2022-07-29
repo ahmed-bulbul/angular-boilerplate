@@ -48,9 +48,13 @@ export class DevToolsCreateComponent implements OnInit {
 
   saveDevTools(){
     this.devToolService.createDevTools(this.devTools).subscribe( data =>{
+    
       if(data['status'] === true){
-        this.toastr.success(data['message']);
+        this.toastr.success(data['message'], 'Success',{positionClass: 'toast-top-right',timeOut:5000});
         this.router.navigate(['/dev-tools/create']);
+      }else{
+        this.toastr.error(data['message']);
+
       }
     },
     error => console.log(error));
@@ -72,6 +76,14 @@ export class DevToolsCreateComponent implements OnInit {
       $('.copy-to-clipboard-pac').css('color', '#00bcd4');
       $('.copy-to-clipboard-dir').css('color', '#000');
     }
+
+  }
+
+  // reset the form
+  resetForm(){
+    this.devTools = new DevToolsModel();
+    //attributes reset
+    this.devTools.attributes = [];
 
   }
 
