@@ -7,7 +7,7 @@
     "build": "ng build",
     "test": "ng test",
     "npm-inst": "npm install --legacy-peer-deps",
-    "build-prod": "ng build --configuration=prod --output-hashing=all",
+    "build-prod": "ng build --prod",
     "build-staging": "ng build --configuration=stage --output-hashing=all",
     "build-qa": "ng build --configuration=qa --output-hashing=all",
     "lint": "ng lint",
