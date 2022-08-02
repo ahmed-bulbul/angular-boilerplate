@@ -1,5 +1,6 @@
+import { BaseModel } from "src/app/sharing/model/BaseModel.model";
 
-export class AttributeModel {
+export class AttributeModel extends BaseModel {
 
   public type:string;
   public name:string;
@@ -9,5 +10,7 @@ export class AttributeModel {
   //   this.name = name;
   //   this.type = type;
   // }
+
+
 
 }

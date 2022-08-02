@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { DevToolsModel } from './../../model/devtools.model';
+import { DevToolsModel } from '../../model/Devtools.model';
 import { Component, OnInit } from '@angular/core';
 import { DevToolsService } from '../../service/dev-tools.service';
 import { Router } from '@angular/router';
