@@ -27,7 +27,7 @@ export class LocalstorageService {
   }
 
   //get user from local storage
-  getUser(): Observable<any> {
+  getUser() {
     return JSON.parse(localStorage.getItem('user'));
   }
 

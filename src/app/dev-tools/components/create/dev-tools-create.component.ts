@@ -18,6 +18,7 @@ export class DevToolsCreateComponent implements OnInit {
 
  public devTools: DevToolsModel = new DevToolsModel(); // for the form
  public attributeForm:FormGroup;
+ public currentDate = new Date();
 
   constructor(
     private devToolService:DevToolsService,
@@ -25,6 +26,10 @@ export class DevToolsCreateComponent implements OnInit {
     private toastr:ToastrService,
     private formBuilder: FormBuilder
     ){
+
+      setInterval(() => {
+        this.currentDate = new Date()
+      }, 1000)
 
     }
 
@@ -48,7 +53,7 @@ export class DevToolsCreateComponent implements OnInit {
 
   saveDevTools(){
     this.devToolService.createDevTools(this.devTools).subscribe( data =>{
-    
+
       if(data['status'] === true){
         this.toastr.success(data['message'], 'Success',{positionClass: 'toast-top-right',timeOut:5000});
         this.router.navigate(['/dev-tools/create']);

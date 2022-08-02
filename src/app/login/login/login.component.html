@@ -38,10 +38,11 @@
           </div>
           <div class="form-group text-center">
 
-            <button [disabled]="myForm.invalid" class="btn btn-primary" type="submit">
+            <button [disabled]="myForm.invalid" class="btn btn-primary btn-sm" type="submit">
 
               <span *ngIf="!isLoading">
-                Login
+                <!-- icon sign in -->
+                <i class="fa fa-sign-in"></i> Login
               </span>
 
               <span *ngIf="isLoading" class="indicator-progress" [style.display]="'block'">
@@ -50,6 +51,12 @@
               </span>
 
             </button>
+            &nbsp; &nbsp; &nbsp; &nbsp;
+
+            <!-- Register button outline -->
+            <button class="btn btn-outline-danger btn-sm" type="button" routerLink="/login/register">
+              <i class="fa fa-user-plus">&nbsp; Register</i></button>
+
           </div>
           <div class="account-footer">
             <!-- <p>Don't have an account yet? <a routerLink="/login/register">Register</a></p> -->

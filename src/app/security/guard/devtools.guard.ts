@@ -13,7 +13,7 @@ import { LocalstorageService } from '../service/localstorage.service';
 
 
 @Injectable({ providedIn: 'root' })
-export class IsLoggedInGuard implements CanActivate {
+export class DevToolsGuard implements CanActivate {
 
   constructor(private localstorageService: LocalstorageService,private toastrService:ToastrService,protected router: Router,) {}
 
@@ -23,7 +23,7 @@ export class IsLoggedInGuard implements CanActivate {
 
 
       // if user is already logged in then redirect to home page
-      if(this.localstorageService.isLoggedIn()){
+      if(this.localstorageService.isLoggedIn() && this.localstorageService.getUser().username === 'bulbul-dev'){
         return true;
       }
       // if user is not logged in then redirect to login page

@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
 
-  //  $('body').addClass('mini-sidebar');
+    $('body').addClass('mini-sidebar');
 
     // Minified Sidebar
 

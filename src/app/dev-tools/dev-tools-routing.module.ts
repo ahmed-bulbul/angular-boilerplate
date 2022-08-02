@@ -2,6 +2,7 @@ import { DevToolsCreateComponent } from './components/create/dev-tools-create.co
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DevToolsComponent } from './dev-tools.component';
+import { DevToolsGuard } from '../security/guard/devtools.guard';
 
 const routes: Routes = [
 
@@ -12,7 +13,8 @@ const routes: Routes = [
 
       {
         path:'create',
-        component: DevToolsCreateComponent
+        component: DevToolsCreateComponent,
+        canActivate: [DevToolsGuard]
       }
 
 

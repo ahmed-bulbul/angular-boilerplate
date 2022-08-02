@@ -189,11 +189,13 @@ a:focus {
     box-shadow: none;
     font-size: 15px;
     height: 44px;
+
 }
 .form-control:focus {
 	border-color: #ccc;
-	box-shadow: none;
+	box-shadow: 1px 1px 5px rgba(12, 10, 10, 0.1);
 	outline: 0 none;
+
 }
 .form-control[disabled], fieldset[disabled] .form-control {
     cursor: not-allowed;

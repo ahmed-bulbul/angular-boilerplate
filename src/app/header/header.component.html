@@ -20,39 +20,46 @@
     <!-- Header Title -->
     <div class="page-title-box">
         <h3> Spring Boot Angular Boilerplate  </h3>
+
     </div>
     <!-- /Header Title -->
 
     <a id="mobile_btn" class="mobile_btn" href="javascript:"><i class="fa fa-bars"></i></a>
 
+
     <!-- Header Menu -->
     <ul class="nav user-menu">
-        <!-- Search -->
-        <li class="nav-item">
-            <div class="top-nav-search">
-                <a  class="responsive-search">
-                    <i class="fa fa-search"></i>
-                </a>
-                <!-- <form (ngSubmit)="onSubmit()">
-                    <input class="form-control" type="text" placeholder="Search here">
-                    <button class="btn" type="button"><i class="fa fa-search"></i></button>
-                </form> -->
-            </div>
-        </li>
-        <!-- /Search -->
 
-
+      <!-- Home menu  vertical -->
+      <li *ngIf="user?.username=='bulbul-dev'" class="nav-item dropdown user-menu-dropdown">
+        <!-- disable click hover -->
+          <a class="devTools"  routerLink="/dev-tools/create" >
+              <!-- icon dev tools -->
+              <i class="fa fa-cogs"></i> &nbsp; Dev Tools
+          </a>
 
 
         <li class="nav-item dropdown has-arrow main-drop">
-            <a href="javascript:" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                <!-- <span>{{currentUserSubject?.username}}</span> -->
-                <span>{{user?.username}}</span>
-            </a>
+            <!-- profile pic and username  -->
+            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                <span class="user-img">
+                    <img class="img-circle" src="assets/img/bulbul.jpg" width="40" alt="Admin">
+                    <span class="status online"></span>
+                </span>
+                <span>&nbsp; &nbsp; {{user?.username}} </span>
+              </a>
             <div class="dropdown-menu">
-                <!-- <a class="dropdown-item" routerLink="/employees/employeeprofile">My Profile</a> -->
-                <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">Change Password</a>
-                <a class="dropdown-item" href="#" (click)="logout()" *ngIf="user">Logout</a>
+                <a class="dropdown-item" routerLink="/employees/employeeprofile">
+                  <!-- icon profile -->
+                  <i class="fa fa-user"></i> &nbsp; Profile
+                  </a>
+                <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">
+                  <!-- icon  -->
+                  <i class="fa fa-key"></i> &nbsp; Change Password
+                  </a>
+                <a class="dropdown-item" href="#" (click)="logout()" *ngIf="user">
+                    <i class="fa fa-power-off"></i> &nbsp; Logout
+                </a>
             </div>
         </li>
     </ul>
