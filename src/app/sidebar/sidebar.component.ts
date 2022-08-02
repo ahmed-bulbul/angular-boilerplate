@@ -1,5 +1,5 @@
+import { LocalstorageService } from './../security/service/localstorage.service';
 import { ToastrService } from 'ngx-toastr';
-import { LoginService } from 'src/app/login/services/login.services';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Event, NavigationEnd } from '@angular/router';
 import { environment } from 'src/environments/environment';
@@ -7,6 +7,7 @@ import { AllModulesService } from '../all-modules/all-modules.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PipeTransform, Pipe, NgZone } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
+import { CommonService } from '../sharing/service/common.service';
 
 
 @Component({
@@ -15,8 +16,9 @@ import { HttpHeaders } from '@angular/common/http';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent implements OnInit {
-
   baseUrl = environment.baseUrl;
+  public menuData: SafeHtml;
+
 
 
   urlComplete = {
@@ -39,9 +41,10 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private allModulesService: AllModulesService,
+    private commonService: CommonService,
     private toastr: ToastrService,
     private sanitizer: DomSanitizer,
-    private loginService: LoginService
+    private localstorageService:LocalstorageService
   ) {
     this.router.events.subscribe((event: Event) => {
 
@@ -79,7 +82,7 @@ export class SidebarComponent implements OnInit {
 
     const self = this;
 
-   // this._getPermittedMenu();
+    this.getPermittedMenu();
 
 
 
@@ -116,16 +119,43 @@ export class SidebarComponent implements OnInit {
 
   }
 
+
+  navigateRouterLink(event) {
+
+    if (event.target instanceof HTMLAnchorElement || event.target instanceof HTMLSpanElement) {
+
+      let element = event.target as HTMLAnchorElement;
+      if (event.target instanceof HTMLSpanElement) element = event.target.parentNode;
+
+      if (element.className === 'routerlink') {
+        $('a.routerlink').removeClass('active');
+        $(element).addClass('active');
+        const route = element?.getAttribute('href');
+        if (route) {
+          this.ngZone.run(() => {
+            this.router.navigate([`/${route}`]);
+          });
+
+        }
+      }
+
+    }
+
+  }
+
+
+
+  setActive(member) {
+    this.allModulesService.members.active = member;
+  }
   _hardCodeMenuString() {
 
     const menuStr = `
-    <li class="menu-title">
-      <span>Menus</span>
-    </li>
     <li class="submenu">
       <a href="javascript:"><i class="la la-dashboard"></i> <span>Dashboard</span> <span class="menu-arrow"></span></a>
       <ul style="display: none;">
         <li><a class="routerlink" href="/dashboard/admin">Admin Dashboard</a></li>
+        <li><a class="routerlink" href="/dashboard/employee">Employee Dashboard</a></li>
       </ul>
     </li>
     `;
@@ -133,10 +163,77 @@ export class SidebarComponent implements OnInit {
     return menuStr;
   }
 
-  _generateMenuHTML(menuData) {
+  // we need to follow like this
+  // during dynamic rendering by recursive function
+  _menuHTML_structure(){
 
+    let menuHTML_template = `
+    <li>
+        <a class="routerlink" href="/users/user/list">
+            <i class="las la-circle"></i>
+            <span>Single Level</span>
+        </a>
+    </li>
+    <li class="submenu">
+        <a href="javascript:" class="">
+            <i class="la la-share-alt"></i>
+            <span>Multi Level</span>
+            <span class="menu-arrow"></span>
+        </a>
+        <ul style="display: none;">
+            <li>
+                <a class="routerlink" href="/users/user/list">
+                    <span>Level 1</span>
+                </a>
+            </li>
+            <li class="submenu">
+                <a href="javascript:">
+                    <span>Level 1</span>
+                    <span class="menu-arrow"></span>
+                </a>
+                <ul style="display: none;">
+                    <li><a href="javascript:"><span>Level 2</span></a></li>
+                    <li class="submenu">
+                        <a href="javascript:"> <span> Level 2</span> <span class="menu-arrow"></span></a>
+                        <ul style="display: none;">
+                            <li><a class="routerlink" href="/dashboard/admin">Level 3</a></li>
+                            <li><a class="routerlink" href="/dashboard/employee">Level 3</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="javascript:"> <span>Level 2</span></a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    `;
+
+    return menuHTML_template;
+
+  }
+
+
+
+
+
+
+  _renderSingleLinkHTML( level, description, openUrl, iconHtml ){
+
+    // menuHTML += `<li><a class="routerlink" href="${openUrl}"> <span>${description}</span></a></li>`;
     let menuHTML = '';
-    menuHTML = this._menuNodeRenderRF( menuData, menuHTML, 0 )
+    menuHTML    += `<li>`;
+    menuHTML    +=     `<a class="routerlink" href="${openUrl}">`;
+    menuHTML    +=         `<i class="${iconHtml}"></i>`;
+    menuHTML    +=         `<span>${description}</span>`;
+    menuHTML    +=     `</a>`;
+    menuHTML    += `</li>`;
+
+    // customize according to level if you want
+    if(level == 0){
+      // override HTML
+    } else if(level == 1){
+      // override HTML
+    }
+
     return menuHTML;
 
   }
@@ -209,160 +306,28 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  _renderSingleLinkHTML( level, description, openUrl, iconHtml ){
 
-    // menuHTML += `<li><a class="routerlink" href="${openUrl}"> <span>${description}</span></a></li>`;
+  _generateMenuHTML(menuData) {
+
     let menuHTML = '';
-    menuHTML    += `<li>`;
-    menuHTML    +=     `<a class="routerlink" href="${openUrl}">`;
-    menuHTML    +=         `<i class="${iconHtml}"></i>`;
-    menuHTML    +=         `<span>${description}</span>`;
-    menuHTML    +=     `</a>`;
-    menuHTML    += `</li>`;
-
-    // customize according to level if you want
-    if(level == 0){
-      // override HTML
-    } else if(level == 1){
-      // override HTML
-    }
-
+    menuHTML = this._menuNodeRenderRF( menuData, menuHTML, 0 )
     return menuHTML;
 
   }
 
+  getPermittedMenu(){
+    //get menu from local storage
+    let menu = this.localstorageService.getMenu();
 
+    let menuStr = this._hardCodeMenuString();
+      $('#_leftMenuContainer').append( menuStr );
 
-  _getPermittedMenu(){
+      menuStr = this._generateMenuHTML( menu);
+      $('#_leftMenuContainer').append( menuStr );
 
-    // let apiURL = this.baseUrl + "/common/getAuthMenus";
-
-    let token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzdXBlci1hZG1pbiIsImlhdCI6MTY1ODU2Njk1OSwiZXhwIjoxNjU4NTg0OTU5fQ.xMLnfc15B8R7-4WJ1Vmn6fjlDeFEW_uVhEeoiuArIuU47r-ZWUvWT3Bv2qRM8M1sUJLFzWNcUYHMyGQ0pKv9hA'
-
-    //const apiURL = this.baseUrl + '/system/systemMenu/getMenuData';
-    const apiURL = 'http://143.110.191.105:8080/pta-service/system/systemMenu/getMenuData';
-    //add Bearer token
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' +token);
-
-    const queryParams: any = {};
-    // this.loginService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
-    //   // append response
-
-    //   let menuStr = this._hardCodeMenuString();
-
-    //   let data = {
-    //     "DASHBOARD_ADMIN": {
-    //         "id": 1,
-    //         "code": "DASHBOARD_ADMIN",
-    //         "description": "Dashboard",
-    //         "openUrl": "/dashboard",
-    //         "iconHtml": "fa fa-dashboard",
-    //         "hasChild": false,
-    //         "level": 0,
-    //         "child": {}
-    //     },
-    //     "DASHBOARD_USER": {
-    //         "id": 2,
-    //         "code": "DASHBOARD_USER",
-    //         "description": "Dashboard",
-    //         "openUrl": "/dashboard/patient",
-    //         "iconHtml": "fa fa-dashboard",
-    //         "hasChild": false,
-    //         "level": 0,
-    //         "child": {}
-    //     },
-    //     "LAYOUT_BUILDER": {
-    //         "id": 3,
-    //         "code": "LAYOUT_BUILDER",
-    //         "description": "Layout Builder",
-    //         "openUrl": "/builder",
-    //         "iconHtml": "fa fa-th",
-    //         "hasChild": false,
-    //         "level": 0,
-    //         "child": {}
-    //     },
-    //     "ACCEPTANCE_REQUIREMENTS": {
-    //         "id": 4,
-    //         "code": "ACCEPTANCE_REQUIREMENTS",
-    //         "description": "Acceptance Requirements",
-    //         "openUrl": "/acceptance-requirements",
-    //         "iconHtml": "fa fa-th",
-    //         "hasChild": true,
-    //         "level": 0,
-    //         "child": {
-    //             "ACCEPTANCE_REQUIREMENTS_CREATE": {
-    //                 "id": 5,
-    //                 "code": "ACCEPTANCE_REQUIREMENTS_CREATE",
-    //                 "description": "Create",
-    //                 "openUrl": "/acceptance-requirements/create",
-    //                 "iconHtml": "fa fa-th",
-    //                 "hasChild": false,
-    //                 "level": 1,
-    //                 "child": {}
-    //             },
-    //             "ACCEPTANCE_REQUIREMENTS_LIST": {
-    //                 "id": 6,
-    //                 "code": "ACCEPTANCE_REQUIREMENTS_LIST",
-    //                 "description": "List",
-    //                 "openUrl": "/acceptance-requirements/list",
-    //                 "iconHtml": "fa fa-th",
-    //                 "hasChild": false,
-    //                 "level": 1,
-    //                 "child": {}
-    //             }
-    //         }
-    //     },
-    //     "MANAGE_USERS": {
-    //         "id": 7,
-    //         "code": "MANAGE_USERS",
-    //         "description": "Manage Users",
-    //         "openUrl": "/users",
-    //         "iconHtml": "fa fa-th",
-    //         "hasChild": false,
-    //         "level": 0,
-    //         "child": {}
-    //     }
-    // }
-    //    menuStr = this._generateMenuHTML( data );
-    // //   menuStr = this._generateMenuHTML( response.data );
-    //   $('#_leftMenuContainer').append( menuStr );
-    //   $('i.la-sm').css('font-size', '.875em');
-
-
-    // });
-
+      $('#_leftMenuContainer').append( this._menuHTML_structure() );
+      $('i.la-sm').css('font-size', '.875em');
   }
-
-
-
-
-  navigateRouterLink(event) {
-
-    if (event.target instanceof HTMLAnchorElement || event.target instanceof HTMLSpanElement) {
-
-      let element = event.target as HTMLAnchorElement;
-      if (event.target instanceof HTMLSpanElement) element = event.target.parentNode;
-
-      if (element.className === 'routerlink') {
-        $('a.routerlink').removeClass('active');
-        $(element).addClass('active');
-        const route = element?.getAttribute('href');
-        if (route) {
-          this.ngZone.run(() => {
-            this.router.navigate([`/${route}`]);
-          });
-
-        }
-      }
-
-    }
-
-  }
-
-
-
-
-
-
 
 }
+

@@ -22,9 +22,7 @@ export class AuthInterceptor implements HttpInterceptor{
 
         //handle your auth error or rethrow
         if (err.status === 403) {
-          this.toastr.info("You are not authorized to access this page");
-          // navigate to dashboard
-          this.router.navigate(['/']);
+          console.log("you are not authoriszed...");
         }else if(err.status === 500){
             console.log(err.message);
             if(err.message.includes('jwt token has expired')){

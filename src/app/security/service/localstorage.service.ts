@@ -41,6 +41,16 @@ export class LocalstorageService {
     localStorage.removeItem('token');
   }
 
+  //set menu in local storage
+  setMenu(menu: any) {
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
+  //get menu from local storage
+  getMenu() {
+    return JSON.parse(localStorage.getItem('menu'));
+  }
+
   //check if user is logged in
   isLoggedIn() {
     return !!this.getUser();

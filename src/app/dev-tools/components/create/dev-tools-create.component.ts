@@ -59,7 +59,6 @@ export class DevToolsCreateComponent implements OnInit {
         this.router.navigate(['/dev-tools/create']);
       }else{
         this.toastr.error(data['message']);
-
       }
     },
     error => console.log(error));

@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { Login } from '../model/login';
 import { LoginService } from '../services/login.services';
 import Swal from 'sweetalert2';
+import { CommonService } from 'src/app/sharing/service/common.service';
 
 
 
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private spinnerService:NgxSpinnerService,
-    private localStorageService:LocalstorageService
+    private localStorageService:LocalstorageService,
+    private commonService:CommonService
   ) { }
 
   ngOnInit() {
@@ -72,8 +74,8 @@ export class LoginComponent implements OnInit {
       if(data['status'] === true){
         console.log(data['user']);
         this.setToken(data['accessToken'],data['user']);
-        // this.loginService.loginStatusSubject.next(true);
         this.setObserver();
+        this.setMenu();
         Swal.fire({
          // login success position right top small
           icon: 'success',
@@ -103,6 +105,17 @@ export class LoginComponent implements OnInit {
   setObserver (){
     this.loginService.loginStatusSubject.next(true);
     this.loginService.currentUserSubject.next(this.localStorageService.getUser());
+  }
+
+  setMenu() {
+    const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
+    const queryParams: any = {};
+    this.commonService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+      this.localStorageService.setMenu(response.data);
+    },error=>{
+      console.log(error);
+    });
+
   }
 
   //set token and user

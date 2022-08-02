@@ -2,7 +2,7 @@ import { Organization } from './../../base/model/Organization.model';
 
 export class SystemMenu {
 
-  private id:number;
+  public id:number;
   public code: string;  //unique code for the menu
   public description: string;
   public entityName: string;
@@ -37,6 +37,38 @@ export class SystemMenu {
   private updatedBy:string;
   private updatedAt:Date;
   private active:boolean;
+
+  //create constructor
+  constructor() {
+    this.id = 0;
+    this.code = '';
+    this.description = '';
+    this.entityName = '';
+    this.openUrl = '';
+    this.apiUrl = '';
+    this.sequence = 0;
+    this.iconHtml = '';
+    this.hasChild = false;
+    this.visibleToAll = false;
+    this.chkAuthorization = '';
+    this.chkAuthorizationChar = '';
+    this.leftSideMenu = false;
+    this.dashboardMenu = false;
+    this.mainHeaderMenu = false;
+    this.isChild = false;
+    this.isOpenNewTab = false;
+    this.handleOrganization = new Organization();
+    this.orgCode = '';
+    this.parentMenu = null;
+    this.parentMenuCode = '';
+    this.superAdminAccessOnly = false;
+    this.adminAccessOnly = false;
+    this.createdBy = '';
+    this.createdAt = new Date();
+    this.updatedBy = '';
+    this.updatedAt = new Date();
+    this.active = true;
+  }
 
 
 
