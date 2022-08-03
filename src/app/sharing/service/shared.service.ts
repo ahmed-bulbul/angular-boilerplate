@@ -1,12 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommonService {
+export class SharedService {
 
-  constructor(private http:HttpClient) { }
+  //base url for the api
+  public baseUrl = environment.baseUrl + '/api/v1/baseModule';
+
+  //define api endpoints
+  private apiEndpoints = {
+    getAll: this.baseUrl + '/getAll',
+    getById: this.baseUrl + '/get',
+    create: this.baseUrl + '/create',
+    update: this.baseUrl + '/update',
+    delete: this.baseUrl + '/delete',
+  }
+
+
+  constructor(private http: HttpClient) { }
+  
 
 
 

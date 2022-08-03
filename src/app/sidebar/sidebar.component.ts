@@ -7,7 +7,8 @@ import { AllModulesService } from '../all-modules/all-modules.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PipeTransform, Pipe, NgZone } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
-import { CommonService } from '../sharing/service/common.service';
+import { SharedService } from '../sharing/service/shared.service';
+
 
 
 @Component({
@@ -41,7 +42,7 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private allModulesService: AllModulesService,
-    private commonService: CommonService,
+    private sharedService: SharedService,
     private toastr: ToastrService,
     private sanitizer: DomSanitizer,
     private localstorageService:LocalstorageService

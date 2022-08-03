@@ -32,7 +32,7 @@ import { authInterceptorProviders } from './security/interceptor/auth.intercepto
     ToastrModule.forRoot(
       {
         timeOut: 1500,
-        positionClass: 'toast-bottom-right',
+        positionClass: 'toast-top-right',
         preventDuplicates: true,
       }
     ),

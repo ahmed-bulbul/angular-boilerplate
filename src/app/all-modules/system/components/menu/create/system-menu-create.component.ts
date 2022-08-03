@@ -1,9 +1,10 @@
 
 import { DatePipe } from '@angular/common';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CommonService } from 'src/app/sharing/service/common.service';
+import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { SystemMenu } from '../../../model/SystemMenu.model';
@@ -20,10 +21,12 @@ export class SystemMenuCreateComponent implements OnInit {
   public systemMenu: SystemMenu = new SystemMenu();
   public baseUrl = environment.baseUrl;
   public parentMenu: any = [];
+  public isLoading:boolean;
+
 
 
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
-    private commonService:CommonService,private systemService:SystemService,private router: Router) { }
+    private sharedService:SharedService,private systemService:SystemService,private router: Router) { }
 
   ngOnInit(): void {
 
@@ -55,7 +58,8 @@ export class SystemMenuCreateComponent implements OnInit {
       leftSideMenu:[''],
       isChild:[''],
       isActive:['',[Validators.required]],
-      sequence:['',[Validators.required]],
+      //sequence accept number 0-9
+      sequence: ['',[Validators.required,Validators.pattern('^[0-9]*$')]],
     });
 
   }
@@ -67,12 +71,13 @@ export class SystemMenuCreateComponent implements OnInit {
 
   onSubmit(){
     console.log(this.formGroup.value);
+    this.isLoading = true;
     this.saveSystemMenu();
   }
 
   saveSystemMenu(){
     this.systemService.createSystemMenu(this.systemMenu).subscribe( data =>{
-
+      this.isLoading = false;
       if(data['status'] === true){
         Swal.fire({
           title: 'Success',
@@ -89,32 +94,30 @@ export class SystemMenuCreateComponent implements OnInit {
       }
     },
     error => {
+      this.isLoading = false;
       //if error code is 403 its forbidden
       if(error.status === 403){
         Swal.fire({
           title: 'Forbidden',
           text: 'You are not authorized to access this feature!',
           icon: 'error',
-        })
+        });
       }else{
         Swal.fire({
           title: 'Error',
-          text: error.message,
+          text: error.error.message,
           icon: 'error',
-        })
+        });
       }
 
     });
 
   }
 
-
-
-
   getParentMenu(){
     const apiURL = this.baseUrl + '/api/v1/systemMenu/getParentMenu';
     const queryParams: any = {};
-    this.commonService.sendGetRequest(apiURL,queryParams).subscribe((response: any) => {
+    this.sharedService.sendGetRequest(apiURL,queryParams).subscribe((response: any) => {
       if(response.status === true){
         this.parentMenu = response.data;
         console.log(this.parentMenu);

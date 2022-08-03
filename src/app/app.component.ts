@@ -10,6 +10,8 @@ export class AppComponent implements OnInit {
   title = 'hrms';
 
   ngOnInit() {
+    // if not logged in, redirect to login page
+  
 
     $('body').addClass('mini-sidebar');
 

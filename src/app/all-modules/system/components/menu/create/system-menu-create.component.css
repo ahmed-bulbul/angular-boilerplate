@@ -3,10 +3,6 @@
 }
 
 
-
-
-
-
 /* ================= Purpale Color =========================== */
 input.form-control, select.form-control, textarea.form-control {
 	border-color: #3c3f4c;
@@ -45,6 +41,7 @@ input[type=checkbox]
 -o-transform: scale(2); /* Opera */
 transform: scale(2);
 padding: 10px;
+margin-left: 10px;
 }
 
 /* Might want to wrap a span around your checkbox text */

@@ -27,9 +27,8 @@ export class IsLoggedInGuard implements CanActivate {
         return true;
       }
       // if user is not logged in then redirect to login page
-      else{
-        this.router.navigate(['/login']);
-        return true;
-      }
+      this.router.navigate(['login']);
+      return false;
+
   }
 }

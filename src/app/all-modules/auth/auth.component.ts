@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  public innerHeight: any;
 
+  getScreenHeight() {
+    this.innerHeight = window.innerHeight + "px";
+  }
+
+  constructor(private ngZone: NgZone, private router: Router) {
+
+    window.onresize = (e) => {
+      this.ngZone.run(() => {
+        this.innerHeight = window.innerHeight + "px";
+      });
+    };
+    this.getScreenHeight();
+  }
   ngOnInit(): void {
   }
 
+  onResize(event) {
+    this.innerHeight = event.target.innerHeight + "px";
+  }
 }

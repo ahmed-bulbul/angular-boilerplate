@@ -3,13 +3,24 @@ import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
 import { AuthComponent } from './auth.component';
+import { RequestAuthCreateComponent } from './components/requestauth/create/request-auth-create.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
-  declarations: [AuthComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+
+    HttpClientModule,
+    NgxSpinnerModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class AuthModule { }

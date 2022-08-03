@@ -9,7 +9,8 @@ import { environment } from 'src/environments/environment';
 import { Login } from '../model/login';
 import { LoginService } from '../services/login.services';
 import Swal from 'sweetalert2';
-import { CommonService } from 'src/app/sharing/service/common.service';
+import { SharedService } from 'src/app/sharing/service/shared.service';
+
 
 
 
@@ -33,7 +34,7 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private spinnerService:NgxSpinnerService,
     private localStorageService:LocalstorageService,
-    private commonService:CommonService
+    private sharedService:SharedService
   ) { }
 
   ngOnInit() {
@@ -110,7 +111,7 @@ export class LoginComponent implements OnInit {
   setMenu() {
     const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
     const queryParams: any = {};
-    this.commonService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
       this.localStorageService.setMenu(response.data);
     },error=>{
       console.log(error);
