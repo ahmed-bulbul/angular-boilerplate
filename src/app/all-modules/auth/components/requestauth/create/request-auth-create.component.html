@@ -23,7 +23,7 @@
           <h4 class="card-title mb-0">Create Form</h4>
         </div>
         <div class="card-body">
-          <form novalidate (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+          <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
             <!-- permission page design GET POST PUT DELETE Check box -->
 
             <div class="row">
@@ -32,11 +32,13 @@
                 <!-- select role selectbox -->
             <div class="form-group">
               <label>Select Role</label>
-              <select class="form-control">
+              <select class="form-control" formControlName="authority">
                 <option value="">Select Role</option>
-                <option value="">ROLE USER</option>
-
+                <!-- <option *ngFor="let role of roles" [value]="role.id">{{role.name}}</option> -->
+                <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                <option value="ROLE_USER">ROLE_USER</option>
               </select>
+
             </div>
 
               </div>
@@ -51,9 +53,9 @@
                   <thead>
                     <tr>
                       <th>Module Permission</th>
-                      <th class="text-center">Read</th>
-                      <th class="text-center">Write</th>
                       <th class="text-center">Create</th>
+                      <th class="text-center">Read</th>
+                      <th class="text-center">Update</th>
                       <th class="text-center">Delete</th>
                       <th class="text-center">Import</th>
                       <th class="text-center">Export</th>
@@ -61,25 +63,25 @@
                   </thead>
                   <tbody>
                     <!--  baseModule shows dynamically-->
-                    <tr *ngFor="let data of baseModule">
+                    <tr *ngFor="let data of baseModule; let i = index">
                       <td>{{data.name}}</td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{data.code}}_read" />
+                        <input type="checkbox" (change)="checkRow(data.code,'C',i,$event)" id="{{data.code}}_create" />
                       </td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{data.code}}_write" />
+                        <input type="checkbox" (change)="checkRow(data.code,'R',i,$event)" id="{{data.code}}_read" />
                       </td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{data.code}}_create" />
+                        <input type="checkbox" (change)="checkRow(data.code,'U',i,$event)" id="{{data.code}}_update" />
                       </td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{data.code}}_delete" />
+                        <input type="checkbox" (change)="checkRow(data.code,'D',i,$event)" id="{{data.code}}_delete" />
                       </td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{baseModule.code}}_import" />
+                        <input type="checkbox" (change)="checkRow(data.code,'I',i,$event)" id="{{baseModule.code}}_import" />
                       </td>
                       <td class="text-center">
-                        <input type="checkbox" id="{{baseModule.code}}_export" />
+                        <input type="checkbox" (change)="checkRow(data.code,'E',i,$event)" id="{{baseModule.code}}_export" />
                       </td>
 
                   </tbody>
@@ -89,6 +91,10 @@
                 <button class="btn btn-primary submit-btn">Save</button>
               </div>
             </div>
+
+            <!-- pre -->
+            <pre>
+              {{produceFormCheckBoxData | json}}</pre>
 
 
           </form>
