@@ -170,7 +170,7 @@ export class SystemMenuListComponent implements OnInit {
     }else{
       Swal.fire({
         title: 'Info',
-        text: 'Please select field name',
+        text: 'This field is not supported for search',
         icon: 'info',
       });
     }
