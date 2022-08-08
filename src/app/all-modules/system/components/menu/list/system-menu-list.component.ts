@@ -1,9 +1,11 @@
+
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 import { SystemService } from '../../../service/system.service';
 
 declare const $: any;
@@ -26,6 +28,9 @@ export class SystemMenuListComponent implements OnInit {
 
   //search data
   private code: string;
+
+  //search button click flag
+  public searchClick: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -120,6 +125,7 @@ export class SystemMenuListComponent implements OnInit {
     this.spinnerService.show();
     this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
+        this.searchClick = false;
         this.spinnerService.hide();
         this.systemMenu = response.data;
         this.configPgn.totalItem = response.totalItems;
@@ -132,12 +138,22 @@ export class SystemMenuListComponent implements OnInit {
 
   }
   search(){
+    this.searchClick = true;
+
     // get field name from dropdown list
     const fieldName = $('#searchField').val();
     // get field value from input
     const fieldValue = $('#searchValue').val();
     if(fieldName==='code'){
       this.code = fieldValue;
+    }else if(fieldName==='name'){
+      this.code = fieldValue;
+    }else{
+      Swal.fire({
+        title: 'Info',
+        text: 'Please select field name',
+        icon: 'info',
+      });
     }
 
     //if field value is empty then reset the value
@@ -145,8 +161,9 @@ export class SystemMenuListComponent implements OnInit {
       this.code = '';
     }
 
-    this.getListData();
-
+    setTimeout(() => {
+      this.getListData();
+    } , 1000);
     console.log(fieldName, fieldValue);
 
   }

@@ -39,7 +39,20 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-            <button class="btn btn-primary" (click)="search()">Search</button>
+
+
+            <button type="submit" class="btn btn-primary btn-ripple" (click)="search()">
+              <span *ngIf="!searchClick" >
+                <!-- icon sign in -->
+                <i class="fa fa-search"></i>&nbsp; Search
+              </span>
+              <span *ngIf="searchClick" class="indicator-progress">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+              &nbsp;&nbsp;&nbsp;
+            </button>
+
           </div>
         </div>
 
@@ -65,7 +78,7 @@
         </div>
 
         <div class="card-body">
-          <div class="table-responsive">
+          <div class="table-responsive " [ngClass]="{ 'blur': searchClick  }" >
 
             <div class="d-flex justify-content-start pb-1">
               <div class="pgn-displayDataInfo">
