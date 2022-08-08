@@ -27,6 +27,10 @@ export class LoginComponent implements OnInit {
   public formData: Login = new Login();
   public isLoading:boolean;
 
+  //declare input field error message
+  public errorMsg:string;
+
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -63,6 +67,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit(){
+    this.formSubmitted = true;
     this.login();
 
   }
@@ -95,11 +100,13 @@ export class LoginComponent implements OnInit {
           title: 'Login Failed',
           text: data['message'],
         });
+
       }
     },
     error => {
       this.isLoading = false;
-      console.log(error);
+      console.log(error.error.username);
+      this.errorMsg=error;
     });
   }
 

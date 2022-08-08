@@ -8,10 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { RequestAuthEditComponent } from './components/requestauth/edit/request-auth-edit.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, RequestAuthEditComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

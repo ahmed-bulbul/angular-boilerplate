@@ -1,3 +1,4 @@
+
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +7,7 @@ import { BsDatepickerNavigationViewComponent } from 'ngx-bootstrap/datepicker/th
 import { BaseModule } from 'src/app/all-modules/base/model/BaseModule.model';
 import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 import { RequestAuthCreateDTO } from '../../../dto/RequestAuthCreateDTO.model';
 import { RequestAuth } from '../../../model/RequestAuth.model';
 import { AuthService } from '../../../service/auth.service';
@@ -21,6 +23,8 @@ export class RequestAuthCreateComponent implements OnInit {
   public requestAuth : RequestAuth[]=[];
   public produceFormCheckBoxData = new Array();
   public requestAuthCreateDTO : RequestAuthCreateDTO;
+  public isLoading:boolean;
+  public roles :[]= [];
 
 
   public baseUrl = environment.baseUrl;
@@ -33,6 +37,7 @@ export class RequestAuthCreateComponent implements OnInit {
     this.initForm();
     this.getBaseModule();
 
+
     //produceFormCheckBoxData set to requestAuthCreateDTO
     this.requestAuthCreateDTO = {
       requestAuthList: this.produceFormCheckBoxData
@@ -41,8 +46,40 @@ export class RequestAuthCreateComponent implements OnInit {
 
   onSubmit(){
 
+    this.isLoading = true;
     console.log(this.requestAuthCreateDTO);
+    this.saveRequestAuth()
 
+  }
+  saveRequestAuth(){
+    this.authService.createRequestAuth(this.requestAuthCreateDTO).subscribe((res: any) => {
+      if(res.status === true){
+        this.isLoading = false;
+        this.resetForm();
+        Swal.fire({
+          title: 'Success',
+          text: 'Request Auth Created Successfully',
+          icon: 'success',
+        })
+        this.router.navigate(['/auth/request-auth/create']);
+      }else{
+        this.isLoading = false;
+        Swal.fire({
+          title: 'Error',
+          text: res.message,
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
+      }
+    },(err)=>{
+      this.isLoading = false;
+      Swal.fire({
+        title: 'Error',
+        text: err.error.message,
+        icon: 'error',
+      })
+    }
+    );
   }
 
 
@@ -57,8 +94,20 @@ export class RequestAuthCreateComponent implements OnInit {
 
   }
 
-  //get checkbox data of baseModule
-  _getBaseModuleFormData() {
+  getRole(){
+    if(this.roles.length === 0){
+
+      const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
+      const queryParams: any = {};
+      this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+        if(res.status ===true){
+          this.roles = res.data;
+          console.log(this.roles);
+        }
+
+      });
+
+    }
 
   }
 
@@ -66,8 +115,9 @@ export class RequestAuthCreateComponent implements OnInit {
   getBaseModule(){
     const url = this.baseUrl+ '/api/v1/shared/baseModule/getModule';
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(url,queryParams).subscribe((data: any) => {
-      this.baseModule = data.data;
+    this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+
+     this.baseModule = res.data;
 
     });
   }
@@ -103,6 +153,10 @@ export class RequestAuthCreateComponent implements OnInit {
   //get auth data from formGroup
   get getAuhority(){
     return this.formGroup.value.authority;
+  }
+
+  resetForm(){
+    this.formGroup.reset();
   }
 
 }

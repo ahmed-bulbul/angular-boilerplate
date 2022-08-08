@@ -52,3 +52,34 @@
 }
 
 
+
+.form-control:focus {
+	border-color: #1A73E8 !important;
+	outline: 0 !important;
+	-webkit-box-shadow: inset 0 2px 2px rgba(113, 109, 109, 0.08), 0 0 8px rgb(102 175 233 / 60%) !important;
+	box-shadow: inset 0 2px 2px rgba(62, 7, 181, 0.08), 0 0 8px rgb(102 175 233 / 60%) !important;
+ }
+
+ input.form-control, select.form-control, textarea.form-control {
+	border-color: #3c3f4c !important;
+	border-left: 3px solid #37383a!important;
+  box-shadow: none !important;
+  border:2px solid #DADCE0 !important;
+ }
+
+ /* focus out add placeholder text to level border */
+  input.form-control:focus {
+    border-color: #1A73E8 !important;
+  }
+
+ /* ngClass is-invalid focus red border input box */
+.is-invalid {
+  border-color: #ff0000 !important;
+
+}
+
+.custom-text{
+  color: #6C757D !important;
+}
+
+

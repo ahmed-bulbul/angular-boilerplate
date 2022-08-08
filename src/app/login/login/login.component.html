@@ -20,7 +20,7 @@
             <input class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && f.username.errors }"
               formControlName="username" type="text">
             <div *ngIf="formSubmitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">Username is required</div>
+              <div *ngIf="f.username.errors.required">{{errorMsg.error.username}}</div>
             </div>
           </div>
           <div class="form-group">
@@ -32,13 +32,13 @@
             <input class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
               formControlName="password" formControlName="password" type="password">
             <div *ngIf="formSubmitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">Password is required</div>
+              <div *ngIf="f.password.errors.required">{{errorMsg.error.password}}</div>
               <div *ngIf="f.password.errors.minlength">Password must be at least 4 characters</div>
             </div>
           </div>
           <div class="form-group text-center">
 
-            <button [disabled]="myForm.invalid" class="btn btn-primary btn-sm" type="submit">
+            <button class="btn btn-primary btn-sm" type="submit">
 
               <span *ngIf="!isLoading">
                 <!-- icon sign in -->

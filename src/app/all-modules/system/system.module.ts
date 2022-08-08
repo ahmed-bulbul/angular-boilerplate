@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -23,6 +24,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
     HttpClientModule,
     NgxSpinnerModule,
+    NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
     BsDatepickerModule.forRoot(),

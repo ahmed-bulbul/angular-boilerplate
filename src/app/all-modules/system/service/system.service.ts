@@ -17,4 +17,8 @@ export class SystemService {
    createSystemMenu(formData: SystemMenu): Observable<Object>{
      return this.httpClient.post(`${this.baseUrl}`+'/create', formData);
    }
+
+   getMenuList(queryparams): Observable<Object>{
+     return this.httpClient.get(`${this.baseUrl}`+'/getAll',{params: queryparams});
+   }
 }

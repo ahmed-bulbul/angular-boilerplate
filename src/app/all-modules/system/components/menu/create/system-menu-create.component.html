@@ -24,81 +24,82 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          <h4 class="card-title mb-0">Create Form</h4>
+          <h4 class="card-title mb-0 custom-text">Create Form</h4>
         </div>
         <div class="card-body">
           <form novalidate (ngSubmit)="onSubmit()" [formGroup]="formGroup">
 
 
             <div class="row">
-              <div class="col-md-4">
-
+              <div class="col-md-3">
 
                 <div class="form-group">
-                  <label>Code</label>
-                  <input type="text" class="form-control" formControlName="code">
-                  <span style="font-size: 12px;" class="text-danger"
-                    *ngIf="f.code && f.code.invalid && f.code.touched">Code not valid</span>
+                  <input type="text" class="form-control"  [ngClass]="{ 'is-invalid': formSubmitted && f.code.errors }" formControlName="code" placeholder="Code">
+                  <div *ngIf="formSubmitted && f.code.errors" class="invalid-feedback">
+                    <div *ngIf="f.code.errors.required">{{errorMsg.error.code}}</div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label>Description</label>
-                  <input type="text" class="form-control" formControlName="description">
-                  <span style="font-size: 12px;" class="text-danger"
-                    *ngIf="f.description && f.description.invalid && f.description.touched">Description not valid</span>
-                </div>
-              </div>
-              <div class="col-md-4">
-
-                <div class="form-group">
-                  <label>Open URL</label>
-                  <input type="text" class="form-control" formControlName="openUrl">
-                  <span style="font-size: 12px;" class="text-danger"
-                    *ngIf="f.openUrl && f.openUrl.invalid && f.openUrl.touched">Open title required</span>
-                </div>
-
-                <div class="form-group">
-                  <label>Icon HTML</label>
-                  <input type="text" class="form-control" formControlName="iconHtml">
+                  <input type="text" class="form-control" formControlName="iconHtml" placeholder="IconHtml">
                 </div>
 
 
               </div>
-
-              <div class="col-md-4">
-
+              <div class="col-md-3">
 
                 <div class="form-group">
-                  <label>API URL</label>
-                  <input type="text" class="form-control" formControlName="apiUrl">
-                  <span style="font-size: 12px;" class="text-danger"
-                    *ngIf="f.apiUrl && f.apiUrl.invalid && f.apiUrl.touched">ApiUrl required</span>
+                  <input type="text" class="form-control" formControlName="openUrl" [ngClass]="{ 'is-invalid': formSubmitted && f.openUrl.errors }" formControlName="openUrl" placeholder="OpenUrl">
+                  <div *ngIf="formSubmitted && f.openUrl.errors" class="invalid-feedback">
+                    <div *ngIf="f.openUrl.errors.required">{{errorMsg.error.openUrl}}</div>
+                  </div>
                 </div>
 
                 <div class="form-group">
-                  <label>Sequence </label>
-                  <input type="text" class="form-control" formControlName="sequence">
-                  <span style="font-size: 12px;" class="text-danger"
-                    *ngIf="f.sequence && f.sequence.invalid && f.sequence.touched">Sequence not valid</span>
+                  <input type="number" class="form-control" formControlName="sequence"  [ngClass]="{ 'is-invalid': formSubmitted && f.sequence.errors }" placeholder="Sequence">
+                  <div *ngIf="formSubmitted && f.sequence.errors" class="invalid-feedback">
+                    <div *ngIf="f.sequence.errors.required">{{errorMsg.error.sequence}}</div>
+                  </div>
                 </div>
+
+
 
 
               </div>
 
-            </div>
+              <div class="col-md-3">
 
-            <div class="row">
-              <div class="col-md-4">
+
                 <div class="form-group">
-                  <label>Parent Menu</label>
-                  <select class="select form-control" formControlName="parentMenu">
-                    <option value="">Select Parent</option>
+                  <input type="text" class="form-control" formControlName="apiUrl"  [ngClass]="{ 'is-invalid': formSubmitted && f.apiUrl.errors }"  placeholder="ApiUrl">
+                  <div *ngIf="formSubmitted && f.apiUrl.errors" class="invalid-feedback">
+                    <div *ngIf="f.apiUrl.errors.required">{{errorMsg.error.apiUrl}}</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <select class="select form-control" formControlName="parentMenu" style="color:#6C757D">
+                    <option value="">Select Parent Menu</option>
                     <option *ngFor="let data of parentMenu" [ngValue]='data.id'>{{data.description}}
                     </option>
                   </select>
                 </div>
+
               </div>
+
+              <div class="col-md-3">
+
+                <div class="form-group">
+                  <input type="text" class="form-control" formControlName="description" placeholder="Description"
+                  [ngClass]="{ 'is-invalid': formSubmitted && f.description.errors }">
+                  <div *ngIf="formSubmitted && f.description.errors" class="invalid-feedback">
+                    <div *ngIf="f.description.errors.required">{{errorMsg.error.description}}</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
 
             <div class="row">
 
@@ -106,40 +107,42 @@
 
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="hasChild" type="checkbox">&nbsp; &nbsp;
-                  <label>Has Child  </label>
+                  <label class="custom-text" >Has Child  </label>
                 </div>
-
-
-                <!-- <div class="form-group">
-
-                  <input style="margin-top: 10px;" formControlName="visibleToAll" type="checkbox"> &nbsp; &nbsp;
-                  <label>Visible to all  </label>
-                </div> -->
-
-
                 <div class="form-group">
-
                   <input style="margin-top: 10px;" formControlName="leftSideMenu" type="checkbox"> &nbsp; &nbsp;
-                  <label>Left Side Menu </label>
+                  <label class="custom-text">Left Side Menu </label>
                 </div>
-              </div>
 
-              <div class="col-md-4">
+
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="isChild" type="checkbox"> &nbsp; &nbsp;
-                  <label>Is Child </label>
+                  <label class="custom-text">Is Child </label>
                 </div>
 
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="isActive" type="checkbox"> &nbsp; &nbsp;
-                  <label>Is Active  </label>
+                  <label class="custom-text">Is Active  </label>
                 </div>
+
               </div>
+
+              <!-- <div class="col-md-4">
+                <div class="form-group">
+                  <input style="margin-top: 10px;" formControlName="isChild" type="checkbox"> &nbsp; &nbsp;
+                  <label class="custom-text">Is Child </label>
+                </div>
+
+                <div class="form-group">
+                  <input style="margin-top: 10px;" formControlName="isActive" type="checkbox"> &nbsp; &nbsp;
+                  <label class="custom-text">Is Active  </label>
+                </div>
+              </div> -->
             </div>
 
 
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-ripple btn-sm" [disabled]="!formGroup.valid">
+              <button type="submit" class="btn btn-primary btn-ripple btn-sm">
                 <span *ngIf="!isLoading">
                   <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save

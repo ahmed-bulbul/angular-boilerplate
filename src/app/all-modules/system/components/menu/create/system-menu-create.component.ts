@@ -22,6 +22,11 @@ export class SystemMenuCreateComponent implements OnInit {
   public baseUrl = environment.baseUrl;
   public parentMenu: any = [];
   public isLoading:boolean;
+  public formSubmitted = false;
+
+
+  //declare input field error message
+  public errorMsg:string;
 
 
 
@@ -48,7 +53,7 @@ export class SystemMenuCreateComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       id: [''],
       code: ['', [Validators.required,Validators.minLength(3)]],
-      description: ['', [Validators.required]],
+      description: [''],
       parentMenu: [''],
       openUrl:['',[Validators.required]],
       apiUrl:['',[Validators.required]],
@@ -57,7 +62,7 @@ export class SystemMenuCreateComponent implements OnInit {
       visibleToAll:[''],
       leftSideMenu:[''],
       isChild:[''],
-      isActive:['',[Validators.required]],
+      isActive:[''],
       //sequence accept number 0-9
       sequence: ['',[Validators.required,Validators.pattern('^[0-9]*$')]],
     });
@@ -72,6 +77,7 @@ export class SystemMenuCreateComponent implements OnInit {
   onSubmit(){
     console.log(this.formGroup.value);
     this.isLoading = true;
+    this.formSubmitted = true;
     this.saveSystemMenu();
   }
 
@@ -95,6 +101,9 @@ export class SystemMenuCreateComponent implements OnInit {
     },
     error => {
       this.isLoading = false;
+
+      this.errorMsg = error
+
       //if error code is 403 its forbidden
       if(error.status === 403){
         Swal.fire({
@@ -103,11 +112,7 @@ export class SystemMenuCreateComponent implements OnInit {
           icon: 'error',
         });
       }else{
-        Swal.fire({
-          title: 'Error',
-          text: error.error.message,
-          icon: 'error',
-        });
+        console.log(error);
       }
 
     });
