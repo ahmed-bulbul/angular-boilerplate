@@ -26,10 +26,11 @@
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select Field</option>
-              <option value="code">Code</option>
-              <option value="openUrl">Open Url</option>
-              <option value="apiUrl">ApiUrl</option>
+              <!-- get from entityAttribute loop  i is index space per item -->
+              <option *ngFor="let field of entityAttribute;" [value]="field">{{field}}</option>
             </select>
+
+
           </div>
         </div>
         <div class="col-md-3">

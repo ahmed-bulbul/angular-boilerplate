@@ -17,6 +17,7 @@ declare const $: any;
 export class SystemMenuListComponent implements OnInit {
 
   public systemMenu: SystemMenuListComponent[];
+  public entityAttribute: any[] = [];
 
   public pipe = new DatePipe('en-US');
   public myFromGroup: FormGroup;
@@ -56,6 +57,7 @@ export class SystemMenuListComponent implements OnInit {
   ngOnInit(): void {
 
 
+
     // set init params
     this.myFromGroup = new FormGroup({
       pageSize: new FormControl()
@@ -67,6 +69,9 @@ export class SystemMenuListComponent implements OnInit {
     //  this.pollData();
     this.getListData();
   }
+
+
+
 
   bindFromFloatingLabel() {
 
@@ -131,9 +136,23 @@ export class SystemMenuListComponent implements OnInit {
         this.configPgn.totalItem = response.totalItems;
         this.configPgn.totalItems = response.totalItems;
         this.setDisplayLastSequence();
+        this.iterateKeyValue();
       }
     );
   }
+
+  iterateKeyValue(){
+    //iterate and print key value of system menu object of first record
+     for (const key in this.systemMenu[0]) {
+       if (this.systemMenu[0].hasOwnProperty(key)) {
+         console.log(key);
+         this.entityAttribute.push(key);
+       }
+     }
+     console.log(this.entityAttribute);
+ }
+
+
   deleteEntityData(tempId){
 
   }
@@ -155,6 +174,8 @@ export class SystemMenuListComponent implements OnInit {
         icon: 'info',
       });
     }
+
+
 
     //if field value is empty then reset the value
     if(!fieldValue){
