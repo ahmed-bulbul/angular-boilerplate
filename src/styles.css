@@ -2675,7 +2675,7 @@ table.dataTable thead > tr > td.sorting {
 	height: 24px
 }
 .avatar > img {
-    border-radius: 50%;
+    border-radius: 10%;
     display: block;
     overflow: hidden;
     width: 100%;
