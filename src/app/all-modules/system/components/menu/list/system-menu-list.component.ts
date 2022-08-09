@@ -127,30 +127,38 @@ export class SystemMenuListComponent implements OnInit {
   }
 
   getListData(){
-    this.spinnerService.show();
     this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
+
+        if(response.status === true){
+          this.searchClick = false;
+          this.systemMenu = response.data;
+          this.configPgn.totalItem = response.totalItems;
+          this.configPgn.totalItems = response.totalItems;
+          this.setDisplayLastSequence();
+        //  this.iterateKeyValue();
+        }
+      },error => {
         this.searchClick = false;
-        this.spinnerService.hide();
-        this.systemMenu = response.data;
-        this.configPgn.totalItem = response.totalItems;
-        this.configPgn.totalItems = response.totalItems;
-        this.setDisplayLastSequence();
-        this.iterateKeyValue();
+        Swal.fire({
+          title: 'Error',
+          text: 'Something went wrong',
+          icon: 'error',
+        })
       }
     );
   }
 
-  iterateKeyValue(){
-    //iterate and print key value of system menu object of first record
-     for (const key in this.systemMenu[0]) {
-       if (this.systemMenu[0].hasOwnProperty(key)) {
-         console.log(key);
-         this.entityAttribute.push(key);
-       }
-     }
-     console.log(this.entityAttribute);
- }
+//   iterateKeyValue(){
+//     //iterate and print key value of system menu object of first record
+//      for (const key in this.systemMenu[0]) {
+//        if (this.systemMenu[0].hasOwnProperty(key)) {
+//          console.log(key);
+//          this.entityAttribute.push(key);
+//        }
+//      }
+//      console.log(this.entityAttribute);
+//  }
 
 
   deleteEntityData(tempId){

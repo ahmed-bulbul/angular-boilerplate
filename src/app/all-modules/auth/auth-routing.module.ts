@@ -3,6 +3,7 @@ import { RequestAuthCreateComponent } from './components/requestauth/create/requ
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
+import { UserProfileComponent } from './components/user/profile/user-profile.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path:'request-auth/edit',
         component:RequestAuthEditComponent,
+      },
+      {
+        path:'user-profile',
+        component:UserProfileComponent,
       }
 
     ]

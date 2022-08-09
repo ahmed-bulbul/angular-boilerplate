@@ -9,10 +9,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RequestAuthEditComponent } from './components/requestauth/edit/request-auth-edit.component';
+import { UserProfileComponent } from './components/user/profile/user-profile.component';
+import { ChangePasswordComponent } from './components/user/passwordchange/change-password.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, RequestAuthEditComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, RequestAuthEditComponent, UserProfileComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

@@ -9,16 +9,26 @@ import { RequestAuthCreateDTO } from '../dto/RequestAuthCreateDTO.model';
 export class AuthService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1/requestAuth';
+  public baseUrl = environment.baseUrl + '/api/v1';
+
+  // for requestAuth adding /requestAuth adding
+  public requestAuthApiEndPoint = this.baseUrl+'/requestAuth';
+  public userApiEndPoint = this.baseUrl+'/user';
+
+
 
 
   constructor(private httpClient: HttpClient) { }
 
   // create request auth
   createRequestAuth(requestAuthCreateDTO: RequestAuthCreateDTO) {
-    return this.httpClient.post(this.baseUrl+'/create', requestAuthCreateDTO);
+    return this.httpClient.post(this.requestAuthApiEndPoint+'/create', requestAuthCreateDTO);
   }
 
-  
+  getUserProfile(id: number) {
+    return this.httpClient.get(this.userApiEndPoint+'/get/'+id);
+  }
+
+
 
 }

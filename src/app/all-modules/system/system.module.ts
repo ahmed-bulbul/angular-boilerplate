@@ -13,11 +13,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
+
 @NgModule({
   declarations: [
     SystemComponent,
     SystemMenuCreateComponent,
-    SystemMenuListComponent,],
+    SystemMenuListComponent,
+ ],
   imports: [
     CommonModule,
     SystemRoutingModule,

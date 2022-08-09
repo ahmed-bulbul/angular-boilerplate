@@ -26,8 +26,8 @@
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select Field</option>
-              <!-- get from entityAttribute loop  i is index space per item -->
-              <option *ngFor="let field of entityAttribute;" [value]="field">{{field}}</option>
+              <option value="code">Code</option>
+              <option value="apiUrl">ApiUrl</option>
             </select>
 
 
@@ -118,9 +118,6 @@
                   </td>
 
                   <td>
-                    <a class="btn btn-sm btn-secondary"
-                      routerLink="/campusambassador/candidate/profiles/{{thisObj.id}}"><i
-                        class="fa fa-eye m-r-5"></i></a> &nbsp;
                     <a class="btn btn-sm btn-info" routerLink="/campusambassador/candidate/edit/{{thisObj.id}}"><i
                         class="fa fa-pencil m-r-5"></i></a>&nbsp;&nbsp;
                     <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete_entity"
@@ -196,6 +193,6 @@
 <!-- /Delete Modal -->
 
 
-<ngx-spinner bdColor="rgba(255,255,255,0.5)" size="small" color="#667eea" type="ball-clip-rotate" [fullScreen]="false">
+<!-- <ngx-spinner bdColor="rgba(255,255,255,0.5)" size="small" color="#667eea" type="ball-clip-rotate" [fullScreen]="false">
   <p style="color: black"> Processing... </p>
-</ngx-spinner>
+</ngx-spinner> -->

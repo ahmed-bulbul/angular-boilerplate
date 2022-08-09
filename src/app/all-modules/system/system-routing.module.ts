@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SystemComponent } from './system.component';
 import { SystemMenuListComponent } from './components/menu/list/system-menu-list.component';
 
+
 const routes: Routes = [
   {
     path:'',
