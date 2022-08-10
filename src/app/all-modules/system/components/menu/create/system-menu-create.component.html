@@ -8,7 +8,7 @@
         <h3 class="page-title">System Menu</h3>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
-          <li  class="breadcrumb-item active">System Menu</li>
+          <li class="breadcrumb-item active">System Menu</li>
           <li class="breadcrumb-item active">Create</li>
         </ul>
       </div>
@@ -33,69 +33,91 @@
             <div class="row">
               <div class="col-md-3">
 
-                <div class="form-group">
-                  <input type="text" class="form-control"  [ngClass]="{ 'is-invalid': formSubmitted && f.code.errors }" formControlName="code" placeholder="Code">
-                  <div *ngIf="formSubmitted && f.code.errors" class="invalid-feedback">
-                    <div *ngIf="f.code.errors.required">{{errorMsg.error.code}}</div>
-                  </div>
-                </div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Code</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.code.errors }"
+                    formControlName="code">
+                  <mat-error *ngIf="formSubmitted && f.code.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    {{errorMsg.error.code}}
+                  </mat-error>
+                </mat-form-field>
+                <br> <br>
 
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="iconHtml" placeholder="IconHtml">
-                </div>
-
-
-              </div>
-              <div class="col-md-3">
-
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="openUrl" [ngClass]="{ 'is-invalid': formSubmitted && f.openUrl.errors }" formControlName="openUrl" placeholder="OpenUrl">
-                  <div *ngIf="formSubmitted && f.openUrl.errors" class="invalid-feedback">
-                    <div *ngIf="f.openUrl.errors.required">{{errorMsg.error.openUrl}}</div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <input type="number" class="form-control" formControlName="sequence"  [ngClass]="{ 'is-invalid': formSubmitted && f.sequence.errors }" placeholder="Sequence">
-                  <div *ngIf="formSubmitted && f.sequence.errors" class="invalid-feedback">
-                    <div *ngIf="f.sequence.errors.required">{{errorMsg.error.sequence}}</div>
-                  </div>
-                </div>
-
-
-
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Icon Html</mat-label>
+                  <input matInput type="text" formControlName="iconHtml">
+                </mat-form-field>
 
               </div>
 
+
               <div class="col-md-3">
 
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Open Url</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.openUrl.errors }"
+                    formControlName="openUrl">
+                  <mat-error *ngIf="formSubmitted && f.openUrl.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    {{errorMsg.error.openUrl}}
+                  </mat-error>
+                </mat-form-field>
+                <br> <br>
 
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="apiUrl"  [ngClass]="{ 'is-invalid': formSubmitted && f.apiUrl.errors }"  placeholder="ApiUrl">
-                  <div *ngIf="formSubmitted && f.apiUrl.errors" class="invalid-feedback">
-                    <div *ngIf="f.apiUrl.errors.required">{{errorMsg.error.apiUrl}}</div>
-                  </div>
-                </div>
 
-                <div class="form-group">
-                  <select class="select form-control" formControlName="parentMenu" style="color:#6C757D">
-                    <option value="">Select Parent Menu</option>
-                    <option *ngFor="let data of parentMenu" [ngValue]='data.id'>{{data.description}}
-                    </option>
-                  </select>
-                </div>
 
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Sequence</mat-label>
+                  <input matInput type="number" [ngClass]="{ 'is-invalid': formSubmitted && f.sequence.errors }"
+                    formControlName="sequence">
+                  <mat-error *ngIf="formSubmitted && f.sequence.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    {{errorMsg.error.sequence}}
+                  </mat-error>
+                </mat-form-field>
               </div>
 
               <div class="col-md-3">
 
-                <div class="form-group">
-                  <input type="text" class="form-control" formControlName="description" placeholder="Description"
-                  [ngClass]="{ 'is-invalid': formSubmitted && f.description.errors }">
-                  <div *ngIf="formSubmitted && f.description.errors" class="invalid-feedback">
-                    <div *ngIf="f.description.errors.required">{{errorMsg.error.description}}</div>
-                  </div>
-                </div>
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Api Url</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.apiUrl.errors }"
+                    formControlName="apiUrl">
+                  <mat-error *ngIf="formSubmitted && f.apiUrl.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    {{errorMsg.error.apiUrl}}
+                  </mat-error>
+                </mat-form-field>
+
+                <br> <br>
+
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label >Select Parent Menu</mat-label>
+                  <mat-select formControlName="parentMenu" >
+                    <mat-option *ngFor="let data of parentMenu" [value]="data.id">
+                      {{data.description}}
+                    </mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+
+              </div>
+
+              <div class="col-md-3">
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Description</mat-label>
+                  <input matInput type="text" formControlName="description">
+                </mat-form-field>
+                <br> <br>
+
+                <mat-checkbox formControlName="isActive">Is Active</mat-checkbox>
+
               </div>
 
             </div>
@@ -103,11 +125,11 @@
 
             <div class="row">
 
-              <div class="col-md-4">
+              <!-- <div class="col-md-4">
 
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="hasChild" type="checkbox">&nbsp; &nbsp;
-                  <label class="custom-text" >Has Child  </label>
+                  <label class="custom-text">Has Child </label>
                 </div>
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="leftSideMenu" type="checkbox"> &nbsp; &nbsp;
@@ -122,10 +144,10 @@
 
                 <div class="form-group">
                   <input style="margin-top: 10px;" formControlName="isActive" type="checkbox"> &nbsp; &nbsp;
-                  <label class="custom-text">Is Active  </label>
+                  <label class="custom-text">Is Active </label>
                 </div>
 
-              </div>
+              </div> -->
 
               <!-- <div class="col-md-4">
                 <div class="form-group">
@@ -142,7 +164,8 @@
 
 
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-ripple btn-sm">
+              <!-- <button mat-raised-button color="primary">Primary</button> -->
+              <button  mat-raised-button color="primary">
                 <span *ngIf="!isLoading">
                   <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save
@@ -156,7 +179,7 @@
 
               &nbsp; &nbsp;
 
-              <button type="button" class="btn btn-outline-warning btn-ripple btn-sm" (click)="resetForm()">
+              <button mat-stroked-button color="warn" (click)="resetForm()">
                 <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Reset
               </button>
             </div>

@@ -6,10 +6,15 @@ import { RegisterComponent } from './register/register.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
 
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
+
   imports: [
     CommonModule,
     LoginRoutingModule,
@@ -17,6 +22,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+
   ]
 })
 export class LoginModule { }

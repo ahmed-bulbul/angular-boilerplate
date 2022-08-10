@@ -11,6 +11,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { RequestAuthEditComponent } from './components/requestauth/edit/request-auth-edit.component';
 import { UserProfileComponent } from './components/user/profile/user-profile.component';
 import { ChangePasswordComponent } from './components/user/passwordchange/change-password.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -23,6 +28,11 @@ import { ChangePasswordComponent } from './components/user/passwordchange/change
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatButtonModule,
     BsDatepickerModule.forRoot(),
   ]
 })

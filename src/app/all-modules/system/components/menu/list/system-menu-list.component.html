@@ -23,17 +23,34 @@
       <!-- search box by select dropdown field list -->
       <div class="row">
         <div class="col-md-3">
+
+          <!-- <mat-form-field appearance="fill" class="w-100">
+            <mat-label >Select Parent Menu</mat-label>
+            <mat-select  [id]="searchField" >
+              <mat-option value="">Select Field</mat-option>
+              <mat-option value="code">Code</mat-option>
+              <mat-option value="apiUrl">ApiUrl</mat-option>
+            </mat-select>
+
+          </mat-form-field> -->
+
+
+
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select Field</option>
               <option value="code">Code</option>
               <option value="apiUrl">ApiUrl</option>
             </select>
-
-
           </div>
         </div>
         <div class="col-md-3">
+
+          <!-- <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Search Value</mat-label>
+            <input matInput type="text" #searchValue>
+          </mat-form-field> -->
+
           <div class="form-group">
             <input type="text" class="form-control" id="searchValue" placeholder="Search Value">
           </div>
@@ -42,7 +59,7 @@
           <div class="form-group">
 
 
-            <button type="submit" class="btn btn-primary btn-ripple" (click)="search()">
+            <button mat-raised-button color="primary" (click)="search()">
               <span *ngIf="!searchClick" >
                 <!-- icon sign in -->
                 <i class="fa fa-search"></i>&nbsp; Search

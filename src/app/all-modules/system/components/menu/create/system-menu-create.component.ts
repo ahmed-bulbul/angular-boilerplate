@@ -64,7 +64,7 @@ export class SystemMenuCreateComponent implements OnInit {
       isChild:[''],
       isActive:[''],
       //sequence accept number 0-9
-      sequence: ['',[Validators.required,Validators.pattern('^[0-9]*$')]],
+      sequence: ['',[Validators.required]],
     });
 
   }

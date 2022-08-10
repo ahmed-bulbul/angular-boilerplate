@@ -15,6 +15,10 @@ import { DatePipe } from '@angular/common';
 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { authInterceptorProviders } from './security/interceptor/auth.interceptor';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+
 
 
 
@@ -22,6 +26,7 @@ import { authInterceptorProviders } from './security/interceptor/auth.intercepto
   declarations: [
     AppComponent
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -29,6 +34,10 @@ import { authInterceptorProviders } from './security/interceptor/auth.intercepto
     DataTablesModule,
     HttpClientModule,
     NgxSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+
+
     ToastrModule.forRoot(
       {
         timeOut: 1500,

@@ -8501,3 +8501,6 @@ ul.comment-list li ul.children {
 	justify-content: center;
 	font-size: 11px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

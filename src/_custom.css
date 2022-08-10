@@ -83,3 +83,6 @@
 }
 
 
+.border-dtd-btm{
+  border-bottom:2px dotted #ddd !important;
+}
