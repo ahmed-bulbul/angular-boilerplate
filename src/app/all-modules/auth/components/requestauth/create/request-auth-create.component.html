@@ -19,8 +19,10 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
+        <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
         <div class="card-header">
           <h4 class="card-title mb-0">Create Form</h4>
+
         </div>
         <div class="card-body">
           <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
@@ -93,11 +95,11 @@
 
             <div class="text-right">
               <button type="submit" class="btn btn-primary btn-ripple btn-sm" [disabled]="!formGroup.valid">
-                <span *ngIf="!isLoading">
+                <span *ngIf="!formSubmitted">
                   <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save
                 </span>
-                <span *ngIf="isLoading" class="indicator-progress">
+                <span *ngIf="formSubmitted" class="indicator-progress">
                   Please wait...
                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>
