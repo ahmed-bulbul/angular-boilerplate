@@ -3,55 +3,60 @@
   <div class="container">
 
     <!-- Account Logo -->
-    <div class="account-logo">
+    <!-- <div class="account-logo">
       <a href="javascript:"><img src="assets/img/logo2.png" alt="Walton Digi-Tech Industries Ltd "></a>
-    </div>
+    </div> -->
     <!-- /Account Logo -->
 
-    <div class="account-box">
+
+
+    <div class="account-box " style="margin-top:70px">
       <div class="account-wrapper">
-        <h3 class="account-title">Login</h3>
-        <p class="account-subtitle">Welcome to Login Panel</p>
+        <h2 class="text-center text-muted">Company Name</h2>
+        <h3 class="account-title">Sign in</h3>
+        <p class="account-subtitle">to continue to HR system</p>
+
+
+        <br> <br>
 
         <!-- Account Form -->
         <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+
+          <mat-form-field appearance="outline" class="w-100" style="padding-left: 14px;">
+            <mat-label>Username</mat-label>
+            <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.username.errors }"
+              formControlName="username">
+            <mat-error *ngIf="formSubmitted && f.username.errors">
+              <!-- error fa fa icon icon -->
+              <i class="fa fa-exclamation-circle"></i>
+              {{errorMsg.error.username}}
+            </mat-error>
+          </mat-form-field>
+
+          <br> <br>
+
+          <mat-form-field appearance="outline" class="w-100" style="padding-left: 14px;">
+            <mat-label>Password</mat-label>
+            <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
+              formControlName="password">
+            <mat-error *ngIf="formSubmitted && f.password.errors">
+              <!-- error fa fa icon icon -->
+              <i class="fa fa-exclamation-circle"></i>
+              {{errorMsg.error.password}}
+            </mat-error>
+          </mat-form-field>
+          <a tabindex="-1" mat-button color="primary" type="button" routerLink="/login/forgot-password">Forgot
+            password?</a>
+          <br> <br>
           <div class="form-group">
-            <label>Username</label>
-            <input class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && f.username.errors }"
-              formControlName="username" type="text">
-            <div *ngIf="formSubmitted && f.username.errors" class="invalid-feedback">
-              <div *ngIf="f.username.errors.required">{{errorMsg.error.username}}</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col">
-                <label>Password</label>
-              </div>
-            </div>
-            <input class="form-control" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
-              formControlName="password" formControlName="password" type="password">
-            <div *ngIf="formSubmitted && f.password.errors" class="invalid-feedback">
-              <div *ngIf="f.password.errors.required">{{errorMsg.error.password}}</div>
-              <div *ngIf="f.password.errors.minlength">Password must be at least 4 characters</div>
-            </div>
-          </div>
+            <button tabindex="-1" mat-button  type="button" color="primary" routerLink="/login/register">Create Account</button>
+            &nbsp; &nbsp; &nbsp; &nbsp;
 
-         
-
-
-
-
-
-
-
-          <div class="form-group text-center">
-
-            <button class="btn btn-primary btn-sm" type="submit">
+            <button mat-raised-button type="submit" color="primary" style="float:right">
 
               <span *ngIf="!isLoading">
                 <!-- icon sign in -->
-                <i class="fa fa-sign-in"></i> Login
+                Login
               </span>
 
               <span *ngIf="isLoading" class="indicator-progress" [style.display]="'block'">
@@ -60,15 +65,11 @@
               </span>
 
             </button>
-            &nbsp; &nbsp; &nbsp; &nbsp;
-
-            <!-- Register button outline -->
-            <button class="btn btn-outline-secondary btn-sm" type="button" routerLink="/login/register">
-              <i class="fa fa-user-plus">&nbsp; Create Account</i></button>
 
           </div>
           <div class="account-footer">
-            <!-- <p>Don't have an account yet? <a routerLink="/login/register">Register</a></p> -->
+            <!-- forgot password -->
+
           </div>
         </form>
         <!-- /Account Form -->
@@ -81,4 +82,6 @@
 <ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner> -->
 
 
-<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner>
