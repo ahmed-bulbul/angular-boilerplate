@@ -10,6 +10,8 @@ import { Login } from '../model/login';
 import { LoginService } from '../services/login.services';
 import Swal from 'sweetalert2';
 import { SharedService } from 'src/app/sharing/service/shared.service';
+import { MatDialog } from '@angular/material/dialog';
+import { WelcomeDialogComponent } from 'src/app/sharing/components/dialog/welcome/welcome-dialog.component';
 
 
 
@@ -38,7 +40,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private spinnerService:NgxSpinnerService,
     private localStorageService:LocalstorageService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -82,13 +85,17 @@ export class LoginComponent implements OnInit {
         this.setToken(data['accessToken'],data['user']);
         this.setObserver();
         this.setMenu();
+        // this.openDialog("you successfully login");
+        // this.router.navigate(['/dashboard/admin']);
         Swal.fire({
          // login success position right top small
           icon: 'success',
           title: 'Login Successful',
           text: data['message'],
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          // small height width
+          width: '450px',
         }).then(() => {
           this.router.navigate(['/dashboard/admin']);
         });
@@ -99,6 +106,7 @@ export class LoginComponent implements OnInit {
           icon: 'error',
           title: 'Login Failed',
           text: data['message'],
+
         });
 
       }
@@ -130,6 +138,24 @@ export class LoginComponent implements OnInit {
   setToken(token:string,user:string){
     this.localStorageService.setToken(token);
     this.localStorageService.setUser(user);
+  }
+
+  openDialog(text:string) {
+
+    const dialogRef = this.dialog.open(WelcomeDialogComponent, {
+      width: '250px',
+      data: {text: text}
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+
+
+
+
   }
 
 

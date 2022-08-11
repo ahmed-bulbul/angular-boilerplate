@@ -133,7 +133,6 @@ export class RequestAuthCreateComponent implements OnInit {
          chkAuthorizationChar: this.produceFormCheckBoxData[index] ? this.produceFormCheckBoxData[index].chkAuthorizationChar + chkAuthorizationChar : chkAuthorizationChar,
          authority:this.getAuhority
 
-
      }
     }else{
 
