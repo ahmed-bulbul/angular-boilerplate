@@ -24,6 +24,7 @@ export class RequestAuthCreateComponent implements OnInit {
   public produceFormCheckBoxData = new Array();
   public requestAuthCreateDTO : RequestAuthCreateDTO;
   public isLoading:boolean;
+  public formSubmitted = false;
   public roles :[]= [];
 
 
@@ -46,7 +47,7 @@ export class RequestAuthCreateComponent implements OnInit {
 
   onSubmit(){
 
-    this.isLoading = true;
+    this.formSubmitted=true;
     console.log(this.requestAuthCreateDTO);
     this.saveRequestAuth()
 
@@ -54,7 +55,7 @@ export class RequestAuthCreateComponent implements OnInit {
   saveRequestAuth(){
     this.authService.createRequestAuth(this.requestAuthCreateDTO).subscribe((res: any) => {
       if(res.status === true){
-        this.isLoading = false;
+        this.formSubmitted = false;
         this.resetForm();
         Swal.fire({
           title: 'Success',
@@ -63,7 +64,7 @@ export class RequestAuthCreateComponent implements OnInit {
         })
         this.router.navigate(['/auth/request-auth/create']);
       }else{
-        this.isLoading = false;
+        this.formSubmitted = false;
         Swal.fire({
           title: 'Error',
           text: res.message,
@@ -72,7 +73,7 @@ export class RequestAuthCreateComponent implements OnInit {
         });
       }
     },(err)=>{
-      this.isLoading = false;
+      this.formSubmitted = false;
       Swal.fire({
         title: 'Error',
         text: err.error.message,
@@ -97,14 +98,25 @@ export class RequestAuthCreateComponent implements OnInit {
   getRole(){
     if(this.roles.length === 0){
 
+      // loading matProgressBar 2 seconds
+
+      this.isLoading = true;
+
+
+
+
       const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
       const queryParams: any = {};
       this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
         if(res.status ===true){
+          this.isLoading = false;
           this.roles = res.data;
           console.log(this.roles);
         }
 
+      },(err)=>{
+        this.isLoading = false;
+        console.log(err);
       });
 
     }
@@ -113,12 +125,16 @@ export class RequestAuthCreateComponent implements OnInit {
 
 
   getBaseModule(){
+    this.isLoading = true;
     const url = this.baseUrl+ '/api/v1/shared/baseModule/getModule';
     const queryParams: any = {};
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
-
+      this.isLoading = false;
      this.baseModule = res.data;
 
+    },(err)=>{
+      this.isLoading = false;
+      console.log(err);
     });
   }
 

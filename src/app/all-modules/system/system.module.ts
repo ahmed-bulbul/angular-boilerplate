@@ -15,6 +15,7 @@ import { MatInputModule } from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -39,6 +40,7 @@ import {MatButtonModule} from '@angular/material/button';
     MatSelectModule,
     MatCheckboxModule,
     MatButtonModule,
+    MatProgressBarModule,
     BsDatepickerModule.forRoot(),
   ]
 })
