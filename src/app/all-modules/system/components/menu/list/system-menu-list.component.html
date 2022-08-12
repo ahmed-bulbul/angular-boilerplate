@@ -84,6 +84,7 @@
     <div class="col-md-12">
 
       <div class="card">
+        <mat-progress-bar *ngIf="isLoading" mode="query"></mat-progress-bar>
 
         <div class="card-header">
           <div class="card-tools">
@@ -209,7 +210,3 @@
 </div>
 <!-- /Delete Modal -->
 
-
-<!-- <ngx-spinner bdColor="rgba(255,255,255,0.5)" size="small" color="#667eea" type="ball-clip-rotate" [fullScreen]="false">
-  <p style="color: black"> Processing... </p>
-</ngx-spinner> -->

@@ -21,4 +21,9 @@ export class SystemService {
    getMenuList(queryparams): Observable<Object>{
      return this.httpClient.get(`${this.baseUrl}`+'/getAll',{params: queryparams});
    }
+
+   // delete systemMenu by id
+    deleteSystemMenu(id: number): Observable<Object>{
+      return this.httpClient.delete(`${this.baseUrl}`+'/delete/'+id);
+    }
 }

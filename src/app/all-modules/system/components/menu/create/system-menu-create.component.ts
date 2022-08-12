@@ -65,8 +65,15 @@ export class SystemMenuCreateComponent implements OnInit {
       isActive:[''],
       //sequence accept number 0-9
       sequence: ['',[Validators.required]],
+      phone : ['']
     });
 
+  }
+
+  hasError(event: any): void {
+    if (!event && this.formGroup.value.phone !== '') {
+      this.formGroup.get('phone').setErrors(['invalid_cell_phone', true]);
+    }
   }
 
 
