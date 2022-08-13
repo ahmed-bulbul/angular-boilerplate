@@ -15,26 +15,4 @@ steps:
     versionSpec: '16.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install -g @angular/cli
-    npm install --legacy-peer-deps
-    ng build --prod
-  displayName: 'npm install and build'
-
-
-- task: Npm@1  
-  displayName: Build  
-  inputs:  
-    command: custom  
-    verbose: false  
-    customCommand: 'run build'  
-  
-- task: CopyPublishBuildArtifacts@1  
-  displayName: 'Copy Publish Artifact: smarthr'  
-  inputs:  
-    CopyRoot: dist  
-    Contents: '**'  
-    ArtifactName: smarthr   
-    ArtifactType: Container
-  
 
