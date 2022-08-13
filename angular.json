@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/testApp",
+            "outputPath": "dist/app",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -40,7 +40,8 @@
               "node_modules/primeng/resources/themes/saga-blue/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
               "node_modules/primeicons/primeicons.css",
-              "node_modules/ng-drag-drop/style.css"
+              "node_modules/ng-drag-drop/style.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
@@ -49,7 +50,8 @@
               "node_modules/datatables.net/js/jquery.dataTables.js",
               "node_modules/raphael/raphael.js",
               "node_modules/morris.js/morris.js",
-              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js"
+              "node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js",
+              "node_modules/intl-tel-input/build/js/intlTelInput.min.js"
             ]
           },
           "configurations": {

@@ -21,6 +21,7 @@ export class SystemMenuListComponent implements OnInit {
 
   public pipe = new DatePipe('en-US');
   public myFromGroup: FormGroup;
+  public isLoading = false;
 
   public configPgn: any;
  // public listData: any = [];
@@ -127,10 +128,12 @@ export class SystemMenuListComponent implements OnInit {
   }
 
   getListData(){
+    this.isLoading = true;
     this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
 
         if(response.status === true){
+          this.isLoading = false;
           this.searchClick = false;
           this.systemMenu = response.data;
           this.configPgn.totalItem = response.totalItems;
@@ -139,6 +142,7 @@ export class SystemMenuListComponent implements OnInit {
         //  this.iterateKeyValue();
         }
       },error => {
+        this.isLoading = false;
         this.searchClick = false;
         Swal.fire({
           title: 'Error',
@@ -162,9 +166,24 @@ export class SystemMenuListComponent implements OnInit {
 
 
   deleteEntityData(tempId){
-
+    this.isLoading = true;
+    this.systemService.deleteSystemMenu(tempId).subscribe(
+      (response: any) => {
+        if(response.status === true){
+          this.isLoading = false;
+          this.getListData();
+          //hide modal
+          $('#delete_entity').modal('hide');
+          this.toastr.success('Success', 'Record deleted successfully');
+        }
+      },error => {
+        this.isLoading=false;
+        console.log(error);
+      }
+    );
   }
   search(){
+    this.isLoading = true;
     this.searchClick = true;
 
     // get field name from dropdown list
@@ -191,6 +210,7 @@ export class SystemMenuListComponent implements OnInit {
     }
 
     setTimeout(() => {
+
       this.getListData();
     } , 1000);
     console.log(fieldName, fieldValue);

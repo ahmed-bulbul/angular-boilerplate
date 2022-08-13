@@ -50,6 +50,23 @@
                   <input matInput type="text" formControlName="iconHtml">
                 </mat-form-field>
 
+                <mat-form-field appearance="outline" class="w-100">
+                  <!-- <mat-label style="padding-left:55px ;">Phone</mat-label> -->
+                  <input
+                    matInput
+                    ng2TelInput
+                    [ng2TelInputOptions]="{initialCountry: 'bd'}"
+                    formControlName="phone"
+                    (hasError)="hasError($event)" />
+                  <mat-error
+                    *ngIf="
+                    !formGroup.get('phone').valid &&
+                    formGroup.get('phone').touched
+                    "
+                  >This is an <strong>invalid</strong> phone number.
+                  </mat-error>
+                </mat-form-field>
+
               </div>
 
 
@@ -117,6 +134,8 @@
                 <br> <br>
 
                 <mat-checkbox formControlName="isActive"color="primary" >Is Active</mat-checkbox>
+
+
 
               </div>
 
