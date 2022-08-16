@@ -9,7 +9,7 @@ pipeline {
         pollSCM('* * * * *') //polling for changes, here once a minute
     }
 
-    node {
+    stages {
         stage('S-1: Starting Job') {
             steps {
                 echo 'Starting job, cleaning workspace'
@@ -52,3 +52,5 @@ pipeline {
         }
     }
 }
+
+//
