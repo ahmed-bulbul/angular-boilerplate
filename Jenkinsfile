@@ -33,7 +33,7 @@ node {
 
     stage('Build') {
         milestone()
-        bat 'ng build --prod --base-href="/app/" --deploy-url="/app/" && jar -cvf app.war *'
+        bat 'ng build --prod --base-href="/app/  && cd dist/app jar -cvf app.war *'
     }
 
 
