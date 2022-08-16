@@ -142,11 +142,7 @@ export class SystemMenuCreateComponent implements OnInit {
         console.log(response.message);
       }
     },error => {
-      Swal.fire({
-        title: 'Error',
-        text: error.message,
-        icon: 'error',
-      })
+      console.log(error);
     });
   }
 

@@ -113,8 +113,13 @@ export class LoginComponent implements OnInit {
     },
     error => {
       this.isLoading = false;
-      console.log(error.error.username);
       this.errorMsg=error;
+      Swal.fire({
+        icon: 'error',
+        title: 'Login Failed',
+        text: error.error['message'],
+
+      });
     });
   }
 
