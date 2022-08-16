@@ -33,11 +33,11 @@ node {
 
     stage('Build') {
         milestone()
-        bat 'ng build --prod --base-href="/app/  && cd dist/app jar -cvf app.war *'
+        bat 'ng build --prod --base-href="/app/  && cd dist/app && jar -cvf app.war *'
     }
 
 
     stage ('Deploy on this Server') {
-        deploy adapters: [tomcat9(credentialsId: 'TomcatCreds', path: '', url: 'http://localhost:8080')], contextPath: null, war: '**/*.war'
+        deploy adapters: [tomcat8(credentialsId: 'TomcatCreds', path: '', url: 'http://localhost:8080')], contextPath: null, war: '**/*.war'
     }
 }
