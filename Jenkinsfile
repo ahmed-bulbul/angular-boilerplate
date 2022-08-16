@@ -38,7 +38,7 @@ node {
     // }
 
     stage('Build') {
-        bat 'ng build --prod --base-href="/app/  && cd dist/app && jar -cvf app.war *'
+        bat 'ng build --prod --base-href="/app/"  && cd dist/app && jar -cvf app.war *'
     }
 
 
