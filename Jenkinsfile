@@ -27,9 +27,9 @@ node {
         }
     }
 
-    stage('Test') {
-        bat 'ng test --progress=false --watch false'
-    }
+    // stage('Test') {
+    //     bat 'ng test --progress=false --watch false'
+    // }
 
     stage('Build') {
         milestone()
