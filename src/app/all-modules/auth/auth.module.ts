@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { RequestAuthEditComponent } from './components/requestauth/edit/request-auth-edit.component';
 import { UserProfileComponent } from './components/user/profile/user-profile.component';
 import { ChangePasswordComponent } from './components/user/passwordchange/change-password.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -20,7 +19,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, RequestAuthEditComponent, UserProfileComponent, ChangePasswordComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

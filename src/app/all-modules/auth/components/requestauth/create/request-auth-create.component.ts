@@ -1,16 +1,23 @@
+import { catchError } from 'rxjs/operators';
 
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BsDatepickerNavigationViewComponent } from 'ngx-bootstrap/datepicker/themes/bs/bs-datepicker-navigation-view.component';
 import { BaseModule } from 'src/app/all-modules/base/model/BaseModule.model';
+import { Actions } from 'src/app/sharing/constants/actions.constant';
+import { Action } from 'src/app/sharing/model/action';
 import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { RequestAuthCreateDTO } from '../../../dto/RequestAuthCreateDTO.model';
+import { Permission } from '../../../model/permission';
 import { RequestAuth } from '../../../model/RequestAuth.model';
 import { AuthService } from '../../../service/auth.service';
+import * as _ from 'lodash';
+import { Role } from '../../../model/role';
+import { BehaviorSubject, Observable, of, Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-request-auth-create',
@@ -22,10 +29,17 @@ export class RequestAuthCreateComponent implements OnInit {
   public baseModule :BaseModule[];
   public requestAuth : RequestAuth[]=[];
   public produceFormCheckBoxData = new Array();
-  public requestAuthCreateDTO : RequestAuthCreateDTO;
+ // public requestAuthCreateDTO : RequestAuthCreateDTO;
   public isLoading:boolean;
   public formSubmitted = false;
   public roles :[]= [];
+  actions: Action[] = Actions;
+  permissions: Permission[] = [];
+  private oldPrmsn: Permission[];
+
+ permissionChange = new EventEmitter<Permission[]>();
+ oldPermissions = new EventEmitter<Permission[]>();
+
 
 
   public baseUrl = environment.baseUrl;
@@ -34,53 +48,115 @@ export class RequestAuthCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
     private sharedService:SharedService,private authService:AuthService,private router: Router) { }
 
+  @Input()
+  set role(role: Role | any) {
+    if (role) {
+      const permissions = role.data.requestAuthList ?? [];
+      let x = permissions.map((i: any) => ({
+        actions: i.chkAuthorizationChar.split(''),
+        module: i.module,
+      }));
+
+      x.map((p: any) => {
+        p.actions.map((action: any) => {
+          this.permissions.push({
+            module: p.module,
+            action: action,
+          });
+        });
+      });
+
+      this.oldPermissions.emit(permissions);
+    }
+  }
+
+  mapPermissions(permissions: Permission[]) {
+    this.permissions = permissions;
+  }
+  setOldPermissions(permissions: Permission[]) {
+    this.oldPrmsn = permissions;
+  }
+
+
   ngOnInit(): void {
     this.initForm();
     this.getBaseModule();
+    this.getRole();
 
-
-    //produceFormCheckBoxData set to requestAuthCreateDTO
-    this.requestAuthCreateDTO = {
-      requestAuthList: this.produceFormCheckBoxData
-    }
   }
+
+  selectAll(event: any): void {
+    if (event.target?.checked) {
+      this.baseModule.forEach((m) => {
+        this.actions.map((a) => {
+          this.permissions.push({
+            module: m.code,
+            action: a.code,
+          });
+        });
+      });
+
+      this.permissionChange.emit(this.permissions);
+      return;
+    }
+
+    this.permissions = [];
+    this.permissionChange.emit(this.permissions);
+  }
+
+  check(event: any, module: string, action: string): void {
+    if (event.target?.checked) {
+      this.permissions.push({
+        module: module,
+        action: action,
+      });
+    } else {
+      let index = this.permissions.findIndex(
+        (i) => i.module === module && i.action === action
+      );
+      if (index > -1) {
+        this.permissions.splice(index, 1);
+      }
+    }
+
+    console.log(this.permissions);
+
+    this.permissionChange.emit(this.fortmatPermission(this.permissions));
+  }
+
+  validateCheckBox(module: string, action: string): boolean {
+    return !!this.permissions.find(
+      (i) => i.module === module && i.action === action
+    );
+  }
+
+  fortmatPermission(permissions: Permission[]): Permission[] {
+    return Object.entries(_.groupBy(permissions, (i) => i.module)).map(
+      ([key, values]) => ({
+        module: key,
+        chkAuthorizationChar: values.map((i) => i.action).join(''),
+      })
+    );
+  }
+
 
   onSubmit(){
 
     this.formSubmitted=true;
-    console.log(this.requestAuthCreateDTO);
     this.saveRequestAuth()
 
   }
   saveRequestAuth(){
-    this.authService.createRequestAuth(this.requestAuthCreateDTO).subscribe((res: any) => {
-      if(res.status === true){
-        this.formSubmitted = false;
-        this.resetForm();
-        Swal.fire({
-          title: 'Success',
-          text: 'Request Auth Created Successfully',
-          icon: 'success',
-        })
-        this.router.navigate(['/auth/request-auth/create']);
-      }else{
-        this.formSubmitted = false;
-        Swal.fire({
-          title: 'Error',
-          text: res.message,
-          icon: 'error',
-          confirmButtonText: 'Ok'
-        });
-      }
-    },(err)=>{
-      this.formSubmitted = false;
-      Swal.fire({
-        title: 'Error',
-        text: err.error.message,
-        icon: 'error',
-      })
-    }
-    );
+    //let payload = this.createPermissionsPayload(this.getAuhority);
+    this.authService.createRequestAuth({
+      requestAuthList : this.createPermissionsPayload(this.getAuhority)
+    }).subscribe((res: any) => {
+
+    //  this.router.navigate(['/auth/request-auth']);
+    } ,(err)=>{
+      console.log(err);
+    })
+
   }
 
 
@@ -97,14 +173,7 @@ export class RequestAuthCreateComponent implements OnInit {
 
   getRole(){
     if(this.roles.length === 0){
-
-      // loading matProgressBar 2 seconds
-
       this.isLoading = true;
-
-
-
-
       const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
       const queryParams: any = {};
       this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
@@ -113,14 +182,30 @@ export class RequestAuthCreateComponent implements OnInit {
           this.roles = res.data;
           console.log(this.roles);
         }
-
       },(err)=>{
         this.isLoading = false;
         console.log(err);
       });
 
     }
+  }
 
+  selectRole(event: any){
+    console.log(event.target.value);
+    //get request auth list by authority
+    this.isLoading = true;
+    const url = this.baseUrl+ '/api/v1/shared/authModule/getRequestAuth'+'/'+event.target.value;
+    const queryParams: any = {};
+    this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+      if(res.status ===true){
+        this.isLoading = false;
+        this.requestAuth = res.data;
+        console.log(this.requestAuth);
+      }
+    },(err)=>{
+      this.isLoading = false;
+      console.log(err);
+    });
   }
 
 
@@ -138,31 +223,31 @@ export class RequestAuthCreateComponent implements OnInit {
     });
   }
 
-  checkRow(module,chkAuthorizationChar,index,event){
-    if(event.target.checked){
 
-      this.produceFormCheckBoxData[index] = {
+  createPermissionsPayload(role: string): any {
+    const requestAuthList: any[] = [];
 
-        // if checkbox is checked then push data to array
-         module: module,
-         //concat checkbox value with previous value
-         chkAuthorizationChar: this.produceFormCheckBoxData[index] ? this.produceFormCheckBoxData[index].chkAuthorizationChar + chkAuthorizationChar : chkAuthorizationChar,
-         authority:this.getAuhority
+    this.permissions.forEach((i) => {
+      let newPermission: any = {
+        authority: role,
+        chkAuthorizationChar: i.chkAuthorizationChar,
+        module: i.module,
+      };
 
-     }
-    }else{
+      const existingPermissionId = this.oldPrmsn
+        ? this.oldPrmsn.find(
+            (o) => o.authority === role && o.module === i.module
+          )?.id
+        : null;
 
-      this.produceFormCheckBoxData[index] = {
-        module: module,
-        // remove data from array by index wise
-        chkAuthorizationChar: this.produceFormCheckBoxData[index] ? this.produceFormCheckBoxData[index].chkAuthorizationChar.replace(chkAuthorizationChar,"-") : "",
-        authority:this.getAuhority
+      if (existingPermissionId) {
+        newPermission.id = existingPermissionId;
       }
 
-    }
-
-
-
+      requestAuthList.push(newPermission);
+    });
+    console.log(requestAuthList);
+    return requestAuthList;
   }
 
   //get auth data from formGroup

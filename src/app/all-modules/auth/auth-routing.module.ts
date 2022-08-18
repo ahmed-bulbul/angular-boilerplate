@@ -1,4 +1,4 @@
-import { RequestAuthEditComponent } from './components/requestauth/edit/request-auth-edit.component';
+
 import { RequestAuthCreateComponent } from './components/requestauth/create/request-auth-create.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,10 +14,7 @@ const routes: Routes = [
         path:'request-auth/create',
         component:RequestAuthCreateComponent,
       },
-      {
-        path:'request-auth/edit',
-        component:RequestAuthEditComponent,
-      },
+
       {
         path:'user-profile',
         component:UserProfileComponent,

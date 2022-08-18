@@ -8,7 +8,7 @@
         <h3 class="page-title">System Menu </h3>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
-          <li  class="breadcrumb-item active">System Menu</li>
+          <li class="breadcrumb-item active">System Menu</li>
           <li class="breadcrumb-item active">List</li>
         </ul>
       </div>
@@ -23,19 +23,6 @@
       <!-- search box by select dropdown field list -->
       <div class="row">
         <div class="col-md-3">
-
-          <!-- <mat-form-field appearance="fill" class="w-100">
-            <mat-label >Select Parent Menu</mat-label>
-            <mat-select  [id]="searchField" >
-              <mat-option value="">Select Field</mat-option>
-              <mat-option value="code">Code</mat-option>
-              <mat-option value="apiUrl">ApiUrl</mat-option>
-            </mat-select>
-
-          </mat-form-field> -->
-
-
-
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select Field</option>
@@ -45,12 +32,6 @@
           </div>
         </div>
         <div class="col-md-3">
-
-          <!-- <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Search Value</mat-label>
-            <input matInput type="text" #searchValue>
-          </mat-form-field> -->
-
           <div class="form-group">
             <input type="text" class="form-control" id="searchValue" placeholder="Search Value">
           </div>
@@ -60,7 +41,7 @@
 
 
             <button mat-raised-button color="primary" (click)="search()">
-              <span *ngIf="!searchClick" >
+              <span *ngIf="!searchClick">
                 <!-- icon sign in -->
                 <i class="fa fa-search"></i>&nbsp; Search
               </span>
@@ -73,140 +54,139 @@
 
           </div>
         </div>
-
-
+      </div>
+    </div>
 
     </div>
-  </div>
-  <!-- /Search Filter -->
+    <!-- /Search Filter -->
 
-  <div class="row">
-    <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-12">
 
-      <div class="card">
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <div class="card">
+          <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 
-        <div class="card-header">
-          <div class="card-tools">
-            <a routerLink="/campusambassador/candidate/create" class="btn btn-outline-primary"><i
-                class="fa fa-plus"></i> Create
-              &nbsp;&nbsp;&nbsp;</a>
-          </div>
-
-
-        </div>
-
-        <div class="card-body">
-          <div class="table-responsive " [ngClass]="{ 'blur': searchClick  }" >
-
-            <div class="d-flex justify-content-start pb-1">
-              <div class="pgn-displayDataInfo">
-                <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1) )
-                  }} to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
-              </div>
+          <div class="card-header">
+            <div class="card-tools">
+              <a routerLink="/campusambassador/candidate/create" class="btn btn-outline-primary"><i
+                  class="fa fa-plus"></i> Create
+                &nbsp;&nbsp;&nbsp;</a>
             </div>
 
-            <table id="genListTable" class="table table-striped custom-table">
-              <thead>
-                <tr>
-                  <th>SL</th>
-                  <th class="d-none">TB_ROW_ID</th>
-                  <th>Code</th>
-                  <th>Description</th>
-                  <th>OpenUrl</th>
-                  <th>ApiUrl</th>
-                  <th>Icon Html</th>
-                  <th>ParentMenu</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let thisObj of systemMenu | paginate : configPgn; let i = index"
-                  [class.active]="i == currentIndex">
 
-                  <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
-                  <td class="d-none">{{thisObj.id}}</td>
-                  <td>{{thisObj.code}}</td>
-                  <td>{{thisObj.description}}</td>
-                  <td>{{thisObj.openUrl}}</td>
-                  <td>{{thisObj.apiUrl}}</td>
-                  <td>{{thisObj.iconHtml}}</td>
-                  <td>
-                    {{thisObj.parentMenu?.description}}
-                  </td>
+          </div>
 
-                  <td>
-                    <a class="btn btn-sm btn-info" routerLink="/campusambassador/candidate/edit/{{thisObj.id}}"><i
-                        class="fa fa-pencil m-r-5"></i></a>&nbsp;&nbsp;
-                    <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete_entity"
-                      (click)="tempId = thisObj.id">
-                      <i class="fa fa-trash-o m-r-5"></i>
-                    </a> &nbsp;
-                  </td>
-                </tr>
+          <div class="card-body">
+            <div class="table-responsive " [ngClass]="{ 'blur': searchClick  }">
 
-                <!-- <tr *ngIf="systemMenu.length === 0">
+              <div class="d-flex justify-content-start pb-1">
+                <div class="pgn-displayDataInfo">
+                  <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1)
+                    )
+                    }} to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
+                </div>
+              </div>
+
+              <table id="genListTable" class="table table-striped custom-table">
+                <thead>
+                  <tr>
+                    <th>SL</th>
+                    <th class="d-none">TB_ROW_ID</th>
+                    <th>Code</th>
+                    <th>Description</th>
+                    <th>OpenUrl</th>
+                    <th>ApiUrl</th>
+                    <th>Icon Html</th>
+                    <th>ParentMenu</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let thisObj of systemMenu | paginate : configPgn; let i = index"
+                    [class.active]="i == currentIndex">
+
+                    <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
+                    <td class="d-none">{{thisObj.id}}</td>
+                    <td>{{thisObj.code}}</td>
+                    <td>{{thisObj.description}}</td>
+                    <td>{{thisObj.openUrl}}</td>
+                    <td>{{thisObj.apiUrl}}</td>
+                    <td>{{thisObj.iconHtml}}</td>
+                    <td>
+                      {{thisObj.parentMenu?.description}}
+                    </td>
+
+                    <td>
+                      <a class="btn btn-sm btn-info" routerLink="/campusambassador/candidate/edit/{{thisObj.id}}"><i
+                          class="fa fa-pencil m-r-5"></i></a>&nbsp;&nbsp;
+                      <a class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete_entity"
+                        (click)="tempId = thisObj.id">
+                        <i class="fa fa-trash-o m-r-5"></i>
+                      </a> &nbsp;
+                    </td>
+                  </tr>
+
+                  <!-- <tr *ngIf="systemMenu.length === 0">
                   <td colspan="10">
                     <h5 style="text-align: center;">No data found</h5>
                   </td>
                 </tr> -->
-              </tbody>
-            </table>
+                </tbody>
+              </table>
 
 
-            <div class="d-flex justify-content-end ">
+              <div class="d-flex justify-content-end ">
 
-              <div class="" [formGroup]="myFromGroup">
-                Items per Page
-                <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
-                  <option *ngFor="let size of configPgn.pageSizes" [value]="size">
-                    {{ size }}
-                  </option>
-                </select>
-              </div>
+                <div class="" [formGroup]="myFromGroup">
+                  Items per Page
+                  <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                    <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                      {{ size }}
+                    </option>
+                  </select>
+                </div>
 
-              <div class="pgn-pageSliceCt">
-                <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
-                  (pageChange)="handlePageChange($event)">
-                </pagination-controls>
+                <div class="pgn-pageSliceCt">
+                  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+                    (pageChange)="handlePageChange($event)">
+                  </pagination-controls>
+                </div>
+
               </div>
 
             </div>
 
           </div>
-
         </div>
-      </div>
 
+      </div>
     </div>
+
   </div>
 
-</div>
 
 
-
-<!-- Delete Modal -->
-<div class="modal custom-modal fade" id="delete_entity" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="form-header">
-          <h3>Delete Item</h3>
-          <p>Are you sure want to delete?</p>
-        </div>
-        <div class="modal-btn delete-action">
-          <div class="row">
-            <div class="col-6">
-              <a class="btn btn-primary continue-btn" (click)="deleteEntityData(tempId)">Delete</a>
-            </div>
-            <div class="col-6">
-              <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+  <!-- Delete Modal -->
+  <div class="modal custom-modal fade" id="delete_entity" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-header">
+            <h3>Delete Item</h3>
+            <p>Are you sure want to delete?</p>
+          </div>
+          <div class="modal-btn delete-action">
+            <div class="row">
+              <div class="col-6">
+                <a class="btn btn-primary continue-btn" (click)="deleteEntityData(tempId)">Delete</a>
+              </div>
+              <div class="col-6">
+                <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!-- /Delete Modal -->
-
+  <!-- /Delete Modal -->

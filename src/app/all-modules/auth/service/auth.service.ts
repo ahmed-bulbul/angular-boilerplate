@@ -21,8 +21,8 @@ export class AuthService {
   constructor(private httpClient: HttpClient) { }
 
   // create request auth
-  createRequestAuth(requestAuthCreateDTO: RequestAuthCreateDTO) {
-    return this.httpClient.post(this.requestAuthApiEndPoint+'/create', requestAuthCreateDTO);
+  createRequestAuth(payload: any) {
+    return this.httpClient.post(this.requestAuthApiEndPoint+'/create', payload);
   }
 
   getUserProfile(id: number) {
