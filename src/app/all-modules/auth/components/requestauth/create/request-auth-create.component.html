@@ -35,10 +35,13 @@
                 <!-- select role selectbox -->
             <div class="form-group">
               <label>Select Role</label>
-              <select class="form-control" formControlName="authority" (change)="selectRole($event)" >
+              <select  class="form-control" formControlName="authority" (change)="selectRole($event)" >
                 <option value="">Select Role</option>
                 <option *ngFor="let role of roles" [value]="role.authority">{{role.description}}</option>
               </select>
+
+              <!-- span please select role first  -->
+              <span class="text-danger" *ngIf="!isRoleSelected">Please select role first</span>
 
             </div>
 
@@ -62,12 +65,14 @@
                         >
                           <input
                             class="form-check-input"
+                            [disabled]="!isRoleSelected"
                             type="checkbox"
                             (change)="selectAll($event)"
                           />
                           <span class="form-check-label" for="kt_roles_select_all"
                             >Select all</span
                           >
+
                         </label>
                       </div>
                     </td>
@@ -82,6 +87,7 @@
                         >
                           <input
                             class="form-check-input"
+                            [disabled]="!isRoleSelected"
                             type="checkbox"
                             [value]="action.code"
                             [name]="action.name"

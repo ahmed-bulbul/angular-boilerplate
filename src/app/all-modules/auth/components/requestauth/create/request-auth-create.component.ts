@@ -39,6 +39,7 @@ export class RequestAuthCreateComponent implements OnInit {
   private oldPrm: Permission[];
 
   public isUpdateable: boolean = false;
+  public isRoleSelected: boolean = false;
 
 
  permissionChange = new EventEmitter<Permission[]>();
@@ -145,10 +146,16 @@ export class RequestAuthCreateComponent implements OnInit {
     this.authService.createRequestAuth({
       requestAuthList : this.createPermissionsPayload(this.getAuhority)
     }).subscribe((res: any) => {
-      if(res.status==true){
-        alert('Request Auth Created Successfully');
+      if(res['status']==true){
+        this.formSubmitted=false;
+        Swal.fire({
+          title: 'Success',
+          text: res['message'],
+          icon: 'success',
+        })
       }
     } ,(err)=>{
+      this.formSubmitted=false;
       console.log(err);
     })
 
@@ -158,10 +165,16 @@ export class RequestAuthCreateComponent implements OnInit {
     this.authService.updateRequestAuth({
       requestAuthList : this.createPermissionsPayload(this.getAuhority)
     }).subscribe((res: any) => {
-      if(res.status==true){
-        alert('Request Auth Updated Successfully');
+      if(res['status']==true){
+        this.formSubmitted=false;
+        Swal.fire({
+          title: 'Success',
+          text: res['message'],
+          icon: 'success',
+        })
       }
     } ,(err)=>{
+      this.formSubmitted=false;
       console.log(err);
     })
 
@@ -200,9 +213,14 @@ export class RequestAuthCreateComponent implements OnInit {
 
   selectRole(event: any){
     this.permissions = [];
-    console.log(event.target.value);
+    //if empty then select all
+    if(event.target.value === ''){
+      this.isRoleSelected = false;
+      return;
+    }
     //get request auth list by authority
     this.isLoading = true;
+    this.isRoleSelected = true;
     const url = this.baseUrl+ '/api/v1/shared/authModule/getRequestAuth'+'/'+event.target.value;
     const queryParams: any = {};
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
