@@ -48,40 +48,29 @@ export class RequestAuthCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
     private sharedService:SharedService,private authService:AuthService,private router: Router) { }
 
-  @Input()
-  set role(role: Role | any) {
-    if (role) {
-      const permissions = role.data.requestAuthList ?? [];
-      let x = permissions.map((i: any) => ({
-        actions: i.chkAuthorizationChar.split(''),
-        module: i.module,
-      }));
 
-      x.map((p: any) => {
-        p.actions.map((action: any) => {
-          this.permissions.push({
-            module: p.module,
-            action: action,
-          });
-        });
-      });
-
-      this.oldPermissions.emit(permissions);
-    }
-  }
-
-  mapPermissions(permissions: Permission[]) {
-    this.permissions = permissions;
-  }
-  setOldPermissions(permissions: Permission[]) {
-    this.oldPrmsn = permissions;
-  }
+  // mapPermissions(permissions: this.permissionChange) {
+  //   this.permissions = permissions;
+  // }
+  // setOldPermissions(permissions: Permission[]) {
+  //   this.oldPrmsn = permissions;
+  // }
 
 
   ngOnInit(): void {
     this.initForm();
     this.getBaseModule();
     this.getRole();
+
+    //set permission from permissionChange
+    this.permissionChange.subscribe((permissions) => {
+      this.permissions = permissions;
+    });
+
+    //set old`permission from oldPermissions
+    this.oldPermissions.subscribe((permissions) => {
+      this.oldPrmsn = permissions;
+    })
 
   }
 
@@ -121,7 +110,9 @@ export class RequestAuthCreateComponent implements OnInit {
 
     console.log(this.permissions);
 
-    this.permissionChange.emit(this.fortmatPermission(this.permissions));
+    this.permissions =this.fortmatPermission(this.permissions);
+    console.log('this.permissions');
+    console.log(this.permissions);
   }
 
   validateCheckBox(module: string, action: string): boolean {
@@ -131,6 +122,7 @@ export class RequestAuthCreateComponent implements OnInit {
   }
 
   fortmatPermission(permissions: Permission[]): Permission[] {
+
     return Object.entries(_.groupBy(permissions, (i) => i.module)).map(
       ([key, values]) => ({
         module: key,
@@ -191,6 +183,7 @@ export class RequestAuthCreateComponent implements OnInit {
   }
 
   selectRole(event: any){
+    this.permissions = [];
     console.log(event.target.value);
     //get request auth list by authority
     this.isLoading = true;
@@ -199,8 +192,24 @@ export class RequestAuthCreateComponent implements OnInit {
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
       if(res.status ===true){
         this.isLoading = false;
-        this.requestAuth = res.data;
-        console.log(this.requestAuth);
+
+        //updating ........previous request auth list or not
+        if(res.data.length > 0){
+          const permissions= res.data;
+          let x = permissions.map((i: any) => ({
+            actions: i.chkAuthorizationChar.split(''),
+            module: i.module,
+          }));
+
+          x.map((p: any) => {
+            p.actions.map((action: any) => {
+              this.permissions.push({
+                module: p.module,
+                action: action,
+              });
+            });
+          });
+        }
       }
     },(err)=>{
       this.isLoading = false;
@@ -226,6 +235,8 @@ export class RequestAuthCreateComponent implements OnInit {
 
   createPermissionsPayload(role: string): any {
     const requestAuthList: any[] = [];
+
+    console.log(this.permissions);
 
     this.permissions.forEach((i) => {
       let newPermission: any = {
