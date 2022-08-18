@@ -38,6 +38,8 @@ export class RequestAuthCreateComponent implements OnInit {
   private prm: Permission[];
   private oldPrm: Permission[];
 
+  public isUpdateable: boolean = false;
+
 
  permissionChange = new EventEmitter<Permission[]>();
  oldPermissions = new EventEmitter<Permission[]>();
@@ -48,7 +50,7 @@ export class RequestAuthCreateComponent implements OnInit {
   public formGroup:FormGroup;
 
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
-    private sharedService:SharedService,private authService:AuthService,private router: Router) { }
+  private sharedService:SharedService,private authService:AuthService,private router: Router) { }
 
 
 
@@ -129,16 +131,36 @@ export class RequestAuthCreateComponent implements OnInit {
   onSubmit(){
 
     this.formSubmitted=true;
-    this.saveRequestAuth()
+    if(this.isUpdateable){
+      //update
+      this.updateReqAuth();
+    }else{
+      //create
+      this.createReqAuth();
+    }
+
 
   }
-  saveRequestAuth(){
-    //let payload = this.createPermissionsPayload(this.getAuhority);
+  createReqAuth(){
     this.authService.createRequestAuth({
       requestAuthList : this.createPermissionsPayload(this.getAuhority)
     }).subscribe((res: any) => {
+      if(res.status==true){
+        alert('Request Auth Created Successfully');
+      }
+    } ,(err)=>{
+      console.log(err);
+    })
 
-    //  this.router.navigate(['/auth/request-auth']);
+  }
+
+  updateReqAuth(){
+    this.authService.updateRequestAuth({
+      requestAuthList : this.createPermissionsPayload(this.getAuhority)
+    }).subscribe((res: any) => {
+      if(res.status==true){
+        alert('Request Auth Updated Successfully');
+      }
     } ,(err)=>{
       console.log(err);
     })
@@ -189,6 +211,7 @@ export class RequestAuthCreateComponent implements OnInit {
 
         //updating ........previous request auth list or not
         if(res.data.length > 0){
+          this.isUpdateable = true;
           const permissions= res.data;
           let x = permissions.map((i: any) => ({
             actions: i.chkAuthorizationChar.split(''),

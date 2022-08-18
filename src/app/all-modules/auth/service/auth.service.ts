@@ -22,10 +22,13 @@ export class AuthService {
 
   // create request auth
   createRequestAuth(payload: any) {
-    console.log(payload);
-    return;
     return this.httpClient.post(this.requestAuthApiEndPoint+'/create', payload);
   }
+
+  updateRequestAuth(payload: any) {
+    return this.httpClient.put(this.requestAuthApiEndPoint+'/update', payload);
+  }
+
 
   getUserProfile(id: number) {
     return this.httpClient.get(this.userApiEndPoint+'/get/'+id);
