@@ -37,6 +37,10 @@ export class RequestAuthCreateComponent implements OnInit {
   permissions: Permission[] = [];
   private oldPrmsn: Permission[];
 
+  private prm: Permission[];
+  private oldPrm: Permission[];
+
+
  permissionChange = new EventEmitter<Permission[]>();
  oldPermissions = new EventEmitter<Permission[]>();
 
@@ -57,15 +61,13 @@ export class RequestAuthCreateComponent implements OnInit {
     this.getBaseModule();
     this.getRole();
 
-    //set permission from permissionChange
-    this.permissionChange.subscribe((permissions) => {
-      this.permissions = permissions;
+    this.permissionChange.subscribe((permissions: Permission[]) => {
+      this.prm = permissions;
+      console.log(this.prm);
     });
-
-    //set old`permission from oldPermissions
-    this.oldPermissions.subscribe((permissions) => {
-      this.oldPrmsn = permissions;
-    })
+    this.oldPermissions.subscribe((permissions: Permission[]) => {
+      this.oldPrm = permissions;
+    });
 
   }
 
@@ -105,10 +107,8 @@ export class RequestAuthCreateComponent implements OnInit {
 
     console.log(this.permissions);
 
-
     this.permissionChange.emit(this.fortmatPermission(this.permissions));
-    console.log('this.permissions');
-    console.log(this.permissions);
+
   }
 
   validateCheckBox(module: string, action: string): boolean {
@@ -205,6 +205,7 @@ export class RequestAuthCreateComponent implements OnInit {
               });
             });
           });
+          this.oldPermissions.emit(permissions);
         }
       }
     },(err)=>{
