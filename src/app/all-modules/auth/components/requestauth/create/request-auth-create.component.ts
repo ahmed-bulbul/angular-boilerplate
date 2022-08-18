@@ -17,7 +17,7 @@ import { RequestAuth } from '../../../model/RequestAuth.model';
 import { AuthService } from '../../../service/auth.service';
 import * as _ from 'lodash';
 import { Role } from '../../../model/role';
-import { BehaviorSubject, Observable, of, Subject, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-request-auth-create',
@@ -49,12 +49,7 @@ export class RequestAuthCreateComponent implements OnInit {
     private sharedService:SharedService,private authService:AuthService,private router: Router) { }
 
 
-  // mapPermissions(permissions: this.permissionChange) {
-  //   this.permissions = permissions;
-  // }
-  // setOldPermissions(permissions: Permission[]) {
-  //   this.oldPrmsn = permissions;
-  // }
+
 
 
   ngOnInit(): void {
@@ -110,7 +105,8 @@ export class RequestAuthCreateComponent implements OnInit {
 
     console.log(this.permissions);
 
-    this.permissions =this.fortmatPermission(this.permissions);
+
+    this.permissionChange.emit(this.fortmatPermission(this.permissions));
     console.log('this.permissions');
     console.log(this.permissions);
   }
