@@ -23,6 +23,7 @@ export class AuthService {
   // create request auth
   createRequestAuth(payload: any) {
     console.log(payload);
+    return;
     return this.httpClient.post(this.requestAuthApiEndPoint+'/create', payload);
   }
 

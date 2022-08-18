@@ -35,8 +35,6 @@ export class RequestAuthCreateComponent implements OnInit {
   public roles :[]= [];
   actions: Action[] = Actions;
   permissions: Permission[] = [];
-  private oldPrmsn: Permission[];
-
   private prm: Permission[];
   private oldPrm: Permission[];
 
@@ -232,18 +230,15 @@ export class RequestAuthCreateComponent implements OnInit {
 
   createPermissionsPayload(role: string): any {
     const requestAuthList: any[] = [];
-
-    console.log(this.permissions);
-
-    this.permissions.forEach((i) => {
+    this.prm.forEach((i) => {
       let newPermission: any = {
         authority: role,
         chkAuthorizationChar: i.chkAuthorizationChar,
         module: i.module,
       };
 
-      const existingPermissionId = this.oldPrmsn
-        ? this.oldPrmsn.find(
+      const existingPermissionId = this.oldPrm
+        ? this.oldPrm.find(
             (o) => o.authority === role && o.module === i.module
           )?.id
         : null;
