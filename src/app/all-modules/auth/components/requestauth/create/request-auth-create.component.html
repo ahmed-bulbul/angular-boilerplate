@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
 <div class="content container-fluid">
 
   <!-- Page Header -->
@@ -19,7 +20,7 @@
   <div class="row">
     <div class="col-lg-12">
       <div class="card">
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
         <div class="card-header">
           <h4 class="card-title mb-0">Create Form</h4>
 
@@ -34,63 +35,75 @@
                 <!-- select role selectbox -->
             <div class="form-group">
               <label>Select Role</label>
-              <select class="form-control" formControlName="authority" (click)="getRole()" >
+              <select  class="form-control" formControlName="authority" (change)="selectRole($event)" >
                 <option value="">Select Role</option>
                 <option *ngFor="let role of roles" [value]="role.authority">{{role.description}}</option>
               </select>
 
+              <!-- span please select role first  -->
+              <span class="text-danger" *ngIf="!isRoleSelected">Please select role first</span>
+
             </div>
 
               </div>
             </div>
 
 
-            <div class="row">
-              <div class="table-responsive m-t-15">
-                <table class="table table-striped custom-table">
-                  <thead>
-                    <tr>
-                      <th>Module Permission</th>
-                      <th class="text-center">Create</th>
-                      <th class="text-center">Read</th>
-                      <th class="text-center">Query</th>
-                      <th class="text-center">Update</th>
-                      <th class="text-center">Delete</th>
-                      <th class="text-center">Import</th>
-                      <th class="text-center">Export</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <!--  baseModule shows dynamically-->
-                    <tr *ngFor="let data of baseModule; let i = index">
-                      <td>{{data.name}}</td>
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'C',i,$event)" id="{{data.code}}_create" />
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'R',i,$event)" id="{{data.code}}_read" />
-                      </td>
+            <div class="table-responsive">
+              <table class="table align-middle table-row-dashed fs-6 gy-5">
+                <tbody class="text-gray-600 fw-bold">
+                  <tr>
+                    <td class="text-gray-800">
+                      Administrator Access
+                      <!-- icon -->
+                      <i class="fa fa-check-circle text-success fs-12"></i>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <label
+                          class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20"
+                        >
+                          <input
+                            class="form-check-input"
+                            [disabled]="!isRoleSelected"
+                            type="checkbox"
+                            (change)="selectAll($event)"
+                          />
+                          <span class="form-check-label" for="kt_roles_select_all"
+                            >Select all</span
+                          >
 
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'Q',i,$event)" id="{{data.code}}_query" />
-                      </td>
-
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'U',i,$event)" id="{{data.code}}_update" />
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'D',i,$event)" id="{{data.code}}_delete" />
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'I',i,$event)" id="{{baseModule.code}}_import" />
-                      </td>
-                      <td class="text-center">
-                        <input type="checkbox" (change)="checkRow(data.code,'E',i,$event)" id="{{baseModule.code}}_export" />
-                      </td>
-
-                  </tbody>
-                </table>
-              </div>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let module of baseModule">
+                    <td class="text-gray-800">{{ module.name }}</td>
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <label
+                          class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-5"
+                          *ngFor="let action of actions"
+                        >
+                          <input
+                            class="form-check-input"
+                            [disabled]="!isRoleSelected"
+                            type="checkbox"
+                            [value]="action.code"
+                            [name]="action.name"
+                            (change)="check($event, module.code, action.code)"
+                            [checked]="validateCheckBox(module.code, action.code)"
+                            #checkboxInput
+                          />
+                          <span class="form-check-label fw-bold">{{
+                            action.name
+                          }}</span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
 
             <div class="text-right">
