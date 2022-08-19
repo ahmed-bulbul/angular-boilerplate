@@ -327,8 +327,8 @@ export class SidebarComponent implements OnInit {
       menuStr = this._generateMenuHTML( menu);
       $('#_leftMenuContainer').append( menuStr );
 
-      $('#_leftMenuContainer').append( this._menuHTML_structure() );
-      $('i.la-sm').css('font-size', '.875em');
+      // $('#_leftMenuContainer').append( this._menuHTML_structure() );
+       $('i.la-sm').css('font-size', '.875em');
   }
 
 }
