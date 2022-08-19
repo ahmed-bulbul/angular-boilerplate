@@ -11,7 +11,6 @@ import { Action } from 'src/app/sharing/model/action';
 import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
-import { RequestAuthCreateDTO } from '../../../dto/RequestAuthCreateDTO.model';
 import { Permission } from '../../../model/permission';
 import { RequestAuth } from '../../../model/RequestAuth.model';
 import { AuthService } from '../../../service/auth.service';
@@ -271,6 +270,15 @@ export class RequestAuthCreateComponent implements OnInit {
 
   createPermissionsPayload(role: string): any {
     const requestAuthList: any[] = [];
+    //if prm is empty
+    if(this.permissions.length === 0){
+      Swal.fire({
+        title: 'Info',
+        text: 'Please select at least one permission',
+        icon: 'info',
+      });
+      return;
+    }
     this.prm.forEach((i) => {
       let newPermission: any = {
         authority: role,

@@ -17,5 +17,5 @@ export interface User {
   roles:	any[],
   startDate:	string,
   username:	string,
-  photo: string;
+  photoPath: string;
 }
