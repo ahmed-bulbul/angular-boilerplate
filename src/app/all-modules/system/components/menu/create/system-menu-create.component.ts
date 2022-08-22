@@ -17,21 +17,21 @@ import { SystemService } from '../../../service/system.service';
 })
 export class SystemMenuCreateComponent implements OnInit {
 
-  public formGroup:FormGroup;
+  public formGroup: FormGroup;
   public systemMenu: SystemMenu = new SystemMenu();
   public baseUrl = environment.baseUrl;
   public parentMenu: any = [];
-  public isLoading:boolean;
+  public isLoading: boolean;
   public formSubmitted = false;
 
 
   //declare input field error message
-  public errorMsg:string;
+  public errorMsg: string;
 
 
 
-  constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
-    private sharedService:SharedService,private systemService:SystemService,private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private datePipe: DatePipe,
+    private sharedService: SharedService, private systemService: SystemService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -41,31 +41,31 @@ export class SystemMenuCreateComponent implements OnInit {
 
     // set systemMenu value from form
     this.formGroup.valueChanges.subscribe(() => {
-      this.systemMenu =  Object.assign(this.formGroup.value,{
-        parentMenu: this._getParentMenuFormData().value ? {id: this._getParentMenuFormData().value} : null,
+      this.systemMenu = Object.assign(this.formGroup.value, {
+        parentMenu: this._getParentMenuFormData().value ? { id: this._getParentMenuFormData().value } : null,
       });
     });
 
   }
 
-  initForm(){
+  initForm() {
 
     this.formGroup = this.formBuilder.group({
       id: [''],
-      code: ['', [Validators.required,Validators.minLength(3)]],
+      code: ['', [Validators.required, Validators.minLength(3)]],
       description: [''],
       parentMenu: [''],
-      openUrl:['',[Validators.required]],
-      apiUrl:['',[Validators.required]],
-      iconHtml:[''],
-      hasChild:[''],
-      visibleToAll:[''],
-      leftSideMenu:[''],
-      isChild:[''],
-      isActive:[''],
+      openUrl: ['', [Validators.required]],
+      apiUrl: ['', [Validators.required]],
+      iconHtml: [''],
+      hasChild: [''],
+      visibleToAll: [''],
+      leftSideMenu: [''],
+      isChild: [''],
+      isActive: [''],
       //sequence accept number 0-9
-      sequence: ['',[Validators.required]],
-      phone : ['']
+      sequence: ['', [Validators.required]],
+      phone: ['']
     });
 
   }
@@ -81,23 +81,23 @@ export class SystemMenuCreateComponent implements OnInit {
 
   get f() { return this.formGroup.controls; }
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.formGroup.value);
     this.isLoading = true;
     this.formSubmitted = true;
     this.saveSystemMenu();
   }
 
-  saveSystemMenu(){
-    this.systemService.createSystemMenu(this.systemMenu).subscribe( data =>{
+  saveSystemMenu() {
+    this.systemService.createSystemMenu(this.systemMenu).subscribe(data => {
       this.isLoading = false;
-      if(data['status'] === true){
+      if (data['status'] === true) {
         Swal.fire({
           title: 'Success',
           text: data['message'],
           icon: 'success',
         })
-      }else{
+      } else {
         Swal.fire({
           title: 'Info',
           text: data['message'],
@@ -106,51 +106,43 @@ export class SystemMenuCreateComponent implements OnInit {
 
       }
     },
-    error => {
-      this.isLoading = false;
-
-      this.errorMsg = error
-
-      //if error code is 403 its forbidden
-      if(error.status === 403){
-        Swal.fire({
-          title: 'Forbidden',
-          text: 'You are not authorized to access this feature!',
-          icon: 'error',
-        });
-      }else{
-        console.log(error);
-      }
-
-    });
-
+      error => {
+        this.isLoading = false;
+        this.errorMsg = error
+        //if error code is 403 its forbidden
+        if (error.status === 403) {
+          Swal.fire({
+            title: 'Forbidden',
+            text: 'You are not authorized to access this feature!',
+            icon: 'error',
+          });
+        } else {
+          console.log(error);
+        }
+      });
   }
 
-  getParentMenu(){
-    const apiURL = this.baseUrl + '/api/v1/systemMenu/getParentMenu';
+
+  getParentMenu() {
+    const apiURL = this.baseUrl + '/api/v1/system/systemMenu/getParentMenu';
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(apiURL,queryParams).subscribe((response: any) => {
-      if(response.status === true){
+    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+      if (response.status === true) {
         this.parentMenu = response.data;
         console.log(this.parentMenu);
-      }else{
-        // Swal.fire({
-        //   title: 'Info',
-        //   text: response.message,
-        //   icon: 'info',
-        // })
+      } else {
         console.log(response.message);
       }
-    },error => {
+    }, error => {
       console.log(error);
     });
   }
 
-  resetForm(){
+  resetForm() {
     this.formGroup.reset();
   }
 
-  _getParentMenuFormData(){
+  _getParentMenuFormData() {
     console.log(this.formGroup.get('parentMenu').value);
     return this.formGroup.get('parentMenu');
   }

@@ -323,7 +323,7 @@ export class SidebarComponent implements OnInit {
     //get menu from local storage
     // let menu = this.localstorageService.getMenu();
 
-    const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
+    const apiURL = this.baseUrl + '/api/v1/system/systemMenu/getMenuData';
     const queryParams: any = {};
     this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
       let menuStr = this._hardCodeMenuString();

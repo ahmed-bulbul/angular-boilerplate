@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1';
+  public baseUrl = environment.baseUrl + '/api/v1/auth';
 
   // for requestAuth adding /requestAuth adding
   public requestAuthApiEndPoint = this.baseUrl+'/requestAuth';

@@ -144,25 +144,14 @@ export class SystemMenuListComponent implements OnInit {
       },error => {
         this.isLoading = false;
         this.searchClick = false;
-        Swal.fire({
-          title: 'Error',
-          text: 'Something went wrong',
-          icon: 'error',
-        })
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+          this.router.navigate(['/error/error403']);
+        }
       }
     );
   }
-
-//   iterateKeyValue(){
-//     //iterate and print key value of system menu object of first record
-//      for (const key in this.systemMenu[0]) {
-//        if (this.systemMenu[0].hasOwnProperty(key)) {
-//          console.log(key);
-//          this.entityAttribute.push(key);
-//        }
-//      }
-//      console.log(this.entityAttribute);
-//  }
 
 
   deleteEntityData(tempId){
@@ -177,8 +166,17 @@ export class SystemMenuListComponent implements OnInit {
           this.toastr.success('Success', 'Record deleted successfully');
         }
       },error => {
+
+
         this.isLoading=false;
         console.log(error);
+      //if status code is 403 then forbidden
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          $('#delete_entity').modal('hide');
+        }
+
+        $('#delete_entity').modal('hide');
       }
     );
   }

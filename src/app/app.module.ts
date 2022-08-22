@@ -40,7 +40,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
     ToastrModule.forRoot(
       {
-        timeOut: 1500,
+        timeOut: 5000,
         positionClass: 'toast-top-right',
         preventDuplicates: true,
       }

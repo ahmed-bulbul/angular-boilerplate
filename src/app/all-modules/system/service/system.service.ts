@@ -10,7 +10,7 @@ import { SystemMenu } from '../model/SystemMenu.model';
 export class SystemService {
 
    //base url for the api
-   public baseUrl = environment.baseUrl + '/api/v1/systemMenu';
+   public baseUrl = environment.baseUrl + '/api/v1/system/systemMenu';
 
    constructor(private httpClient: HttpClient) { }
 
