@@ -29,7 +29,8 @@
             <mat-error *ngIf="formSubmitted && f.username.errors">
               <!-- error fa fa icon icon -->
               <i class="fa fa-exclamation-circle"></i>
-              {{errorMsg.error.username}}
+              <!-- {{errorMsg.error.username}} -->
+              <span *ngIf="f.username.errors.required"> Username is required</span>
             </mat-error>
           </mat-form-field>
 

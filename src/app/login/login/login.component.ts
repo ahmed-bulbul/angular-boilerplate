@@ -84,9 +84,6 @@ export class LoginComponent implements OnInit {
         console.log(data['user']);
         this.setToken(data['accessToken'],data['user']);
         this.setObserver();
-        this.setMenu();
-        // this.openDialog("you successfully login");
-        // this.router.navigate(['/dashboard/admin']);
         Swal.fire({
          // login success position right top small
           icon: 'success',
@@ -100,26 +97,20 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard/admin']);
         });
         this.isLoading = false;
-      }else{
-        this.isLoading = false;
-        Swal.fire({
-          icon: 'error',
-          title: 'Login Failed',
-          text: data['message'],
-
-        });
-
       }
     },
     error => {
       this.isLoading = false;
       this.errorMsg=error;
-      Swal.fire({
-        icon: 'error',
-        title: 'Login Failed',
-        text: error.error['message'],
-
-      });
+      if(error.status === 400){
+        Swal.fire({
+          title: 'error',
+          text: error.error.message,
+          icon: 'error',
+        });
+      }else{
+        console.log(error);
+      }
     });
   }
 
@@ -128,16 +119,16 @@ export class LoginComponent implements OnInit {
     this.loginService.currentUserSubject.next(this.localStorageService.getUser());
   }
 
-  setMenu() {
-    const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
-    const queryParams: any = {};
-    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
-      this.localStorageService.setMenu(response.data);
-    },error=>{
-      console.log(error);
-    });
+  // setMenu() {
+  //   const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
+  //   const queryParams: any = {};
+  //   this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+  //     this.localStorageService.setMenu(response.data);
+  //   },error=>{
+  //     console.log(error);
+  //   });
 
-  }
+  // }
 
   //set token and user
   setToken(token:string,user:string){

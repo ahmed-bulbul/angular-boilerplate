@@ -1,4 +1,3 @@
-import { User } from './user';
 
 export interface Role {
   authority: string;
@@ -9,6 +8,4 @@ export interface Role {
   lastUpdateDateTime: string;
   lastUpdateUser: string;
   status: string;
-  requestAccess?: any[];
-  users?: User[];
 }

@@ -6058,7 +6058,7 @@ table.table-inbox tbody tr.checked {
 
 .error-page {
     align-items: center;
-    background-color: rgba(244, 59, 72, 0.2);
+    background-color: #34444C;
     color: #1f1f1f;
     display: flex;
 }
@@ -6076,7 +6076,7 @@ table.table-inbox tbody tr.checked {
     width: 100%;
 }
 .error-box h1 {
-    color: #f43b48;
+    color: #E73A4D;
     font-size: 10em;
 }
 .error-box p {

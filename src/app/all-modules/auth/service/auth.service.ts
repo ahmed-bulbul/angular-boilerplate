@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { RequestAuthCreateDTO } from '../dto/RequestAuthCreateDTO.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { RequestAuthCreateDTO } from '../dto/RequestAuthCreateDTO.model';
 export class AuthService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1';
+  public baseUrl = environment.baseUrl + '/api/v1/auth';
 
   // for requestAuth adding /requestAuth adding
   public requestAuthApiEndPoint = this.baseUrl+'/requestAuth';

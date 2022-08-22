@@ -83,6 +83,8 @@ export class SidebarComponent implements OnInit {
 
     const self = this;
 
+
+
     console.log('@Call getPermittedMenu()............');
     this.getPermittedMenu();
 
@@ -319,16 +321,23 @@ export class SidebarComponent implements OnInit {
 
   getPermittedMenu(){
     //get menu from local storage
-    let menu = this.localstorageService.getMenu();
+    // let menu = this.localstorageService.getMenu();
 
-    let menuStr = this._hardCodeMenuString();
+    const apiURL = this.baseUrl + '/api/v1/system/systemMenu/getMenuData';
+    const queryParams: any = {};
+    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+      let menuStr = this._hardCodeMenuString();
       $('#_leftMenuContainer').append( menuStr );
 
-      menuStr = this._generateMenuHTML( menu);
+      menuStr = this._generateMenuHTML(response.data);
       $('#_leftMenuContainer').append( menuStr );
 
       // $('#_leftMenuContainer').append( this._menuHTML_structure() );
        $('i.la-sm').css('font-size', '.875em');
+    },error=>{
+      console.log(error);
+    });
+
   }
 
 }
