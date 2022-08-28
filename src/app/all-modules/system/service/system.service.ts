@@ -14,6 +14,7 @@ export class SystemService {
 
    public menuApiEndPoint = this.baseUrl+'/systemMenu';
    public entityAuthApiEndPoint = this.baseUrl+'/entityAuth';
+   public entityApiEndPoint = this.baseUrl+'/entity';
 
    constructor(private httpClient: HttpClient) { }
 
@@ -28,5 +29,10 @@ export class SystemService {
    // delete systemMenu by id
     deleteSystemMenu(id: number): Observable<Object>{
       return this.httpClient.delete(`${this.menuApiEndPoint}`+'/delete/'+id);
+    }
+
+   //get sytem entity
+    getSystemEntity(queryparams): Observable<Object>{
+      return this.httpClient.get(`${this.entityApiEndPoint}`+'/getAll',{params: queryparams});
     }
 }

@@ -1,1 +1,141 @@
-<p>entity-auth works!</p>
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">Request Auth</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
+          <li class="breadcrumb-item active">System</li>
+          <li class="breadcrumb-item active">Entity Auth</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <!-- create nice form design -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+
+        <div class="card-header">
+          <div class="card-tools">
+            <a class="" routerLink="/auth/request-auth/create">
+              <!--  arrow icon -->
+              <i class="fa fa-long-arrow-left"></i>
+              &nbsp;
+              Back to Request Auth
+            </a>
+         &nbsp;    &nbsp;     &nbsp;
+            <span class="text-warning"> <small>
+              <!-- icon warning -->
+              <i class="fa fa-exclamation-triangle"></i>
+               if you are updated <b>entityAuth</b> already, don't use
+               <b>requstAuth</b> again. it occurs ambiguity </small> </span>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <form [formGroup]="formGroup" (ngSubmit)="onSubmit()" >
+            <!-- permission page design GET POST PUT DELETE Check box -->
+
+            <div class="row">
+              <div class="col-md-4">
+
+                <!-- select role selectbox -->
+            <div class="form-group">
+              <label>Select Role</label>
+              <select  class="form-control" formControlName="authority" (change)="selectRole($event)" >
+                <option value="">Select Role</option>
+                <option *ngFor="let role of roles" [value]="role.authority">{{role.description}}</option>
+              </select>
+
+              <!-- span please select role first  -->
+              <span class="text-danger" *ngIf="!isRoleSelected">Please select role first</span>
+
+            </div>
+
+              </div>
+            </div>
+
+
+            <div class="table-responsive">
+              <table class="table align-middle table-row-dashed fs-6 gy-5">
+                <tbody class="text-gray-600 fw-bold">
+                  <tr>
+                    <td class="text-gray-800">
+                      Administrator Access
+                      <!-- icon -->
+                      <i class="fa fa-check-circle text-success fs-12"></i>
+                    </td>
+                    <td>
+                      <div class="d-flex">
+                        <label
+                          class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20"
+                        >
+                          <input
+                            class="form-check-input"
+                            [disabled]="!isRoleSelected"
+                            type="checkbox"
+                            (change)="selectAll($event)"
+                          />
+                          <span class="form-check-label" for="kt_roles_select_all"
+                            >Select all</span
+                          >
+
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let entity of systemEntity">
+                    <td class="text-gray-800">{{ entity.domainName }}</td>
+                    <td>
+                      <div class="d-flex justify-content-between">
+                        <label
+                          class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-5"
+                          *ngFor="let action of actions"
+                        >
+                          <input
+                            class="form-check-input"
+                            [disabled]="!isRoleSelected"
+                            type="checkbox"
+                            [value]="action.code"
+                            [name]="action.name"
+                            (change)="check($event, entity.domainName, action.code)"
+                            [checked]="validateCheckBox(entity.domainName, action.code)"
+                            #checkboxInput
+                          />
+                          <span class="form-check-label fw-bold">
+                            {{action.name}}
+                          </span>
+                        </label>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- <div class="text-right">
+              <button type="submit" class="btn btn-primary btn-ripple btn-sm" [disabled]="!formGroup.valid">
+                <span *ngIf="!formSubmitted">
+                  <i class="fa fa-save"></i>&nbsp; Save
+                </span>
+                <span *ngIf="formSubmitted" class="indicator-progress">
+                  Please wait...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+                &nbsp;&nbsp;&nbsp;
+              </button>
+
+              &nbsp; &nbsp;
+
+              <button type="button" class="btn btn-outline-warning btn-ripple btn-sm" (click)="resetForm()">
+                <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Reset
+              </button>
+            </div> -->
+          </form>
+        </div>
