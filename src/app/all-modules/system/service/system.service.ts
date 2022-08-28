@@ -10,20 +10,23 @@ import { SystemMenu } from '../model/SystemMenu.model';
 export class SystemService {
 
    //base url for the api
-   public baseUrl = environment.baseUrl + '/api/v1/system/systemMenu';
+   public baseUrl = environment.baseUrl + '/api/v1/system';
+
+   public menuApiEndPoint = this.baseUrl+'/systemMenu';
+   public entityAuthApiEndPoint = this.baseUrl+'/entityAuth';
 
    constructor(private httpClient: HttpClient) { }
 
    createSystemMenu(formData: SystemMenu): Observable<Object>{
-     return this.httpClient.post(`${this.baseUrl}`+'/create', formData);
+     return this.httpClient.post(`${this.menuApiEndPoint}`+'/create', formData);
    }
 
    getMenuList(queryparams): Observable<Object>{
-     return this.httpClient.get(`${this.baseUrl}`+'/getAll',{params: queryparams});
+     return this.httpClient.get(`${this.menuApiEndPoint}`+'/getAll',{params: queryparams});
    }
 
    // delete systemMenu by id
     deleteSystemMenu(id: number): Observable<Object>{
-      return this.httpClient.delete(`${this.baseUrl}`+'/delete/'+id);
+      return this.httpClient.delete(`${this.menuApiEndPoint}`+'/delete/'+id);
     }
 }

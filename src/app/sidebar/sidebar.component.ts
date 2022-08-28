@@ -100,8 +100,6 @@ export class SidebarComponent implements OnInit {
 
     });
 
-
-
     // // Slide up and down of menus
     $(document).on('click', '#sidebar-menu a', function (e) {
       e.stopImmediatePropagation();
