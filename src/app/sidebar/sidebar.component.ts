@@ -148,7 +148,6 @@ export class SidebarComponent implements OnInit {
   }
 
 
-
   setActive(member) {
     this.allModulesService.members.active = member;
   }
