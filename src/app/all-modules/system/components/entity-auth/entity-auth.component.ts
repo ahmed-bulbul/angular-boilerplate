@@ -10,6 +10,7 @@ import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
 import { SystemService } from '../../service/system.service';
 import * as _ from 'lodash';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-entity-auth',
@@ -44,6 +45,15 @@ export class EntityAuthComponent implements OnInit {
     this.initForm();
     this.getSystemEntity();
     this.getRole();
+
+
+    this.permissionChange.subscribe((permissions: Permission[]) => {
+      this.prm = permissions;
+      console.log(this.prm);
+    });
+    this.oldPermissions.subscribe((permissions: Permission[]) => {
+      this.oldPrm = permissions;
+    });
 
   }
 
@@ -111,7 +121,63 @@ export class EntityAuthComponent implements OnInit {
 
   updateReqAuth(){
 
+    this.systemService.updateEntityAuth({
+      systemEntityAuthorizationList : this.createPermissionsPayload(this.getAuhority)
+    }).subscribe((res: any) => {
+      if(res['status']==true){
+        this.formSubmitted=false;
+        Swal.fire({
+          title: 'Success',
+          text: res['message'],
+          icon: 'success',
+        })
+      }
+    } ,(err)=>{
+      this.formSubmitted=false;
+      console.log(err);
+    })
+
   }
+
+  createPermissionsPayload(role: string): any {
+    const systemEntityAuthorizationList: any[] = [];
+    //if prm is empty
+    if(this.permissions.length === 0){
+      Swal.fire({
+        title: 'Info',
+        text: 'Please select at least one permission',
+        icon: 'info',
+      });
+      return;
+    }
+    this.prm.forEach((i) => {
+      let newPermission: any = {
+        authority: role,
+        chkAuthorizationChar: i.chkAuthorizationChar,
+        entityName: i.entityName,
+      };
+
+      const existingPermissionId = this.oldPrm
+        ? this.oldPrm.find(
+            (o) => o.authority === role && o.entityName === i.entityName
+          )?.id
+        : null;
+
+      if (existingPermissionId) {
+        newPermission.id = existingPermissionId;
+      }
+
+      systemEntityAuthorizationList.push(newPermission);
+    });
+    console.log(systemEntityAuthorizationList);
+    return systemEntityAuthorizationList;
+  }
+
+  //get auth data from formGroup
+  get getAuhority(){
+    return this.formGroup.value.authority;
+  }
+
 
   selectRole(event){
 
@@ -196,6 +262,13 @@ export class EntityAuthComponent implements OnInit {
         chkAuthorizationChar: values.map((i) => i.action).join(''),
       })
     );
+  }
+
+  resetForm(){
+    this.formGroup.reset();
+    this.permissions = [];
+    this.isUpdateable = false;
+    this.isRoleSelected = false;
   }
 
 

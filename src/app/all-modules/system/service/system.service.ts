@@ -35,4 +35,10 @@ export class SystemService {
     getSystemEntity(queryparams): Observable<Object>{
       return this.httpClient.get(`${this.entityApiEndPoint}`+'/getAll',{params: queryparams});
     }
+
+    //update EntityAuth
+    updateEntityAuth(payload: any){
+      console.log(payload);
+      return this.httpClient.put(`${this.entityAuthApiEndPoint}`+'/update', payload);
+    }
 }
