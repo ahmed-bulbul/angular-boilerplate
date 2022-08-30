@@ -1,3 +1,4 @@
+import { EntityAuthComponent } from './components/entity-auth/entity-auth.component';
 import { SystemMenuCreateComponent } from './components/menu/create/system-menu-create.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path:'menu/list',
         component:SystemMenuListComponent,
+      },
+      {
+        path:'entity-auth/auth',
+        component:EntityAuthComponent,
       }
 
     ]

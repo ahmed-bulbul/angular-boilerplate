@@ -29,6 +29,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUserProfile();
+    
 
   }
 
@@ -37,10 +38,12 @@ export class UserProfileComponent implements OnInit {
       if (res.status === true) {
         this.userProfile = res.data;
         console.log(this.userProfile);
+
       }
     }, err => {
+
       console.log(err);
-      Swal.fire({ title: 'Error', text: err.message, icon: 'error' });
+     // Swal.fire({ title: 'Error', text: err.message, icon: 'error' });
     }
     );
   }

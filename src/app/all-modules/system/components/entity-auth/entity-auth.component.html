@@ -8,8 +8,8 @@
         <h3 class="page-title">Request Auth</h3>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
-          <li class="breadcrumb-item active">Auth</li>
-          <li class="breadcrumb-item active">Request Auth</li>
+          <li class="breadcrumb-item active">System</li>
+          <li class="breadcrumb-item active">Entity Auth</li>
         </ul>
       </div>
     </div>
@@ -23,11 +23,17 @@
 
         <div class="card-header">
           <div class="card-tools">
-
-            <a class="" routerLink="/system/entity-auth/auth">
+            <a class="" routerLink="/auth/request-auth/create">
               <!--  arrow icon -->
-              Go to Entity Auth &nbsp; <i class="fa fa-long-arrow-right"></i>
+              <i class="fa fa-long-arrow-left"></i>
+              &nbsp;
+              Back to Request Auth
             </a>
+         &nbsp;    &nbsp;     &nbsp;
+            <!-- <span class="text-warning"> <small>
+              <i class="fa fa-exclamation-triangle"></i>
+               if you are updated <b>entityAuth</b> already, don't use
+               <b>requstAuth</b> again. it occurs ambiguity </small> </span> -->
           </div>
 
         </div>
@@ -83,8 +89,8 @@
                       </div>
                     </td>
                   </tr>
-                  <tr *ngFor="let module of baseModule">
-                    <td class="text-gray-800">{{ module.name }}</td>
+                  <tr *ngFor="let entity of systemEntity">
+                    <td class="text-gray-800">{{ entity.domainName }} - ( {{entity.moduleName}} ) </td>
                     <td>
                       <div class="d-flex justify-content-between">
                         <label
@@ -97,14 +103,20 @@
                             type="checkbox"
                             [value]="action.code"
                             [name]="action.name"
-                            (change)="check($event, module.code, action.code)"
-                            [checked]="validateCheckBox(module.code, action.code)"
+                            (change)="check($event, entity.domainName, action.code)"
+                            [checked]="validateCheckBox(entity.domainName, action.code)"
                             #checkboxInput
                           />
-                          <span class="form-check-label fw-bold">{{
-                            action.name
-                          }}</span>
+
+                          <!-- checked  if role ==super_admin -->
+                          <span class="form-check-label" *ngIf=""
+                            >{{action.name}}</span>
+
+                          <span class="form-check-label fw-bold">
+                            {{action.name}}
+                          </span>
                         </label>
+
                       </div>
                     </td>
                   </tr>
@@ -115,7 +127,6 @@
             <div class="text-right">
               <button type="submit" class="btn btn-primary btn-ripple btn-sm" [disabled]="!formGroup.valid">
                 <span *ngIf="!formSubmitted">
-                  <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save
                 </span>
                 <span *ngIf="formSubmitted" class="indicator-progress">

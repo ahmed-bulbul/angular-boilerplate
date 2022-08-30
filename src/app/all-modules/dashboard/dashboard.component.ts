@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
     this.getScreenHeight();
   }
   ngOnInit(): void {
+    this.router.navigate(['/dashboard/admin']);
   }
 
   onResize(event) {

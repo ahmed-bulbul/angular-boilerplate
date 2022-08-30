@@ -61,6 +61,7 @@ export class RequestAuthCreateComponent implements OnInit {
     this.getBaseModule();
     this.getRole();
 
+
     this.permissionChange.subscribe((permissions: Permission[]) => {
       this.prm = permissions;
       console.log(this.prm);

@@ -17,6 +17,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatButtonModule} from '@angular/material/button';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {Ng2TelInputModule} from 'ng2-tel-input';
+import { EntityAuthComponent } from './components/entity-auth/entity-auth.component';
 
 
 
@@ -26,6 +27,7 @@ import {Ng2TelInputModule} from 'ng2-tel-input';
     SystemComponent,
     SystemMenuCreateComponent,
     SystemMenuListComponent,
+    EntityAuthComponent,
  ],
   imports: [
     CommonModule,
