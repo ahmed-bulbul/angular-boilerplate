@@ -30,11 +30,10 @@
               Back to Request Auth
             </a>
          &nbsp;    &nbsp;     &nbsp;
-            <span class="text-warning"> <small>
-              <!-- icon warning -->
+            <!-- <span class="text-warning"> <small>
               <i class="fa fa-exclamation-triangle"></i>
                if you are updated <b>entityAuth</b> already, don't use
-               <b>requstAuth</b> again. it occurs ambiguity </small> </span>
+               <b>requstAuth</b> again. it occurs ambiguity </small> </span> -->
           </div>
 
         </div>
@@ -91,7 +90,7 @@
                     </td>
                   </tr>
                   <tr *ngFor="let entity of systemEntity">
-                    <td class="text-gray-800">{{ entity.domainName }}</td>
+                    <td class="text-gray-800">{{ entity.domainName }} - ( {{entity.moduleName}} ) </td>
                     <td>
                       <div class="d-flex justify-content-between">
                         <label
@@ -108,10 +107,16 @@
                             [checked]="validateCheckBox(entity.domainName, action.code)"
                             #checkboxInput
                           />
+
+                          <!-- checked  if role ==super_admin -->
+                          <span class="form-check-label" *ngIf=""
+                            >{{action.name}}</span>
+
                           <span class="form-check-label fw-bold">
                             {{action.name}}
                           </span>
                         </label>
+
                       </div>
                     </td>
                   </tr>
