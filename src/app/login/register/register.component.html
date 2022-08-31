@@ -1,45 +1,132 @@
 <!-- Main Wrapper -->
 <div class="main-wrapper">
-    <div class="account-content">
-        <a routerLink = "/login/joblist" class="btn btn-primary apply-btn">Apply Job</a>
-        <div class="container">
+  <div class="account-content">
+    <div class="container">
 
-            <!-- Account Logo -->
-            <div class="account-logo">
+      <!-- Account Logo -->
+      <!-- <div class="account-logo">
                 <a routerLink="/dashboard"><img src="assets/img/logo2.png" alt="Dreamguy's Technologies"></a>
-            </div>
-            <!-- /Account Logo -->
+            </div> -->
+      <!-- /Account Logo -->
 
-            <div class="account-box">
-                <div class="account-wrapper">
-                    <h3 class="account-title">Register</h3>
-                    <p class="account-subtitle">Access to our dashboard</p>
+      <div class="row account-box">
+        <div class="col-md-7 col-sm-12">
+          <div class="">
+            <div class="account-wrapper">
+              <h2 class="text-muted" style="margin-left: 12px;">TechBitz</h2>
+              <p style="margin-left: 12px;">Create your Techbitz account</p>
+              <small class="text-center" style="margin-left: 12px;">to continue to HR system</small>
+              <br>
+              <br>
 
-                    <!-- Account Form -->
-                    <form action="dashboard">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input class="form-control" type="text">
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input class="form-control" type="password">
-                        </div>
-                        <div class="form-group">
-                            <label>Repeat Password</label>
-                            <input class="form-control" type="password">
-                        </div>
-                        <div class="form-group text-center">
-                            <button class="btn btn-primary account-btn" type="submit">Register</button>
-                        </div>
-                        <div class="account-footer">
-                            <p>Already have an account? <a routerLink = "/login/login">Login</a></p>
-                        </div>
-                    </form>
-                    <!-- /Account Form -->
+              <!-- Account Form -->
+              <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
+
+
+                <!-- name -->
+                <mat-form-field appearance="outline" class="w-100" style="padding-left: 13px;">
+                  <mat-label class="text-sm text-muted">Name</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.name.errors }"
+                    formControlName="name">
+                  <mat-error *ngIf="formSubmitted && f.name.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    <!-- {{errorMsg.error.name}} -->
+                    <span *ngIf="f.name.errors.required"> Name is required</span>
+                  </mat-error>
+                </mat-form-field>
+
+
+                <!-- <mat-form-field appearance="outline" class="w-100" style="padding-left: 13px;">
+                  <mat-label class="text-sm">Username</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.username.errors }"
+                    formControlName="username">
+                  <mat-error *ngIf="formSubmitted && f.username.errors">
+                    <i class="fa fa-exclamation-circle"></i>
+                    <span *ngIf="f.username.errors.required"> Username is required</span>
+                  </mat-error>
+                </mat-form-field> -->
+
+                <!-- email -->
+                <mat-form-field appearance="outline" class="w-100" style="padding-left: 13px;">
+                  <mat-label class="text-sm text-muted">Email</mat-label>
+                  <input matInput type="email" email="true" [ngClass]="{ 'is-invalid': formSubmitted && f.email.errors }"
+                    formControlName="email">
+                  <mat-error *ngIf="formSubmitted && f.email.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    <!-- valid email checking error -->
+                    <span *ngIf="f.email.errors.required"> Email is required</span>
+                    <span *ngIf="f.email.errors.email"> Email is invalid</span>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100" style="padding-left: 11px;">
+                  <!-- <mat-label class="text-sm" style="padding-left:50px">Phone</mat-label> -->
+                  <input
+                    matInput
+                    ng2TelInput
+                    [ng2TelInputOptions]="{initialCountry: 'bd'}"
+                    formControlName="phone"
+                    (hasError)="hasError($event)" />
+                  <mat-error
+                    *ngIf="
+                    !myForm.get('phone').valid &&
+                    myForm.get('phone').touched
+                    ">This is an <strong>invalid</strong> phone number.
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" class="w-100" style="padding-left: 13px;">
+                  <mat-label class="text-sm text-muted">Password</mat-label>
+                  <input matInput type="password" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
+                    formControlName="password">
+                  <mat-error *ngIf="formSubmitted && f.password.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    password is required
+                  </mat-error>
+                </mat-form-field>
+
+                <div class="form-group">
+                  <button tabindex="-1" mat-button type="button" color="primary" routerLink="/login">Sign in
+                    instead</button>
+                  &nbsp; &nbsp; &nbsp; &nbsp;
+
+                  <button mat-raised-button type="submit" color="primary" style="float:right">
+
+                    <span *ngIf="!isLoading">
+                      <!-- icon sign in -->
+                      Register
+                    </span>
+
+                    <span *ngIf="isLoading" class="indicator-progress" [style.display]="'block'">
+                      Please wait...
+                      <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                    </span>
+
+                  </button>
+
                 </div>
+                <div class="account-footer">
+                  <!-- forgot password -->
+
+                </div>
+              </form>
+              <!-- /Account Form -->
             </div>
+          </div>
         </div>
+        <div class="col-md-5 col-sm-12" style="margin-top: 200px">
+          <div class="account-logo">
+            <a routerLink="/dashboard"><img src="assets/img/account.svg" alt="Dreamguy's Technologies"></a>
+            <h3>One account. All of TechBitz working for you</h3>
+        </div>
+        </div>
+      </div>
+
+
     </div>
+  </div>
 </div>
 <!-- /Main Wrapper -->
