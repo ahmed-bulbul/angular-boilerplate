@@ -24,12 +24,6 @@ import { AllModulesData } from 'src/assets/all-modules-data/all-modules-data';
 import { NgxSpinnerModule } from "ngx-spinner";
 
 
-
-
-
-
-
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
 
 @NgModule({

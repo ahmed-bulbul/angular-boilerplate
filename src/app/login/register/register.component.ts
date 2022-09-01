@@ -82,13 +82,21 @@ export class RegisterComponent implements OnInit {
       },
       (error) => {
         this.isLoading = false;
-        if (error.status === 400) {
+        if (error.status === 400 && error.error.phone) {
+          Swal.fire({
+            title: "error",
+            text: error.error.phone,
+            icon: "error",
+          });
+        } else if(error.status === 400){
           Swal.fire({
             title: "error",
             text: error.error.message,
             icon: "error",
           });
-        } else {
+        }
+
+        else {
           console.log(error);
         }
       }
