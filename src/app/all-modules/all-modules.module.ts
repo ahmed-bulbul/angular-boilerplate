@@ -28,18 +28,15 @@ import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
+
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
 
 @NgModule({
   declarations: [
     AllModulesComponent,
     HeaderComponent,
-    SidebarComponent,
-
-
-
-
-
+    SidebarComponent
 
   ],
   imports: [

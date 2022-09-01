@@ -53,10 +53,9 @@
                   <!-- icon profile -->
                   <i class="fa fa-user"></i> &nbsp; Profile
                   </a>
-                <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">
-                  <!-- icon  -->
+                <!-- <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">
                   <i class="fa fa-key"></i> &nbsp; Change Password
-                  </a>
+                  </a> -->
                 <a class="dropdown-item" href="#" (click)="logout()" *ngIf="user">
                     <i class="fa fa-power-off"></i> &nbsp; Logout
                 </a>
@@ -70,7 +69,7 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
                 class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">Change Password</a>
+          <!-- <a  *ngIf="user" class="dropdown-item" routerLink="/shared/change-password">Change Password</a> -->
             <!-- <a class="dropdown-item" href="javascript:">Settings</a> -->
             <a class="dropdown-item" (click)="logout()" *ngIf="user">Logout</a>
         </div>

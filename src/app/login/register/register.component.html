@@ -50,8 +50,8 @@
                 <!-- email -->
                 <mat-form-field appearance="outline" class="w-100" style="padding-left: 13px;">
                   <mat-label class="text-sm text-muted">Email</mat-label>
-                  <input matInput type="email" email="true" [ngClass]="{ 'is-invalid': formSubmitted && f.email.errors }"
-                    formControlName="email">
+                  <input matInput type="email" email="true"
+                    [ngClass]="{ 'is-invalid': formSubmitted && f.email.errors }" formControlName="email">
                   <mat-error *ngIf="formSubmitted && f.email.errors">
                     <!-- error fa fa icon icon -->
                     <i class="fa fa-exclamation-circle"></i>
@@ -62,18 +62,12 @@
                 </mat-form-field>
 
                 <mat-form-field appearance="outline" class="w-100" style="padding-left: 11px;">
-                  <!-- <mat-label class="text-sm" style="padding-left:50px">Phone</mat-label> -->
-                  <input
-                    matInput
-                    ng2TelInput
-                    [ng2TelInputOptions]="{initialCountry: 'bd'}"
-                    formControlName="phone"
+                  <mat-label class="text-sm text-muted text-center" style="padding-left:60px">Phone</mat-label>
+                  <input matInput ng2TelInput [ng2TelInputOptions]="{initialCountry: 'bd'}" formControlName="phone"
                     (hasError)="hasError($event)" />
-                  <mat-error
-                    *ngIf="
-                    !myForm.get('phone').valid &&
-                    myForm.get('phone').touched
-                    ">This is an <strong>invalid</strong> phone number.
+                  <mat-error *ngIf=" (!myForm.get('phone').valid &&myForm.get('phone').touched) || (formSubmitted && f.password.errors)
+                    "><i class="fa fa-exclamation-circle"></i>
+                    This is an <strong>invalid</strong> phone number.
                   </mat-error>
                 </mat-form-field>
 
@@ -121,7 +115,7 @@
           <div class="account-logo">
             <a routerLink="/dashboard"><img src="assets/img/account.svg" alt="Dreamguy's Technologies"></a>
             <h3>One account. All of TechBitz working for you</h3>
-        </div>
+          </div>
         </div>
       </div>
 
