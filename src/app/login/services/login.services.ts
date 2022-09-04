@@ -46,5 +46,12 @@ export class LoginService {
     return this.http.post(`${this.baseUrl}`+'/register', formData);
   }
 
+  public forgotPassword(formData: any): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`+'/forgot-password', formData);
+  }
+
+  public resetPassword(formData: any): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`+'/reset-password', formData);
+  }
 
 }

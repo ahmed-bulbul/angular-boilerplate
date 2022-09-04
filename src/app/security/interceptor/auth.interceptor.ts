@@ -35,7 +35,8 @@ export class AuthInterceptor implements HttpInterceptor{
             this.localStorageService.logout();
             this.router.navigate(['login']);
         }else if(err.status === 404){
-            this.router.navigate(['error/error404']);
+           // this.router.navigate(['error/error404']);
+           console.log("From 404");
         }else if(err.status === 0){
           //toaster show 30 seconds on top of the page
           Swal.fire(

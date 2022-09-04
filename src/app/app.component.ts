@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
     // if not logged in, redirect to login page
 
 
-   // $('body').addClass('mini-sidebar');
+   $('body').addClass('mini-sidebar');
 
     // Minified Sidebar
 
