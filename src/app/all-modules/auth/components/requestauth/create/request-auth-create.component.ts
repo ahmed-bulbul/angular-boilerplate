@@ -194,7 +194,7 @@ export class RequestAuthCreateComponent implements OnInit {
 
   getRole(){
     if(this.roles.length === 0){
-      this.isLoading = true;
+      this.sharedService.isLoadingSubject.next(true);
       const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
       const queryParams: any = {};
       this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
@@ -204,7 +204,7 @@ export class RequestAuthCreateComponent implements OnInit {
           console.log(this.roles);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -219,13 +219,13 @@ export class RequestAuthCreateComponent implements OnInit {
       return;
     }
     //get request auth list by authority
-    this.isLoading = true;
+    this.sharedService.isLoadingSubject.next(true);
     this.isRoleSelected = true;
     const url = this.baseUrl+ '/api/v1/shared/authModule/getRequestAuth'+'/'+event.target.value;
     const queryParams: any = {};
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
       if(res.status ===true){
-        this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
 
         //updating ........previous request auth list or not
         if(res.data.length > 0){
@@ -248,22 +248,22 @@ export class RequestAuthCreateComponent implements OnInit {
         }
       }
     },(err)=>{
-      this.isLoading = false;
+      this.sharedService.isLoadingSubject.next(false);
       console.log(err);
     });
   }
 
 
   getBaseModule(){
-    this.isLoading = true;
+    this.sharedService.isLoadingSubject.next(true);
     const url = this.baseUrl+ '/api/v1/shared/baseModule/getModule';
     const queryParams: any = {};
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
-      this.isLoading = false;
-     this.baseModule = res.data;
+      this.sharedService.isLoadingSubject.next(false);
+      this.baseModule = res.data;
 
     },(err)=>{
-      this.isLoading = false;
+      this.sharedService.isLoadingSubject.next(false);
       console.log(err);
     });
   }
