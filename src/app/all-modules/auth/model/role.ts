@@ -1,11 +1,12 @@
 
-export interface Role {
+export class Role {
+  id: number;
   authority: string;
+  description: string;
+  status: string;
   creationDateTime: string;
   creationUser: string;
-  description: string;
-  id: number;
   lastUpdateDateTime: string;
   lastUpdateUser: string;
-  status: string;
+
 }

@@ -1,3 +1,4 @@
+import { SharedService } from 'src/app/sharing/service/shared.service';
 
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -39,7 +40,8 @@ export class SystemMenuListComponent implements OnInit {
     private router: Router,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
-    private systemService: SystemService
+    private systemService: SystemService,
+    private sharedService: SharedService
   ) {
     this.configPgn = {
       // my props
@@ -128,7 +130,8 @@ export class SystemMenuListComponent implements OnInit {
   }
 
   getListData(){
-    this.isLoading = true;
+   // this.isLoading = true;
+   this.sharedService.isLoadingSubject.next(true);
     this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
 
@@ -139,10 +142,12 @@ export class SystemMenuListComponent implements OnInit {
           this.configPgn.totalItem = response.totalItems;
           this.configPgn.totalItems = response.totalItems;
           this.setDisplayLastSequence();
+          this.sharedService.isLoadingSubject.next(false);
         //  this.iterateKeyValue();
         }
       },error => {
-        this.isLoading = false;
+      //  this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
         this.searchClick = false;
         if(error.status === 403){
           this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
@@ -181,9 +186,8 @@ export class SystemMenuListComponent implements OnInit {
     );
   }
   search(){
-    this.isLoading = true;
+    this.sharedService.isLoadingSubject.next(true);
     this.searchClick = true;
-
     // get field name from dropdown list
     const fieldName = $('#searchField').val();
     // get field value from input

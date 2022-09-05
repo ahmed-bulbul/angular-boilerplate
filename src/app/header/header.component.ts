@@ -6,6 +6,7 @@ import { HeaderService } from "./header.service";
 import { Subscription } from 'rxjs';
 import { LocalstorageService } from '../security/service/localstorage.service';
 import Swal from 'sweetalert2';
+import { SharedService } from '../sharing/service/shared.service';
 
 @Component({
   selector: "app-header",
@@ -19,17 +20,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public loginStatusSubject:boolean = false;
   public currentUserSubject:any;
+  public isLoadingSubject:boolean = false;
   public user:any;
 
   constructor(
     private headerService: HeaderService,
     private router: Router,
     private loginService:LoginService,
+    private sharedService: SharedService,
     private localstorageService:LocalstorageService) {
 
       // this is behaviour subject which will emit true or false
     this.loginService.loginStatusSubject.subscribe(res=>{
-      console.log('@Call for login or not by subscriber '+res);
       this.loginStatusSubject = res;
     },err=>{
       console.log(err);
@@ -37,9 +39,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.loginService.currentUserSubject.subscribe(res=>{
       this.currentUserSubject = res;
+      console.log('@Call for current user by subscriber '+res);
+      console.log(res);
     },err=>{
       console.log(err);
-    })
+    });
+
+    this.sharedService.isLoadingSubject.subscribe(res=>{
+      this.isLoadingSubject=res;
+      console.log("before is loading subject :::");
+      console.log(this.isLoadingSubject);
+    },err=>{
+      console.log(err)
+    });
 
 
   }
@@ -77,6 +89,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
 
   }
-
 
 }

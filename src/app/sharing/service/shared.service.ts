@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,6 +10,9 @@ export class SharedService {
 
   //base url for the api
   public baseUrl = environment.baseUrl + '/api/v1/baseModule';
+
+  isLoadingSubject: BehaviorSubject<boolean>;
+  isLoadingSubject$: Observable<boolean>;
 
   //define api endpoints
   private apiEndpoints = {
@@ -20,8 +24,11 @@ export class SharedService {
   }
 
 
-  constructor(private http: HttpClient) { }
-  
+  constructor(private http: HttpClient) {
+    this.isLoadingSubject = new BehaviorSubject<boolean>(false);
+    this.isLoadingSubject$ = this.isLoadingSubject.asObservable();
+   }
+
 
 
 

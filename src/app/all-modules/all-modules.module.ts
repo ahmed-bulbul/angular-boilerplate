@@ -22,6 +22,7 @@ import { AllModulesService } from './all-modules.service';
 // Api All Modules Database
 import { AllModulesData } from 'src/assets/all-modules-data/all-modules-data';
 import { NgxSpinnerModule } from "ngx-spinner";
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
@@ -40,6 +41,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
     InMemoryWebApiModule.forRoot(AllModulesData),
     PerfectScrollbarModule,
     AllModulesRoutingModule,
+    MatProgressBarModule
 
   ],
   providers: [

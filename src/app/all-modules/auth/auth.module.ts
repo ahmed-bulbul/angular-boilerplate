@@ -16,10 +16,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RoleComponent } from './components/role/role.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

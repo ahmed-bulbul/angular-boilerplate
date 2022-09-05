@@ -1,4 +1,4 @@
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+<!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar> -->
 <!-- Page Content -->
 <div class="content container-fluid">
 
@@ -41,7 +41,7 @@
           <div class="form-group">
 
 
-            <button mat-raised-button color="primary" (click)="search()">
+            <button class="btn btn-info" (click)="search()">
               <span *ngIf="!searchClick">
                 <!-- icon sign in -->
                 <i class="fa fa-search"></i>&nbsp; Search
@@ -65,7 +65,7 @@
         <div class="card">
           <div class="card-header">
             <div class="card-tools">
-              <a routerLink="/system/menu/create" class="btn btn-outline-primary"><i class="fa fa-plus-circle"> Add Menu</i></a>
+              <a routerLink="/system/menu/create" class="btn btn-outline-info"><i class="fa fa-plus-circle"> Add Menu</i></a>
             </div>
           </div>
 

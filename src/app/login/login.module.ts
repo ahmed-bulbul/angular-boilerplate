@@ -13,7 +13,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {Ng2TelInputModule} from 'ng2-tel-input';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -31,6 +31,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     MatInputModule,
     MatButtonModule,
     MatDialogModule,
+    MatProgressBarModule,
     Ng2TelInputModule
 
   ]
