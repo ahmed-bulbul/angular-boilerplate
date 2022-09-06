@@ -70,18 +70,18 @@ export class EntityAuthComponent implements OnInit {
 
   getSystemEntity(){
     if(this.systemEntity.length === 0){
-      this.isLoading = true;
+      this.sharedService.isLoadingSubject.next(true);
       const queryParams: any = {};
       queryParams.pageNum = 1;
       queryParams.pageSize = 100;
       this.systemService.getSystemEntity(queryParams).subscribe((res: any) => {
         if(res.status === true){
-          this.isLoading = false;
+          this.sharedService.isLoadingSubject.next(false);
           this.systemEntity = res.data;
           console.log(this.systemEntity);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -90,17 +90,17 @@ export class EntityAuthComponent implements OnInit {
 
   getRole(){
     if(this.roles.length === 0){
-      this.isLoading = true;
+      this.sharedService.isLoadingSubject.next(true);
       const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
       const queryParams: any = {};
       this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
         if(res.status ===true){
-          this.isLoading = false;
+          this.sharedService.isLoadingSubject.next(false);
           this.roles = res.data;
           console.log(this.roles);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -188,13 +188,13 @@ export class EntityAuthComponent implements OnInit {
       return;
     }
     //get request auth list by authority
-    this.isLoading = true;
+    this.sharedService.isLoadingSubject.next(true);
     this.isRoleSelected = true;
     const url = this.baseUrl+ '/api/v1/shared/systemModule/getEntityAuth'+'/'+event.target.value;
     const queryParams: any = {};
     this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
       if(res.status ===true){
-        this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
 
         //updating ........previous request auth list or not
         if(res.data.length > 0){
@@ -217,7 +217,7 @@ export class EntityAuthComponent implements OnInit {
         }
       }
     },(err)=>{
-      this.isLoading = false;
+      this.sharedService.isLoadingSubject.next(false);
       console.log(err);
     });
 

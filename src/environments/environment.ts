@@ -5,6 +5,10 @@
 export const environment = {
   production: false,
   baseUrl:"http://localhost:5555/springboiperplate",
+  authServiceUrl:"http://localhost:5555/springboiperplate/api/v1/auth",
+  attendanceServiceUrl:"http://localhost:5555/springboiperplate/api/v1/attendance",
+  coreHrServiceUrl:"http://localhost:5555/springboiperplate/api/v1/corehr",
+  payrollServiceUrl:"http://localhost:5555/springboiperplate/api/v1/payroll",
  // baseUrl:"https://spring-boot-boilerplate.herokuapp.com"
 };
 
