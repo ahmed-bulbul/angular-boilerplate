@@ -16,11 +16,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { RoleComponent } from './components/role/role.component';
+
+import { RoleCreateComponent } from './components/role/create/role-create.component';
+import { RoleListComponent } from './components/role/list/role-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -35,6 +38,7 @@ import { RoleComponent } from './components/role/role.component';
     MatCheckboxModule,
     MatButtonModule,
     MatProgressBarModule,
+    NgxPaginationModule,
     BsDatepickerModule.forRoot(),
   ]
 })

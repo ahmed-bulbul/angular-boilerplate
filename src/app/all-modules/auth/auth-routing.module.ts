@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { UserProfileComponent } from './components/user/profile/user-profile.component';
-import { RoleComponent } from './components/role/role.component';
+import { RoleCreateComponent } from './components/role/create/role-create.component';
+import { RoleListComponent } from './components/role/list/role-list.component';
 
 const routes: Routes = [
   {
@@ -21,8 +22,12 @@ const routes: Routes = [
         component:UserProfileComponent,
       },
       {
-        path:'role',
-        component:RoleComponent,
+        path:'role/create',
+        component:RoleCreateComponent,
+      },
+      {
+        path:'role/list',
+        component:RoleListComponent
       }
 
     ]

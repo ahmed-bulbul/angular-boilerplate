@@ -1,31 +1,27 @@
-import { SharedService } from 'src/app/sharing/service/shared.service';
-
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2';
-import { SystemService } from '../../../service/system.service';
+import { SharedService } from 'src/app/sharing/service/shared.service';
+import { Role } from '../../../model/role';
+import { AuthService } from '../../../service/auth.service';
 
 declare const $: any;
 @Component({
-  selector: 'app-system-menu-list',
-  templateUrl: './system-menu-list.component.html',
-  styleUrls: ['./system-menu-list.component.css']
+  selector: 'app-role-list',
+  templateUrl: './role-list.component.html',
+  styleUrls: ['./role-list.component.css']
 })
-export class SystemMenuListComponent implements OnInit {
+export class RoleListComponent implements OnInit {
 
-  public systemMenu: SystemMenuListComponent[];
-  public entityAttribute: any[] = [];
+  public role: Role[];
 
   public pipe = new DatePipe('en-US');
   public myFromGroup: FormGroup;
 
-
   public configPgn: any;
- // public listData: any = [];
   public editId: any;
   public tempId: any;
 
@@ -40,7 +36,7 @@ export class SystemMenuListComponent implements OnInit {
     private router: Router,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
-    private systemService: SystemService,
+    private authService: AuthService,
     private sharedService: SharedService
   ) {
     this.configPgn = {
@@ -58,26 +54,18 @@ export class SystemMenuListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
-
-    // set init params
-    this.myFromGroup = new FormGroup({
-      pageSize: new FormControl()
-    });
-    this.myFromGroup.get('pageSize').setValue(this.configPgn.pageSize);
-
-    // bind event & action
+      // set init params
+      this.myFromGroup = new FormGroup({
+        pageSize: new FormControl()
+      });
+      this.myFromGroup.get('pageSize').setValue(this.configPgn.pageSize);
+      // bind event & action
     this.bindFromFloatingLabel();
     //  this.pollData();
     this.getListData();
   }
 
-
-
-
-  bindFromFloatingLabel() {
-
+  bindFromFloatingLabel(){
     const self = this;
     // for floating label
     if ($('.floating').length > 0) {
@@ -99,12 +87,63 @@ export class SystemMenuListComponent implements OnInit {
       }
 
     });
+  }
+
+  getSearchData() {
+    this.getListData();
+  }
+
+  getListData() {
+    this.sharedService.isLoadingSubject.next(true);
+    this.authService.getRoleList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
+      (response: any) => {
+
+        if(response.status === true){
+          this.sharedService.isLoadingSubject.next(false);
+          this.searchClick = false;
+          this.role = response.data;
+          this.configPgn.totalItem = response.totalItems;
+          this.configPgn.totalItems = response.totalItems;
+          this.setDisplayLastSequence();
+          this.sharedService.isLoadingSubject.next(false);
+        //  this.iterateKeyValue();
+        }
+      },error => {
+      //  this.isLoading = false;
+        this.sharedService.isLoadingSubject.next(false);
+        this.searchClick = false;
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+          this.router.navigate(['/error/error403']);
+        }
+      }
+    );
+  }
+
+
+  search() {
 
   }
 
-  public getSearchData() {
-    this.getListData();
-
+  deleteEntityData(id){
+    this.authService.deleteRole(id).subscribe(
+      (response: any) => {
+        if(response.status === true){
+          //hide modal
+          $('#deleteModal').modal('hide');
+          this.toastr.success('Success', 'Role deleted successfully');
+          this.getListData();
+        }
+      },error => {
+        $('#deleteModal').modal('hide');
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+         // this.router.navigate(['/error/error403']);
+        }
+      }
+    );
   }
 
   private getUserQueryParams(page: number, pageSize: number): any {
@@ -129,101 +168,12 @@ export class SystemMenuListComponent implements OnInit {
 
   }
 
-  getListData(){
-   // this.isLoading = true;
-   this.sharedService.isLoadingSubject.next(true);
-    this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
-      (response: any) => {
-
-        if(response.status === true){
-          this.sharedService.isLoadingSubject.next(false);
-          this.searchClick = false;
-          this.systemMenu = response.data;
-          this.configPgn.totalItem = response.totalItems;
-          this.configPgn.totalItems = response.totalItems;
-          this.setDisplayLastSequence();
-          this.sharedService.isLoadingSubject.next(false);
-        //  this.iterateKeyValue();
-        }
-      },error => {
-      //  this.isLoading = false;
-        this.sharedService.isLoadingSubject.next(false);
-        this.searchClick = false;
-        if(error.status === 403){
-          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
-          //redirect to 403 page
-          this.router.navigate(['/error/error403']);
-        }
-      }
-    );
-  }
-
-
-  deleteEntityData(tempId){
-    this.sharedService.isLoadingSubject.next(true);
-    this.systemService.deleteSystemMenu(tempId).subscribe(
-      (response: any) => {
-        if(response.status === true){
-          this.sharedService.isLoadingSubject.next(false);
-          this.getListData();
-          //hide modal
-          $('#deleteModal').modal('hide');
-          this.toastr.success('Success', 'Record deleted successfully');
-        }
-      },error => {
-
-
-        this.sharedService.isLoadingSubject.next(false);
-        console.log(error);
-      //if status code is 403 then forbidden
-        if(error.status === 403){
-          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
-          $('#delete_entity').modal('hide');
-        }
-
-        $('#delete_entity').modal('hide');
-      }
-    );
-  }
-  search(){
-    this.sharedService.isLoadingSubject.next(true);
-    this.searchClick = true;
-    // get field name from dropdown list
-    const fieldName = $('#searchField').val();
-    // get field value from input
-    const fieldValue = $('#searchValue').val();
-    if(fieldName==='code'){
-      this.code = fieldValue;
-    }else if(fieldName==='name'){
-      this.code = fieldValue;
-    }else{
-      Swal.fire({
-        title: 'Info',
-        text: 'This field is not supported for search',
-        icon: 'info',
-      });
-    }
-
-
-
-    //if field value is empty then reset the value
-    if(!fieldValue){
-      this.code = '';
-    }
-
-    setTimeout(() => {
-
-      this.getListData();
-    } , 1000);
-    console.log(fieldName, fieldValue);
-
-  }
 
 
     // pagination handling methods start -----------------------------------------------------------------------
     setDisplayLastSequence() {
       this.configPgn.pngDiplayLastSeq = (((this.configPgn.pageNum - 1) * this.configPgn.pageSize) + this.configPgn.pageSize);
-      if (this.systemMenu.length < this.configPgn.pageSize) {
+      if (this.role.length < this.configPgn.pageSize) {
         this.configPgn.pngDiplayLastSeq = (((this.configPgn.pageNum - 1) * this.configPgn.pageSize) + this.configPgn.pageSize);
       }
       if (this.configPgn.totalItem < this.configPgn.pngDiplayLastSeq) {
@@ -244,5 +194,6 @@ export class SystemMenuListComponent implements OnInit {
       this.getListData();
     }
     // pagination handling methods end -------------------------------------------------------------------------
+
 
 }

@@ -153,7 +153,7 @@ export class SidebarComponent implements OnInit {
 
     const menuStr = `
     <li class="submenu">
-      <a href="javascript:"><i class="la la-dashboard"></i> <span>Dashboard</span> <span class="menu-arrow"></span></a>
+      <a href="javascript:"><i class="bi bi-speedometer"></i><span>Dashboard</span> <span class="menu-arrow"></span></a>
       <ul style="display: none;">
         <li><a class="routerlink" href="/dashboard/admin">Admin Dashboard</a></li>
         <li><a class="routerlink" href="/dashboard/employee">Employee Dashboard</a></li>

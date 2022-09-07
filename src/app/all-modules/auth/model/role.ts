@@ -3,7 +3,7 @@ export class Role {
   id: number;
   authority: string;
   description: string;
-  status: string;
+  active: boolean;
   creationDateTime: string;
   creationUser: string;
   lastUpdateDateTime: string;
