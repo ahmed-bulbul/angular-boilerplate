@@ -122,16 +122,6 @@ export class LoginComponent implements OnInit {
     this.loginService.currentUserSubject.next(this.localStorageService.getUser());
   }
 
-  // setMenu() {
-  //   const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
-  //   const queryParams: any = {};
-  //   this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
-  //     this.localStorageService.setMenu(response.data);
-  //   },error=>{
-  //     console.log(error);
-  //   });
-
-  // }
 
   //set token and user
   setToken(token:string,user:string){

@@ -27,7 +27,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private headerService: HeaderService,
     private router: Router,
     private loginService:LoginService,
-    private sharedService: SharedService,
     private localstorageService:LocalstorageService) {
 
       // this is behaviour subject which will emit true or false
@@ -45,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       console.log(err);
     });
 
-    this.sharedService.isLoadingSubject.subscribe(res=>{
+    this.headerService.isLoadingSubject.subscribe(res=>{
       this.isLoadingSubject=res;
       console.log("before is loading subject :::");
       console.log(this.isLoadingSubject);

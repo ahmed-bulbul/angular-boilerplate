@@ -8,7 +8,7 @@
   <div class="page-header">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="page-title">System Menu </h3>
+        <h2 class="page-title">System Menu </h2>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
           <li class="breadcrumb-item active">System Menu</li>
@@ -28,7 +28,7 @@
         <div class="col-md-3">
           <div class="form-group">
             <select class="form-control" id="searchField">
-              <option value="">Select Field</option>
+              <option value="">Select one</option>
               <option value="code">Code</option>
               <option value="apiUrl">ApiUrl</option>
             </select>
@@ -43,7 +43,7 @@
           <div class="form-group">
 
 
-            <button class="btn btn-info" (click)="search()">
+            <button class="btn btn-outline-info" (click)="search()">
               <span *ngIf="!searchClick">
                 <!-- icon sign in -->
                 <i class="fa fa-search"></i>&nbsp; Search
@@ -85,13 +85,19 @@
               <table id="genListTable" class="table table-striped custom-table">
                 <thead>
                   <tr>
-                    <th>SL</th>
-                    <th class="d-none">TB_ROW_ID</th>
+                    <th class="d-none">
+                      SL
+                      <span (click)="sortedBy()" ><i class="bi bi-arrow-down-up"></i></span>
+                    </th>
+                    <th>
+                      ID
+                      <span (click)="sortedBy()" ><i class="bi bi-arrow-down-up"></i></span>
+                    </th>
                     <th>Code</th>
                     <th>Description</th>
                     <th>OpenUrl</th>
                     <th>ApiUrl</th>
-                    <th>Icon Html</th>
+                    <th>Sequence</th>
                     <th>ParentMenu</th>
                     <th>Action</th>
                   </tr>
@@ -100,13 +106,13 @@
                   <tr *ngFor="let thisObj of systemMenu | paginate : configPgn; let i = index"
                     [class.active]="i == currentIndex">
 
-                    <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
-                    <td class="d-none">{{thisObj.id}}</td>
+                    <td class="d-none">{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
+                    <td>{{thisObj.id}}</td>
                     <td>{{thisObj.code}}</td>
                     <td>{{thisObj.description}}</td>
                     <td>{{thisObj.openUrl}}</td>
                     <td>{{thisObj.apiUrl}}</td>
-                    <td>{{thisObj.iconHtml}}</td>
+                    <td>{{thisObj.sequence}}</td>
                     <td>
                       {{thisObj.parentMenu?.description}}
                     </td>

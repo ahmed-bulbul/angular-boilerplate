@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HeaderService } from 'src/app/header/header.service';
 import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
@@ -27,6 +28,7 @@ export class RoleCreateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private datePipe: DatePipe,
     private sharedService: SharedService,
+    private headerService: HeaderService,
     private authService: AuthService,
     private router: Router
   ) { }
@@ -55,12 +57,12 @@ export class RoleCreateComponent implements OnInit {
   }
 
   createRole() {
-    this.sharedService.isLoadingSubject.next(true);
+    this.headerService.isLoadingSubject.next(true);
     this.role = this.formGroup.value;
     this.authService.createRole(this.role).subscribe(
       data => {
         if(data['status']==true){
-          this.sharedService.isLoadingSubject.next(false);
+          this.headerService.isLoadingSubject.next(false);
           Swal.fire({
             title: "Success",
             text: data['message'],
@@ -73,7 +75,7 @@ export class RoleCreateComponent implements OnInit {
       },
       error => {
         console.log(error);
-        this.sharedService.isLoadingSubject.next(false);
+        this.headerService.isLoadingSubject.next(false);
       }
     );
   }

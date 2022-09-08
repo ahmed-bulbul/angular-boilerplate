@@ -7,7 +7,7 @@
   <div class="page-header">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="page-title">Role</h3>
+        <h2 class="page-title">Role</h2>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
           <li class="breadcrumb-item active">Role</li>
@@ -80,6 +80,13 @@
                     <mat-option value="true">Active</mat-option>
                     <mat-option value="false">Inactive</mat-option>
                   </mat-select>
+
+                  <mat-error *ngIf="formSubmitted && f.active.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Active is required
+                  </mat-error>
+
                 </mat-form-field>
                 <br> <br>
               </div>

@@ -4,7 +4,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { HeaderService } from 'src/app/header/header.service';
 import { SharedService } from 'src/app/sharing/service/shared.service';
+import Swal from 'sweetalert2';
 import { Role } from '../../../model/role';
 import { AuthService } from '../../../service/auth.service';
 
@@ -26,7 +28,7 @@ export class RoleListComponent implements OnInit {
   public tempId: any;
 
   //search data
-  private code: string;
+  private authority: string;
 
   //search button click flag
   public searchClick: boolean = false;
@@ -37,7 +39,8 @@ export class RoleListComponent implements OnInit {
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
     private authService: AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private headerService : HeaderService,
   ) {
     this.configPgn = {
       // my props
@@ -94,23 +97,23 @@ export class RoleListComponent implements OnInit {
   }
 
   getListData() {
-    this.sharedService.isLoadingSubject.next(true);
+    this.headerService.isLoadingSubject.next(true);
     this.authService.getRoleList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
 
         if(response.status === true){
-          this.sharedService.isLoadingSubject.next(false);
+          this.headerService.isLoadingSubject.next(false);
           this.searchClick = false;
           this.role = response.data;
           this.configPgn.totalItem = response.totalItems;
           this.configPgn.totalItems = response.totalItems;
           this.setDisplayLastSequence();
-          this.sharedService.isLoadingSubject.next(false);
+          this.headerService.isLoadingSubject.next(false);
         //  this.iterateKeyValue();
         }
       },error => {
       //  this.isLoading = false;
-        this.sharedService.isLoadingSubject.next(false);
+        this.headerService.isLoadingSubject.next(false);
         this.searchClick = false;
         if(error.status === 403){
           this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
@@ -123,6 +126,36 @@ export class RoleListComponent implements OnInit {
 
 
   search() {
+    this.headerService.isLoadingSubject.next(true);
+    this.searchClick = true;
+    // get field name from dropdown list
+    const fieldName = $('#searchField').val();
+    // get field value from input
+    const fieldValue = $('#searchValue').val();
+    if(fieldName==='authority'){
+      this.authority = fieldValue;
+    }else if(fieldName==='name'){
+      this.authority = fieldValue;
+    }else{
+      Swal.fire({
+        title: 'Info',
+        text: 'This field is not supported for search',
+        icon: 'info',
+      });
+    }
+
+
+
+    //if field value is empty then reset the value
+    if(!fieldValue){
+      this.authority = '';
+    }
+
+    setTimeout(() => {
+
+      this.getListData();
+    } , 1000);
+    console.log(fieldName, fieldValue);
 
   }
 
@@ -142,6 +175,13 @@ export class RoleListComponent implements OnInit {
           //redirect to 403 page
          // this.router.navigate(['/error/error403']);
         }
+        if(error.status === 400){
+          Swal.fire({
+            title: 'Info',
+            text: error.error.message,
+            icon: 'info',
+          });
+        }
       }
     );
   }
@@ -158,8 +198,8 @@ export class RoleListComponent implements OnInit {
     }
 
     // push other attributes
-    if (this.code) {
-      params[`code`] = this.code;
+    if (this.authority) {
+      params[`authority`] = this.authority;
     }
 
 

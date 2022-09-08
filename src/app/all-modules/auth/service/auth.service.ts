@@ -10,7 +10,7 @@ import { Role } from '../model/role';
 export class AuthService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1/auth';
+  public baseUrl = environment.baseUrl + '/api/auth';
 
   // for requestAuth adding /requestAuth adding
   public requestAuthApiEndPoint = this.baseUrl+'/requestAuth';
