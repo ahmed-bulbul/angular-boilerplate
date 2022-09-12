@@ -29,6 +29,7 @@ export class RoleListComponent implements OnInit {
 
   //search data
   private authority: string;
+  private active: boolean;
 
   //search button click flag
   public searchClick: boolean = false;
@@ -159,6 +160,16 @@ export class RoleListComponent implements OnInit {
 
   }
 
+  sortedByActive() {
+    if(this.active){
+      this.active = false;
+    }
+    else{
+      this.active = true;
+    }
+    this.getListData();
+  }
+
   deleteEntityData(id){
     this.authService.deleteRole(id).subscribe(
       (response: any) => {
@@ -200,6 +211,10 @@ export class RoleListComponent implements OnInit {
     // push other attributes
     if (this.authority) {
       params[`authority`] = this.authority;
+    }
+
+    if(this.active){
+      params[`active`] = this.active;
     }
 
 

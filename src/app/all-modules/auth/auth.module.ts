@@ -20,10 +20,11 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { RoleCreateComponent } from './components/role/create/role-create.component';
 import { RoleListComponent } from './components/role/list/role-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { RoleEditComponent } from './components/role/edit/role-edit.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent, RoleEditComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

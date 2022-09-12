@@ -45,6 +45,15 @@ export class AuthService {
   getRoleList(queryParams) {
     return this.httpClient.get<Role>(this.roleApiEndpont+'/getAll', {params: queryParams});
   }
+  //get role by id
+  getRoleById(id: number) {
+    return this.httpClient.get<Role>(this.roleApiEndpont+'/get/'+id);
+  }
+
+  //update role
+  updateRole(payload: any) {
+    return this.httpClient.put<Role>(this.roleApiEndpont+'/update', payload);
+  }
 
   //delete role
   deleteRole(id: number) {

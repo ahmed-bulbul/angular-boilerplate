@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
          // login success position right top small
           icon: 'success',
-          title: 'Login Successful',
+          title: 'Success',
           text: data['message'],
           showConfirmButton: false,
           timer: 1500,
@@ -105,15 +105,13 @@ export class LoginComponent implements OnInit {
     error => {
       this.isLoading = false;
       this.errorMsg=error;
-      if(error.status === 400){
-        Swal.fire({
-          title: 'error',
-          text: error.error.message,
-          icon: 'error',
-        });
-      }else{
-        console.log(error);
-      }
+      Swal.fire({
+        title: 'Sorry...',
+        text: error.error.message,
+        icon: 'warning',
+        width: '450px',
+      });
+      console.log(error);
     });
   }
 

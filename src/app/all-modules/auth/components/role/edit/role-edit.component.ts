@@ -1,21 +1,20 @@
-
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HeaderService } from 'src/app/header/header.service';
 import { SharedService } from 'src/app/sharing/service/shared.service';
 import { environment } from 'src/environments/environment';
-import Swal from 'sweetalert2';
 import { Role } from '../../../model/role';
 import { AuthService } from '../../../service/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-role-create',
-  templateUrl: './role-create.component.html',
-  styleUrls: ['./role-create.component.css']
+  selector: 'app-role-edit',
+  templateUrl: './role-edit.component.html',
+  styleUrls: ['./role-edit.component.css']
 })
-export class RoleCreateComponent implements OnInit {
+export class RoleEditComponent implements OnInit {
 
   public formGroup: FormGroup;
   public role: Role = new Role();
@@ -29,11 +28,16 @@ export class RoleCreateComponent implements OnInit {
     private sharedService: SharedService,
     private headerService: HeaderService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
+    //get role by id from param
+    this.getRoleById(this.route.snapshot.params.id);
+
   }
 
   initForm() {
@@ -45,42 +49,46 @@ export class RoleCreateComponent implements OnInit {
     });
   }
 
-  get f() { return this.formGroup.controls; }
+  getRoleById(id: number) {
+    this.authService.getRoleById(id).subscribe((res: any) => {
+      if(res['status'] == true){
+        this.role = res['data'];
+        //set active value
+        this.formGroup.controls['active'].setValue(this.role.active);
+        this.formGroup.patchValue(this.role);
+      }
+    });
+  }
 
   onSubmit() {
     this.formSubmitted = true;
     if (this.formGroup.invalid) {
       return;
     }
-    this.createRole();
+    this.updateRole();
   }
 
-  createRole() {
+  updateRole() {
     this.headerService.isLoadingSubject.next(true);
     this.role = this.formGroup.value;
-    this.authService.createRole(this.role).subscribe(
-      data => {
-        if(data['status']==true){
+    this.authService.updateRole(this.role).subscribe(
+      (res: any) => {
+        if (res['status'] == true) {
           this.headerService.isLoadingSubject.next(false);
-          Swal.fire({
-            title: "Success",
-            text: data['message'],
-            icon: "success",
-
-          });
           this.router.navigate(['/auth/role/list']);
-        }
+          this.toastr.success(res['message']);
 
+        } else {
+          this.headerService.isLoadingSubject.next(false);
+        }
       },
-      error => {
-        console.log(error);
+      (error) => {
         this.headerService.isLoadingSubject.next(false);
+        this.toastr.error(error.error.message);
       }
     );
   }
 
-  resetForm(){
-
-  }
+  get f() { return this.formGroup.controls; }
 
 }
