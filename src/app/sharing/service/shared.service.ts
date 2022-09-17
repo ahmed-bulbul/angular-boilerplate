@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class SharedService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1/baseModule';
+  public baseUrl = environment.baseUrl + '/api/shared';
 
   //define api endpoints
   private apiEndpoints = {
@@ -19,10 +20,14 @@ export class SharedService {
     delete: this.baseUrl + '/delete',
   }
 
+  private authModuleApiUrl = this.baseUrl + '/authModule';
+  private baseModuleApiUrl = this.baseUrl + '/baseModule';
+  private systemModuleApiUrl = this.baseUrl + '/systemModule';
 
-  constructor(private http: HttpClient) { }
-  
 
+  constructor(private http: HttpClient) {
+
+   }
 
 
   public sendGetRequest(apiURL, queryParams){
@@ -44,5 +49,25 @@ export class SharedService {
     console.log('@sendDeleteRequest');
     return this.http.delete(apiURL, formData);
 
+  }
+
+  //get role
+  public getRole(queryParams): Observable<any> {
+    return this.http.get<any>(this.authModuleApiUrl+'/getRole', {params: queryParams});
+  }
+
+  //get entityAuth
+  public getEntityAuthByAuthority(authority,queryParams): Observable<any> {
+    return this.http.get<any>(this.systemModuleApiUrl+'/getEntityAuth/'+authority, {params: queryParams});
+  }
+
+  //get requestAuth
+  public getRequestAuth(authority,queryParams): Observable<any> {
+    return this.http.get<any>(this.authModuleApiUrl+'/getRequestAuth/'+authority, {params: queryParams});
+  }
+
+  //get module
+  public getModule(queryParams): Observable<any> {
+    return this.http.get<any>(this.baseModuleApiUrl+'/getModule', {params: queryParams});
   }
 }

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 export class BaseService {
 
   //base url for the api
-  public baseUrl = environment.baseUrl + '/api/v1';
+  public baseUrl = environment.baseUrl + '/api';
 
   //define api endpoints for base service
   private apiBaseEndpoints = {

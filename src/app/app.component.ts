@@ -11,9 +11,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // if not logged in, redirect to login page
-  
 
-    $('body').addClass('mini-sidebar');
+
+   $('body').addClass('mini-sidebar');
 
     // Minified Sidebar
 

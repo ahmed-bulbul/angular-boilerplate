@@ -1,11 +1,11 @@
-<mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
 <div class="content container-fluid">
 
   <!-- Page Header -->
   <div class="page-header">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="page-title">Request Auth</h3>
+        <h2 class="page-title">Request Auth</h2>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
           <li class="breadcrumb-item active">System</li>
@@ -48,12 +48,12 @@
             <div class="form-group">
               <label>Select Role</label>
               <select  class="form-control" formControlName="authority" (change)="selectRole($event)" >
-                <option value="">Select Role</option>
+                <option value="">Select one</option>
                 <option *ngFor="let role of roles" [value]="role.authority">{{role.description}}</option>
               </select>
 
               <!-- span please select role first  -->
-              <span class="text-danger" *ngIf="!isRoleSelected">Please select role first</span>
+              <span class="text-secondary" *ngIf="!isRoleSelected"><small class="text-small">Please select role first</small></span>
 
             </div>
 
@@ -125,7 +125,7 @@
             </div>
 
             <div class="text-right">
-              <button type="submit" class="btn btn-primary btn-ripple btn-sm" [disabled]="!formGroup.valid">
+              <button type="submit" class="btn btn-outline-info btn-sm" [disabled]="!formGroup.valid">
                 <span *ngIf="!formSubmitted">
                   <i class="fa fa-save"></i>&nbsp; Save
                 </span>

@@ -10,7 +10,7 @@ import { SystemMenu } from '../model/SystemMenu.model';
 export class SystemService {
 
    //base url for the api
-   public baseUrl = environment.baseUrl + '/api/v1/system';
+   public baseUrl = environment.baseUrl + '/api/system';
 
    public menuApiEndPoint = this.baseUrl+'/systemMenu';
    public entityAuthApiEndPoint = this.baseUrl+'/entityAuth';
@@ -25,6 +25,16 @@ export class SystemService {
    getMenuList(queryparams): Observable<Object>{
      return this.httpClient.get(`${this.menuApiEndPoint}`+'/getAll',{params: queryparams});
    }
+
+   //get menuData
+    getMenuData(queryParams): Observable<any> {
+      return this.httpClient.get<any>(this.menuApiEndPoint+'/getMenuData', {params: queryParams});
+    }
+
+   //get parent menu
+    getParentMenu(queryParams): Observable<any> {
+      return this.httpClient.get<any>(this.menuApiEndPoint+'/getParentMenu', {params: queryParams});
+    }
 
    // delete systemMenu by id
     deleteSystemMenu(id: number): Observable<Object>{

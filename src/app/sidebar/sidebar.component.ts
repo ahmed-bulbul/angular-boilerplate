@@ -8,6 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { PipeTransform, Pipe, NgZone } from '@angular/core';
 import { HttpHeaders } from '@angular/common/http';
 import { SharedService } from '../sharing/service/shared.service';
+import { SystemService } from '../all-modules/system/service/system.service';
 
 
 
@@ -45,7 +46,8 @@ export class SidebarComponent implements OnInit {
     private sharedService: SharedService,
     private toastr: ToastrService,
     private sanitizer: DomSanitizer,
-    private localstorageService:LocalstorageService
+    private localstorageService:LocalstorageService,
+    private systemService: SystemService
   ) {
     this.router.events.subscribe((event: Event) => {
 
@@ -317,12 +319,8 @@ export class SidebarComponent implements OnInit {
   }
 
   getPermittedMenu(){
-    //get menu from local storage
-    // let menu = this.localstorageService.getMenu();
-
-    const apiURL = this.baseUrl + '/api/v1/system/systemMenu/getMenuData';
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+    this.systemService.getMenuData(queryParams).subscribe((response: any) => {
       let menuStr = this._hardCodeMenuString();
       $('#_leftMenuContainer').append( menuStr );
 

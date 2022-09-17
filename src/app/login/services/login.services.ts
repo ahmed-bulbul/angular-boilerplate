@@ -7,6 +7,7 @@ import { retry } from "rxjs/operators";
 import { LocalstorageService } from "src/app/security/service/localstorage.service";
 import { environment } from "src/environments/environment";
 import { Login } from "../model/login";
+import { Register } from "../model/register";
 
 
 @Injectable({
@@ -22,6 +23,8 @@ export class LoginService {
   currentUserSubject: BehaviorSubject<any>;
   unsubscribe: Subscription[] = [];
   clearTimeout: any;
+
+
 
   constructor(
     private http: HttpClient,
@@ -39,6 +42,18 @@ export class LoginService {
   public login(formData:Login): Observable<Object>{
     return this.http.post(`${this.baseUrl}`+'/login', formData);
 
+  }
+
+  public register(formData:Register): Observable<Object>{
+    return this.http.post(`${this.baseUrl}`+'/register', formData);
+  }
+
+  public forgotPassword(formData: any): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`+'/forgot-password', formData);
+  }
+
+  public resetPassword(formData: any): Observable<Object> {
+    return this.http.post(`${this.baseUrl}`+'/reset-password', formData);
   }
 
 }

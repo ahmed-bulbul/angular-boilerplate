@@ -31,7 +31,9 @@ export class SystemMenuCreateComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder, private datePipe: DatePipe,
-    private sharedService: SharedService, private systemService: SystemService, private router: Router) { }
+    private sharedService: SharedService,
+     private systemService: SystemService,
+      private router: Router) { }
 
   ngOnInit(): void {
 
@@ -124,9 +126,8 @@ export class SystemMenuCreateComponent implements OnInit {
 
 
   getParentMenu() {
-    const apiURL = this.baseUrl + '/api/v1/system/systemMenu/getParentMenu';
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
+    this.systemService.getParentMenu( queryParams).subscribe((response: any) => {
       if (response.status === true) {
         this.parentMenu = response.data;
         console.log(this.parentMenu);

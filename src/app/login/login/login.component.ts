@@ -71,6 +71,9 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     this.formSubmitted = true;
+    if(this.myForm.invalid){
+      return;
+    }
     this.login();
 
   }
@@ -87,7 +90,7 @@ export class LoginComponent implements OnInit {
         Swal.fire({
          // login success position right top small
           icon: 'success',
-          title: 'Login Successful',
+          title: 'Success',
           text: data['message'],
           showConfirmButton: false,
           timer: 1500,
@@ -102,15 +105,13 @@ export class LoginComponent implements OnInit {
     error => {
       this.isLoading = false;
       this.errorMsg=error;
-      if(error.status === 400){
-        Swal.fire({
-          title: 'error',
-          text: error.error.message,
-          icon: 'error',
-        });
-      }else{
-        console.log(error);
-      }
+      Swal.fire({
+        title: 'Sorry...',
+        text: error.error.message,
+        icon: 'warning',
+        width: '450px',
+      });
+      console.log(error);
     });
   }
 
@@ -119,16 +120,6 @@ export class LoginComponent implements OnInit {
     this.loginService.currentUserSubject.next(this.localStorageService.getUser());
   }
 
-  // setMenu() {
-  //   const apiURL = this.baseUrl + '/api/v1/systemMenu/getMenuData';
-  //   const queryParams: any = {};
-  //   this.sharedService.sendGetRequest(apiURL, queryParams).subscribe((response: any) => {
-  //     this.localStorageService.setMenu(response.data);
-  //   },error=>{
-  //     console.log(error);
-  //   });
-
-  // }
 
   //set token and user
   setToken(token:string,user:string){

@@ -16,6 +16,7 @@ import { RequestAuth } from '../../../model/RequestAuth.model';
 import { AuthService } from '../../../service/auth.service';
 import * as _ from 'lodash';
 import { Role } from '../../../model/role';
+import { HeaderService } from 'src/app/header/header.service';
 
 
 @Component({
@@ -50,7 +51,10 @@ export class RequestAuthCreateComponent implements OnInit {
   public formGroup:FormGroup;
 
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
-  private sharedService:SharedService,private authService:AuthService,private router: Router) { }
+  private sharedService:SharedService,
+  private headerService:HeaderService,
+  private authService:AuthService,
+  private router: Router) { }
 
 
 
@@ -194,17 +198,16 @@ export class RequestAuthCreateComponent implements OnInit {
 
   getRole(){
     if(this.roles.length === 0){
-      this.isLoading = true;
-      const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
+      this.headerService.isLoadingSubject.next(true);
       const queryParams: any = {};
-      this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+      this.sharedService.getRole(queryParams).subscribe((res: any) => {
         if(res.status ===true){
           this.isLoading = false;
           this.roles = res.data;
           console.log(this.roles);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -219,13 +222,13 @@ export class RequestAuthCreateComponent implements OnInit {
       return;
     }
     //get request auth list by authority
-    this.isLoading = true;
+    this.headerService.isLoadingSubject.next(true);
     this.isRoleSelected = true;
-    const url = this.baseUrl+ '/api/v1/shared/authModule/getRequestAuth'+'/'+event.target.value;
+
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+    this.sharedService.getRequestAuth(event.target.value,queryParams).subscribe((res: any) => {
       if(res.status ===true){
-        this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
 
         //updating ........previous request auth list or not
         if(res.data.length > 0){
@@ -248,22 +251,21 @@ export class RequestAuthCreateComponent implements OnInit {
         }
       }
     },(err)=>{
-      this.isLoading = false;
+      this.headerService.isLoadingSubject.next(false);
       console.log(err);
     });
   }
 
 
   getBaseModule(){
-    this.isLoading = true;
-    const url = this.baseUrl+ '/api/v1/shared/baseModule/getModule';
+    this.headerService.isLoadingSubject.next(true);
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
-      this.isLoading = false;
-     this.baseModule = res.data;
+    this.sharedService.getModule(queryParams).subscribe((res: any) => {
+      this.headerService.isLoadingSubject.next(false);
+      this.baseModule = res.data;
 
     },(err)=>{
-      this.isLoading = false;
+      this.headerService.isLoadingSubject.next(false);
       console.log(err);
     });
   }

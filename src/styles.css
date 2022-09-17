@@ -75,6 +75,9 @@ Version      : 3.6
 ========================================*/
 @import "_custom.css";
 
+
+
+
 @font-face {
 	font-family: 'Material Icons';
 	font-style: normal;
@@ -788,7 +791,7 @@ table.dataTable thead > tr > td.sorting {
 	box-shadow: unset;
 }
 .dropdown-item.active, .dropdown-item:active {
-	background-color: #f43b48;
+	background-color: #028EE1;
 }
 .list-group-item {
 	border: 1px solid #e3e3e3;
@@ -1329,13 +1332,13 @@ table.dataTable thead > tr > td.sorting {
 -----------------------*/
 
 .header {
-	background: #34444c;
+	background: #fff;
 	/* background: -moz-linear-gradient(left, #f43b48 0%, #453a94 100%);
 	background: -webkit-linear-gradient(left, #f43b48 0%, #453a94 100%);
 	background: -ms-linear-gradient(left, #f43b48 0%, #453a94 100%);
 	background: linear-gradient(to right, #f43b48 0%, #453a94 100%); */
 	border-bottom: 1px solid transparent;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 1px 1px 0 #ddd;
 	height: 60px;
 	left: 0;
 	position: fixed;
@@ -1362,7 +1365,7 @@ table.dataTable thead > tr > td.sorting {
     width: 21px;
 }
 .bar-icon span {
-    background-color: #fff;
+    background-color: #100f0f;;
     border-radius: 500px;
     display: block;
     float: left;
@@ -1420,7 +1423,7 @@ table.dataTable thead > tr > td.sorting {
 	padding: 17px 20px;
 }
 .page-title-box h3 {
-	color: #fff;
+	color: #000;
 	font-size: 20px;
 	font-weight: normal;
 	margin: 0;
@@ -1432,15 +1435,17 @@ table.dataTable thead > tr > td.sorting {
     z-index: 99;
 }
 .user-menu.nav > li > a {
-	color: #fff;
+	color: #1A73E8;
 	font-size: 15px;
 	line-height: 60px;
 	padding: 0 15px;
 	height: 60px;
+  font-size: 14px;
+  font-weight: 500;
 }
 .user-menu.nav > li > a:hover,
 .user-menu.nav > li > a:focus {
-	background-color: rgba(0, 0, 0, 0.2);
+	color: #174EA6;
 }
 .flag-nav img {
 	margin-right: 5px;
@@ -1499,7 +1504,7 @@ table.dataTable thead > tr > td.sorting {
 -----------------------*/
 
 .sidebar {
-    background-color: #34444c;
+    background-color: #FFFFFF;;
     border-right: 1px solid transparent;
     bottom: 0;
     left: 0;
@@ -1530,18 +1535,18 @@ table.dataTable thead > tr > td.sorting {
 	position: relative;
 }
 .sidebar-menu li a {
-	color: #b7c0cd;
+	color: rgb(93, 90, 90);
 	display: block;
 	font-size: 15px;
 	height: auto;
 	padding: 0 20px;
 }
 .sidebar-menu li a:hover {
-	color: #fff;
+	color: #000;
 }
 .sidebar-menu li.active a {
 	color: #fff;
-	background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(93, 90, 90);
 }
 .menu-title {
     color: #ebecf1;
@@ -8048,7 +8053,7 @@ ul.comment-list li ul.children {
 		padding-right: 0;
 	}
 	a.mobile_btn {
-		color: #fff;
+		color: #00c;
 		font-size: 24px;
 		height: 60px;
 		left: 0;

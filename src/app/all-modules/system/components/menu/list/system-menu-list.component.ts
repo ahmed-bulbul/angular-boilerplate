@@ -1,3 +1,4 @@
+import { SharedService } from 'src/app/sharing/service/shared.service';
 
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { SystemService } from '../../../service/system.service';
+import { HeaderService } from 'src/app/header/header.service';
 
 declare const $: any;
 @Component({
@@ -21,7 +23,7 @@ export class SystemMenuListComponent implements OnInit {
 
   public pipe = new DatePipe('en-US');
   public myFromGroup: FormGroup;
-  public isLoading = false;
+
 
   public configPgn: any;
  // public listData: any = [];
@@ -30,6 +32,7 @@ export class SystemMenuListComponent implements OnInit {
 
   //search data
   private code: string;
+  private sortDir: string = 'desc';
 
   //search button click flag
   public searchClick: boolean = false;
@@ -39,7 +42,8 @@ export class SystemMenuListComponent implements OnInit {
     private router: Router,
     private spinnerService: NgxSpinnerService,
     private toastr: ToastrService,
-    private systemService: SystemService
+    private systemService: SystemService,
+    private headerService: HeaderService
   ) {
     this.configPgn = {
       // my props
@@ -121,6 +125,10 @@ export class SystemMenuListComponent implements OnInit {
       params[`code`] = this.code;
     }
 
+    if (this.sortDir) {
+      params[`sortDir`] = this.sortDir;
+    }
+
 
 
     return params;
@@ -128,21 +136,24 @@ export class SystemMenuListComponent implements OnInit {
   }
 
   getListData(){
-    this.isLoading = true;
+   // this.isLoading = true;
+   this.headerService.isLoadingSubject.next(true);
     this.systemService.getMenuList(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
       (response: any) => {
 
         if(response.status === true){
-          this.isLoading = false;
+          this.headerService.isLoadingSubject.next(false);
           this.searchClick = false;
           this.systemMenu = response.data;
           this.configPgn.totalItem = response.totalItems;
           this.configPgn.totalItems = response.totalItems;
           this.setDisplayLastSequence();
+          this.headerService.isLoadingSubject.next(false);
         //  this.iterateKeyValue();
         }
       },error => {
-        this.isLoading = false;
+      //  this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
         this.searchClick = false;
         if(error.status === 403){
           this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
@@ -155,20 +166,20 @@ export class SystemMenuListComponent implements OnInit {
 
 
   deleteEntityData(tempId){
-    this.isLoading = true;
+    this.headerService.isLoadingSubject.next(true);
     this.systemService.deleteSystemMenu(tempId).subscribe(
       (response: any) => {
         if(response.status === true){
-          this.isLoading = false;
+          this.headerService.isLoadingSubject.next(false);
           this.getListData();
           //hide modal
-          $('#delete_entity').modal('hide');
+          $('#deleteModal').modal('hide');
           this.toastr.success('Success', 'Record deleted successfully');
         }
       },error => {
 
 
-        this.isLoading=false;
+        this.headerService.isLoadingSubject.next(false);
         console.log(error);
       //if status code is 403 then forbidden
         if(error.status === 403){
@@ -181,9 +192,8 @@ export class SystemMenuListComponent implements OnInit {
     );
   }
   search(){
-    this.isLoading = true;
+    this.headerService.isLoadingSubject.next(true);
     this.searchClick = true;
-
     // get field name from dropdown list
     const fieldName = $('#searchField').val();
     // get field value from input
@@ -214,6 +224,17 @@ export class SystemMenuListComponent implements OnInit {
     console.log(fieldName, fieldValue);
 
   }
+
+  sortedBy(){
+    if(this.sortDir === 'desc'){
+      this.sortDir = 'asc';
+    }else{
+      this.sortDir = 'desc';
+    }
+    this.getListData();
+
+  }
+
 
 
     // pagination handling methods start -----------------------------------------------------------------------

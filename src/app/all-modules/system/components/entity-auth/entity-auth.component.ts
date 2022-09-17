@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { SystemService } from '../../service/system.service';
 import * as _ from 'lodash';
 import Swal from 'sweetalert2';
+import { HeaderService } from 'src/app/header/header.service';
 
 @Component({
   selector: 'app-entity-auth',
@@ -39,7 +40,10 @@ export class EntityAuthComponent implements OnInit {
  public formGroup:FormGroup;
 
   constructor(private formBuilder: FormBuilder,private datePipe: DatePipe,
-    private sharedService:SharedService,private systemService:SystemService,private router: Router) { }
+    private headerService:HeaderService,
+    private sharedService:SharedService,
+    private systemService:SystemService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -70,18 +74,18 @@ export class EntityAuthComponent implements OnInit {
 
   getSystemEntity(){
     if(this.systemEntity.length === 0){
-      this.isLoading = true;
+      this.headerService.isLoadingSubject.next(true);
       const queryParams: any = {};
       queryParams.pageNum = 1;
       queryParams.pageSize = 100;
       this.systemService.getSystemEntity(queryParams).subscribe((res: any) => {
         if(res.status === true){
-          this.isLoading = false;
+          this.headerService.isLoadingSubject.next(false);
           this.systemEntity = res.data;
           console.log(this.systemEntity);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -90,17 +94,16 @@ export class EntityAuthComponent implements OnInit {
 
   getRole(){
     if(this.roles.length === 0){
-      this.isLoading = true;
-      const url = this.baseUrl+ '/api/v1/shared/authModule/getRole';
+      this.headerService.isLoadingSubject.next(true);
       const queryParams: any = {};
-      this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+      this.sharedService.getRole(queryParams).subscribe((res: any) => {
         if(res.status ===true){
-          this.isLoading = false;
+          this.headerService.isLoadingSubject.next(false);
           this.roles = res.data;
           console.log(this.roles);
         }
       },(err)=>{
-        this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
         console.log(err);
       });
 
@@ -188,13 +191,12 @@ export class EntityAuthComponent implements OnInit {
       return;
     }
     //get request auth list by authority
-    this.isLoading = true;
+    this.headerService.isLoadingSubject.next(true);
     this.isRoleSelected = true;
-    const url = this.baseUrl+ '/api/v1/shared/systemModule/getEntityAuth'+'/'+event.target.value;
     const queryParams: any = {};
-    this.sharedService.sendGetRequest(url,queryParams).subscribe((res: any) => {
+    this.sharedService.getEntityAuthByAuthority(event.target.value,queryParams).subscribe((res: any) => {
       if(res.status ===true){
-        this.isLoading = false;
+        this.headerService.isLoadingSubject.next(false);
 
         //updating ........previous request auth list or not
         if(res.data.length > 0){
@@ -217,7 +219,7 @@ export class EntityAuthComponent implements OnInit {
         }
       }
     },(err)=>{
-      this.isLoading = false;
+      this.headerService.isLoadingSubject.next(false);
       console.log(err);
     });
 

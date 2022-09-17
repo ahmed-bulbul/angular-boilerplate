@@ -56,6 +56,8 @@ export class DevToolsCreateComponent implements OnInit {
 
       if(data['status'] === true){
         this.toastr.success(data['message'], 'Success',{positionClass: 'toast-top-right',timeOut:5000});
+        //reset the form
+        this.resetForm();
         this.router.navigate(['/dev-tools/create']);
       }else{
         this.toastr.error(data['message']);
