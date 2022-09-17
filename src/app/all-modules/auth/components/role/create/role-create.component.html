@@ -99,11 +99,11 @@
             <div class="text-right">
               <!-- <button mat-raised-button color="primary">Primary</button> -->
               <button  class="btn btn-outline-info btn-sm">
-                <span *ngIf="!isLoading">
+                <span *ngIf="!formSubmitted">
                   <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save
                 </span>
-                <span *ngIf="isLoading" class="indicator-progress">
+                <span *ngIf="formSubmitted" class="indicator-progress">
                   Please wait...
                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>

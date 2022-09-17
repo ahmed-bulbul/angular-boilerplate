@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 import { Role } from '../../../model/role';
 import { AuthService } from '../../../service/auth.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-role-create',
   templateUrl: './role-create.component.html',
@@ -20,7 +20,6 @@ export class RoleCreateComponent implements OnInit {
   public formGroup: FormGroup;
   public role: Role = new Role();
   public baseUrl = environment.baseUrl;
-  public isLoading: boolean;
   public formSubmitted = false;
 
   constructor(
@@ -29,7 +28,8 @@ export class RoleCreateComponent implements OnInit {
     private sharedService: SharedService,
     private headerService: HeaderService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -62,12 +62,8 @@ export class RoleCreateComponent implements OnInit {
       data => {
         if(data['status']==true){
           this.headerService.isLoadingSubject.next(false);
-          Swal.fire({
-            title: "Success",
-            text: data['message'],
-            icon: "success",
-
-          });
+          this.formSubmitted = false;
+          this.toastr.success(data['message']);
           this.router.navigate(['/auth/role/list']);
         }
 
@@ -75,6 +71,8 @@ export class RoleCreateComponent implements OnInit {
       error => {
         console.log(error);
         this.headerService.isLoadingSubject.next(false);
+        this.formSubmitted = false;
+        this.toastr.error(error.error.message);
       }
     );
   }

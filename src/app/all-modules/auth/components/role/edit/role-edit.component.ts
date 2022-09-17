@@ -19,7 +19,6 @@ export class RoleEditComponent implements OnInit {
   public formGroup: FormGroup;
   public role: Role = new Role();
   public baseUrl = environment.baseUrl;
-  public isLoading: boolean;
   public formSubmitted = false;
 
   constructor(
@@ -75,15 +74,18 @@ export class RoleEditComponent implements OnInit {
       (res: any) => {
         if (res['status'] == true) {
           this.headerService.isLoadingSubject.next(false);
+          this.formSubmitted = false;
           this.router.navigate(['/auth/role/list']);
           this.toastr.success(res['message']);
 
         } else {
           this.headerService.isLoadingSubject.next(false);
+          this.formSubmitted = false;
         }
       },
       (error) => {
         this.headerService.isLoadingSubject.next(false);
+        this.formSubmitted = false;
         this.toastr.error(error.error.message);
       }
     );
