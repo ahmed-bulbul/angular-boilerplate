@@ -46,13 +46,13 @@
                 <div class="profile-basic">
                   <div class="row">
                     <div class="col-md-8">
-                        <h3 class="user-name m-t-0 mb-0">Bulbul Ahmed
+                        <h3 class="user-name m-t-0 mb-0">{{userProfile.name}}
                             <!-- check icon circle  hover text verfied-->
                             <i class="bi bi-patch-check-fill" title="Verified" style="color:#49C5D8;"></i>
                         </h3>
-                        <h6 class="text-muted">Java/Spring Boot Developer</h6>
-                        <small class="text-muted">Software Engineer</small>
-                        <div class="staff-id">Employee ID : FT-0001</div>
+                        <h6 class="text-muted">{{userProfile.organization?.description}} --  {{userProfile.operatingUnit?.longDescription}}</h6>
+                        <div class="staff-id">User id: {{userProfile.id}}</div>
+                        <small class="text-muted">Mobile : {{userProfile.phone}}</small>
                         <div class="small doj text-muted">Date of Join : 1st Jan 2020</div>
 
 
@@ -70,24 +70,38 @@
               <h4 class="text-center border-dtd-btm" > Basic Information </h4>
               <div class="row">
                 <div class="col-md-6 pt-2">
-                  <h5 class="text-muted">Username : bulbul-dev
+                  <h5 class="text-muted">Username : {{userProfile.username}}
                   </h5>
                   <h5 class="text-muted">Date of Birth : 1st Jan 1995</h5>
                   <h5 class="text-muted">Address : Tangail, Dhaka</h5>
                 </div>
                 <div class="col-md-6 pt-2">
-                  <h5 class="text-muted">Role : Super Admin</h5>
-                  <h5 class="text-muted">Email : bulbul.dev@gmail.com </h5>
-                  <h5 class="text-muted">Active : Yes </h5>
+                  <h5 class="text-muted">Role :
+                    <!-- list of roles -->
+                    <span *ngFor="let role of userProfile.roles">
+                      {{role.description}}
+                    </span>
+                  </h5>
+                  <h5 class="text-muted">Email : {{userProfile.email}}</h5>
+                  <h5 class="text-muted">Active :
+                      <!-- active slider userProfile .active  -->
+                      <span
+                      class=""
+                      [ngClass]="
+                      userProfile.enabled ? 'btn-light-success' : 'btn-light-danger'">
+                      <!-- icon check if yes -->
+                    <i
+                      class="bi bi-check-circle-fill"
+                      *ngIf="userProfile.enabled"
+                      style="color:#49C5D8;"></i>
+                      {{ userProfile.enabled ? "Yes" : "No" }}
+
+                    </span>
+
+                  </h5>
 
                 </div>
               </div>
-
-
-
-
-
-
             </div>
           </div>
         </div>
@@ -109,6 +123,19 @@
             <div class="card-body">
               <h4 class="text-center"> Others details </h4>
               <hr>
+              <!-- entry by -->
+              <div class="row">
+                <div class="col-md-6">
+                  <h5 class="text-muted">Organization : {{userProfile.organization?.description}}</h5>
+                  <h5 class="text-muted">Entry By : {{userProfile.createdBy}}</h5>
+
+                </div>
+                <div class="col-md-6">
+                  <h5 class="text-muted">Operating Unit : {{userProfile.operatingUnit?.longDescription}}</h5>
+                  <h5 class="text-muted">Entry Date : {{userProfile.createdAt | date: 'dd/MM/yyyy'}}</h5>
+                </div>
+                </div>
+                <!-- update by -->
 
 
 
@@ -140,10 +167,6 @@
 
   </div>
   <!-- /Page Content -->
-
-
-
-
 
 
   <!-- Profile pic upload modal-->
