@@ -44,7 +44,7 @@
                         <small class="text-muted">Mobile : {{userProfile.phone}}</small>
 
                         <div class="small doj text-muted">Date of Join : 1st Jan 2020</div>
-                        <small class="text-muted">Active :
+                        <small class="text-muted">Enabled :
                           <span
                           class=""
                           [ngClass]="
@@ -54,7 +54,7 @@
                           class="bi bi-check-circle-fill"
                           *ngIf="userProfile.enabled"
                           style="color:#49C5D8;"></i>
-                          {{ userProfile.enabled ? "Yes" : "No" }}
+                          {{ userProfile.enabled ? "" : "No" }}
 
                         </span>
 
@@ -88,6 +88,17 @@
                     </span>
                   </h5>
                   <h5 class="text-muted">Email : {{userProfile.email}}</h5>
+                  <!-- active -->
+                  <h5 class="text-muted">Active :
+                    <span
+                    class=""
+                    [ngClass]="
+                    userProfile.active ? 'btn-light-success' : 'btn-light-danger'">
+                    <!-- icon check if yes -->
+                  <i class="bi bi-check-circle-fill" *ngIf="userProfile.active" style="color:#49C5D8;"></i>
+                    {{ userProfile.active ? "" : "No" }}
+                  </span>
+                  </h5>
                 </div>
               </div>
             </div>

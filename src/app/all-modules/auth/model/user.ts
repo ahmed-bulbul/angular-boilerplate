@@ -17,7 +17,7 @@ export interface User  extends BaseModel{
   phone:	string,
   roles:	any[],
   photoPath: string;
-  verificationCode: string;
-  organization: Organization;
-  operatingUnit: OperatingUnit;
+  verificationCode: string,
+  organization: Organization,
+  operatingUnit: OperatingUnit,
 }
