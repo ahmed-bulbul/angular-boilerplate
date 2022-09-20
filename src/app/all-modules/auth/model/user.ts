@@ -1,21 +1,23 @@
-export interface User {
-  creationDateTime:	string,
-  creationUser:	string,
-  department:	string,
+import { BaseModel } from "src/app/sharing/model/BaseModel.model";
+import { OperatingUnit } from "../../base/model/OperatingUnit.model";
+import { Organization } from "../../base/model/Organization.model";
+
+export interface User  extends BaseModel{
+
+  username:	string,
   email:	string,
   enabled:	boolean,
-  endDate:	string,
   gender:	string,
-  id:	number,
+  creationDateTime:	string,
+  creationUser:	string,
   lastUpdateDateTime:	string,
   lastUpdateUser:	string,
-  firstName: string,
-  lastName: string,
   name:	string,
   password:	string,
   phone:	string,
   roles:	any[],
-  startDate:	string,
-  username:	string,
   photoPath: string;
+  verificationCode: string;
+  organization: Organization;
+  operatingUnit: OperatingUnit;
 }

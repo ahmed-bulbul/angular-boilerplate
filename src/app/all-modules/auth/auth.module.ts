@@ -21,10 +21,12 @@ import { RoleCreateComponent } from './components/role/create/role-create.compon
 import { RoleListComponent } from './components/role/list/role-list.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RoleEditComponent } from './components/role/edit/role-edit.component';
+import { UserCreateComponent } from './components/user/create/user-create.component';
+import { UserListComponent } from './components/user/list/user-list.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent, RoleEditComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent, RoleEditComponent, UserCreateComponent, UserListComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

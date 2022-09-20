@@ -7,6 +7,7 @@ import { UserProfileComponent } from './components/user/profile/user-profile.com
 import { RoleCreateComponent } from './components/role/create/role-create.component';
 import { RoleListComponent } from './components/role/list/role-list.component';
 import { RoleEditComponent } from './components/role/edit/role-edit.component';
+import { UserListComponent } from './components/user/list/user-list.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,10 @@ const routes: Routes = [
       {
         path:'role/edit/:id',
         component:RoleEditComponent
+      },
+      {
+        path:'user/list',
+        component:UserListComponent
       }
 
     ]

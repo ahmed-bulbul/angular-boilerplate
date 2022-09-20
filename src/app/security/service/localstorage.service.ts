@@ -26,6 +26,11 @@ export class LocalstorageService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
+  //get user organization
+  getUserOrganizationId() {
+    return this.getUser().organization?.id;
+  }
+
   //get user from local storage
   getUser() {
     return JSON.parse(localStorage.getItem('user'));

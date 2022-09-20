@@ -25,21 +25,10 @@
               <div class="profile-view">
                 <div class="profile-img-wrap">
                   <div class="profile-img">
-                    <!-- <a *ngIf="myFormData.photo" [routerLink]="" class="avatar" data-target="#profile_Image"
-                                  data-toggle="modal"><img src="{{ baseUrl + myFormData.photo }}" alt="" />
-                                </a> -->
-
-                                <!-- image top right corner pencil icon -->
-
-
                     <a [routerLink]="" class="avatar" data-target="#profile_Image" data-toggle="modal">
                       <img id="companyLogo"
                         data-flag="1" src="assets/img/bulbul.jpg" alt=""  />
-
-
                       </a>
-
-
                   </div>
 
                 </div>
@@ -50,10 +39,26 @@
                             <!-- check icon circle  hover text verfied-->
                             <i class="bi bi-patch-check-fill" title="Verified" style="color:#49C5D8;"></i>
                         </h3>
-                        <h6 class="text-muted">{{userProfile.organization?.description}} --  {{userProfile.operatingUnit?.longDescription}}</h6>
+                        <!-- <h6 class="text-muted"> <b>Org :</b> {{userProfile.organization?.description}} <br> <b>Ou :</b>   {{userProfile.operatingUnit?.longDescription}}</h6> -->
                         <div class="staff-id">User id: {{userProfile.id}}</div>
                         <small class="text-muted">Mobile : {{userProfile.phone}}</small>
+
                         <div class="small doj text-muted">Date of Join : 1st Jan 2020</div>
+                        <small class="text-muted">Active :
+                          <span
+                          class=""
+                          [ngClass]="
+                          userProfile.enabled ? 'btn-light-success' : 'btn-light-danger'">
+                          <!-- icon check if yes -->
+                        <i
+                          class="bi bi-check-circle-fill"
+                          *ngIf="userProfile.enabled"
+                          style="color:#49C5D8;"></i>
+                          {{ userProfile.enabled ? "Yes" : "No" }}
+
+                        </span>
+
+                      </small>
 
 
                     </div>
@@ -67,8 +72,8 @@
         <div class="col-md-6 col-12">
           <div class="card">
             <div class="card-body">
-              <h4 class="text-center border-dtd-btm" > Basic Information </h4>
-              <div class="row">
+              <h4 class="text-center border-dtd-btm pbtm-10" > Basic Information </h4>
+              <div class="row pbtm-10">
                 <div class="col-md-6 pt-2">
                   <h5 class="text-muted">Username : {{userProfile.username}}
                   </h5>
@@ -83,23 +88,6 @@
                     </span>
                   </h5>
                   <h5 class="text-muted">Email : {{userProfile.email}}</h5>
-                  <h5 class="text-muted">Active :
-                      <!-- active slider userProfile .active  -->
-                      <span
-                      class=""
-                      [ngClass]="
-                      userProfile.enabled ? 'btn-light-success' : 'btn-light-danger'">
-                      <!-- icon check if yes -->
-                    <i
-                      class="bi bi-check-circle-fill"
-                      *ngIf="userProfile.enabled"
-                      style="color:#49C5D8;"></i>
-                      {{ userProfile.enabled ? "Yes" : "No" }}
-
-                    </span>
-
-                  </h5>
-
                 </div>
               </div>
             </div>
@@ -121,25 +109,21 @@
               <!-- card -->
           <div class="card">
             <div class="card-body">
-              <h4 class="text-center"> Others details </h4>
-              <hr>
+              <h4 class="text-center border-dtd-btm pbtm-10"> Others details </h4>
+
               <!-- entry by -->
-              <div class="row">
+              <div class="row pbtm-10">
                 <div class="col-md-6">
-                  <h5 class="text-muted">Organization : {{userProfile.organization?.description}}</h5>
-                  <h5 class="text-muted">Entry By : {{userProfile.createdBy}}</h5>
+                  <h5 class="text-muted"><b>Organization : </b>  {{userProfile.organization?.description}}</h5>
+                  <h5 class="text-muted"><b>Entry By :</b> {{userProfile.createdBy}}</h5>
 
                 </div>
                 <div class="col-md-6">
-                  <h5 class="text-muted">Operating Unit : {{userProfile.operatingUnit?.longDescription}}</h5>
-                  <h5 class="text-muted">Entry Date : {{userProfile.createdAt | date: 'dd/MM/yyyy'}}</h5>
+                  <h5 class="text-muted"><b>Operating Unit :</b> {{userProfile.operatingUnit?.longDescription}}</h5>
+                  <h5 class="text-muted"><b>Entry Date :</b> {{userProfile.createdAt | date: 'dd/MM/yyyy'}}</h5>
                 </div>
                 </div>
                 <!-- update by -->
-
-
-
-
             </div>
           </div>
             </div>
@@ -147,8 +131,7 @@
             <div class="col-md-5">
                 <div class="card">
                   <div class="card-body">
-                    <h4>Data</h4>
-                    <hr>
+                    <h4 class="text-center border-dtd-btm  pbtm-10">Data</h4>
                   </div>
                 </div>
             </div>

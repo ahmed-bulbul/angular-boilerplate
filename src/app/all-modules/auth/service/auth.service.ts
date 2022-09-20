@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Role } from '../model/role';
+import { User } from '../model/user';
 
 
 @Injectable({
@@ -58,6 +59,11 @@ export class AuthService {
   //delete role
   deleteRole(id: number) {
     return this.httpClient.delete(this.roleApiEndpont+'/delete/'+id);
+  }
+
+  // get users
+  getUsers(queryParams){
+    return this.httpClient.get<User>(this.userApiEndPoint+'/getAll', {params: queryParams});
   }
 
 
