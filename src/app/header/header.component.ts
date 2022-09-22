@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   public currentUserSubject:any;
   public isLoadingSubject:boolean = false;
   public user:any;
+  public isOwner: boolean = false;
 
   constructor(
     private headerService: HeaderService,
@@ -58,6 +59,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.getCurrentUser();
+    if(this.localstorageService.checkRoleIsExists('ROLE_OWNER')){
+      this.isOwner=true;
+    }
 
 
   }

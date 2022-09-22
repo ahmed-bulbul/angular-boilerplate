@@ -21,6 +21,7 @@ export class RoleCreateComponent implements OnInit {
   public role: Role = new Role();
   public baseUrl = environment.baseUrl;
   public formSubmitted = false;
+  public isLoading : boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +50,9 @@ export class RoleCreateComponent implements OnInit {
 
   onSubmit() {
     this.formSubmitted = true;
+    this.isLoading=true;
     if (this.formGroup.invalid) {
+      this.isLoading=false;
       return;
     }
     this.createRole();
@@ -63,6 +66,7 @@ export class RoleCreateComponent implements OnInit {
         if(data['status']==true){
           this.headerService.isLoadingSubject.next(false);
           this.formSubmitted = false;
+          this.isLoading=false;
           this.toastr.success(data['message']);
           this.router.navigate(['/auth/role/list']);
         }
@@ -72,6 +76,7 @@ export class RoleCreateComponent implements OnInit {
         console.log(error);
         this.headerService.isLoadingSubject.next(false);
         this.formSubmitted = false;
+        this.isLoading=false;
         this.toastr.error(error.error.message);
       }
     );

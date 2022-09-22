@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { DevToolsService } from '../../service/dev-tools.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { LocalstorageService } from 'src/app/security/service/localstorage.service';
 
 
 
@@ -19,12 +20,14 @@ export class DevToolsCreateComponent implements OnInit {
  public devTools: DevToolsModel = new DevToolsModel(); // for the form
  public attributeForm:FormGroup;
  public currentDate = new Date();
+ public isOwner: boolean = false;
 
   constructor(
     private devToolService:DevToolsService,
     private router: Router,
     private toastr:ToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private localStorageService : LocalstorageService
     ){
 
       setInterval(() => {
@@ -35,6 +38,9 @@ export class DevToolsCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initAttributes();
+    if(this.localStorageService.checkRoleIsExists('ROLE_OWNER')){
+      this.isOwner=true;
+    }
   }
 
   initAttributes(){

@@ -122,7 +122,7 @@
               </div>
 
               <!-- orgnatization only for software owner username bulbul-dev -->
-              <div class="col-md-3" *ngIf="loginUser?.username=='bulbul-dev'">
+              <div class="col-md-3" *ngIf="isOwner">
                 <mat-form-field appearance="fill" class="w-100">
                   <mat-label >Select organization</mat-label>
                   <mat-select formControlName="organization" (selectionChange)="getOuByOrgId($event.value)">
@@ -131,12 +131,6 @@
                     </mat-option>
                   </mat-select>
 
-
-
-                  <mat-error *ngIf="formSubmitted && f.organization.errors">
-                    <i class="fa fa-exclamation-circle"></i>
-                    Organization is required
-                  </mat-error>
 
                 </mat-form-field>
                 <br> <br>
@@ -185,11 +179,11 @@
             <div class="text-right">
               <!-- <button mat-raised-button color="primary">Primary</button> -->
               <button  class="btn btn-outline-info btn-sm">
-                <span *ngIf="!formSubmitted">
+                <span *ngIf="!isLoading">
                   <!-- icon sign in -->
                   <i class="fa fa-save"></i>&nbsp; Save
                 </span>
-                <span *ngIf="formSubmitted" class="indicator-progress">
+                <span *ngIf="isLoading" class="indicator-progress">
                   Please wait...
                   <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </span>
@@ -198,9 +192,9 @@
 
               &nbsp; &nbsp;
 
-              <!-- <button class="btn btn-outline-warning btn-sm" (click)="resetForm()">
+              <button class="btn btn-outline-warning btn-sm" (click)="resetForm()">
                 <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Reset
-              </button> -->
+              </button>
             </div>
 
 

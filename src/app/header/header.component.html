@@ -34,7 +34,7 @@
     <ul class="nav user-menu">
 
       <!-- Home menu  vertical -->
-      <li *ngIf="user?.username=='bulbul-dev'" class="nav-item dropdown user-menu-dropdown">
+      <li *ngIf="isOwner" class="nav-item dropdown user-menu-dropdown">
         <!-- disable click hover -->
           <a class="devTools"  routerLink="/dev-tools/create" >
               <!-- icon dev tools -->

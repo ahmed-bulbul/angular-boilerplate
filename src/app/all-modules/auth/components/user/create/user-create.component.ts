@@ -35,6 +35,9 @@ export class UserCreateComponent implements OnInit {
   public organizations : Organization[];
   public operatingUnits : OperatingUnit[];
   public loginUser: User;
+  public isOwner : boolean = false;
+  public isLoading:boolean = false;
+
 
 
 
@@ -58,40 +61,29 @@ export class UserCreateComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     this.getRole();
-    this.getOrganization();
+    if(this.localStorageService.checkRoleIsExists('ROLE_OWNER')){
+      this.getOrganization();
+      this.isOwner=true;
+    }
+
+
+
     this.getOuByOrgId(this.localStorageService.getUserOrganizationId());
     this.loginUser = this.localStorageService.getUser();
 
     this.formGroup.valueChanges.subscribe(() => {
       this.user = Object.assign(this.formGroup.value, {
-        organization:  { id: this.localStorageService.getUserOrganizationId() },
+        organization:  { id: this.localStorageService.checkRoleIsExists('ROLE_OWNER')?this._getOrg().value:this.localStorageService.getUserOrganizationId() },
         operatingUnit: this._getOu().value ? { id: this._getOu().value } : null,
         //roll pass as array ["1","2"] push in array selectedRole
         roles: this._getRoles(),
 
-
-
       });
     });
 
-    // this.filteredOptions = this.formGroup.controls['organization'].valueChanges.pipe(
-    //   startWith(''),
-    //   map(value => {
-    //     const name = typeof value === 'string' ? value : value?.name;
-    //     return name ? this._filter(name as string) : this.organizations.slice();
-    //   }),
-    // );
-
   }
 
-  // displayFn(organization: Organization): string {
-  //   return organization && organization.description ? organization.description : '';
-  // }
 
-  // private _filter(name: string): Organization[] {
-  //   const filterValue = name.toLowerCase();
-  //   return this.organizations.filter(option => option.description.toLowerCase().includes(filterValue));
-  // }
 
   initForm() {
     this.formGroup = this.formBuilder.group({
@@ -169,8 +161,10 @@ export class UserCreateComponent implements OnInit {
 
   onSubmit(){
     this.formSubmitted = true;
+    this.isLoading = true;
+    console.log(this.formGroup);
     if (this.formGroup.invalid) {
-      this.formSubmitted = false;
+      this.isLoading=false;
       return;
     }
     this.createUser();
@@ -178,18 +172,26 @@ export class UserCreateComponent implements OnInit {
 
   createUser() {
     this.headerService.isLoadingSubject.next(true);
-    console.log(this.user);
     this.authService.createUser(this.user).subscribe( data => {
       if(data['status'] == true){
+        this.formSubmitted = false;
+        this.isLoading=false;
         this.toastr.success(data['message']);
         this.router.navigate(['/auth/user/list']);
+
       }
       this.headerService.isLoadingSubject.next(false);
     },(error) => {
+      this.formSubmitted = false;
+      this.isLoading=false;
       this.headerService.isLoadingSubject.next(false);
       console.log(error);
     });
 
+  }
+
+  resetForm(){
+    this.formGroup.reset();
   }
 
 }
