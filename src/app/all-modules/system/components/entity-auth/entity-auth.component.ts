@@ -135,9 +135,19 @@ export class EntityAuthComponent implements OnInit {
           icon: 'success',
         })
       }
-    } ,(err)=>{
+    } ,error =>{
       this.formSubmitted=false;
-      console.log(err);
+      console.log(error);
+
+      // if code is 403 pop up error message
+      if(error.status === 403){
+        Swal.fire({
+          title: 'Error',
+          text: "You don't have permission to update",
+          icon: 'error',
+        });
+      }
+      console.log(error);
     })
 
   }

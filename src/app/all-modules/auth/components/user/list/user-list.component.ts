@@ -148,10 +148,15 @@ export class UserListComponent implements OnInit {
           this.singleUser = response.data;
         }
       },error => {
+        // hide modal
+        $('#userDetailsModal').modal('hide');
         if(error.status === 403){
-          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
-          //redirect to 403 page
-          this.router.navigate(['/error/error403']);
+          Swal.fire({
+            title: 'Forbidden',
+            text: 'You are not authorized to access this functionality',
+            icon: 'error',
+          })
+
         }
       }
     );
@@ -200,12 +205,19 @@ export class UserListComponent implements OnInit {
           this.getListData();
         }
       },error => {
-        $('#deleteModal').modal('hide');
+
         if(error.status === 403){
           this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
           //redirect to 403 page
           this.router.navigate(['/error/error403']);
         }
+
+        Swal.fire({
+          title: 'Error',
+          text: error.error.message,
+          icon: 'error',
+        });
+
       }
     );
 

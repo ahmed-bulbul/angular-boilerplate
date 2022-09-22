@@ -1,6 +1,3 @@
-
-
-
 <!-- Page Content -->
 <div class="content container-fluid">
 
@@ -41,8 +38,6 @@
         </div>
         <div class="col-md-3">
           <div class="form-group">
-
-
             <button class="btn btn-outline-info" (click)="search()">
               <span *ngIf="!searchClick">
                 <!-- icon sign in -->
@@ -60,196 +55,184 @@
       </div>
     </div>
 
-    </div>
-    <!-- /Search Filter -->
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-tools">
-              <a routerLink="/auth/user/create" class="btn btn-outline-info"><i class="fa fa-plus-circle"> Add User</i></a>
-            </div>
+  </div>
+  <!-- /Search Filter -->
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-tools">
+            <a routerLink="/auth/user/create" class="btn btn-outline-info"><i class="fa fa-plus-circle"> Add
+                User</i></a>
           </div>
+        </div>
 
-          <div class="card-body">
-            <div class="table-responsive " [ngClass]="{ 'blur': searchClick  }">
+        <div class="card-body">
+          <div class="table-responsive " [ngClass]="{ 'blur': searchClick  }">
 
-              <div class="d-flex justify-content-start pb-1">
-                <div class="pgn-displayDataInfo">
-                  <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1)
-                    )
-                    }} to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
-                </div>
+            <div class="d-flex justify-content-start pb-1">
+              <div class="pgn-displayDataInfo">
+                <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1)
+                  )
+                  }} to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
               </div>
+            </div>
 
-              <table id="genListTable" class="table table-striped custom-table">
-                <thead>
-                  <tr>
-                    <th>SL</th>
-                    <th class="d-none">TB_ROW_ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Organization</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let thisObj of user | paginate : configPgn; let i = index"
-                    [class.active]="i == currentIndex">
+            <table id="genListTable" class="table table-striped custom-table">
+              <thead>
+                <tr>
+                  <th>SL</th>
+                  <th class="d-none">TB_ROW_ID</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Organization</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let thisObj of user | paginate : configPgn; let i = index"
+                  [class.active]="i == currentIndex">
 
-                    <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
-                    <td class="d-none">{{thisObj.id}}</td>
-                    <td>{{thisObj.username}}</td>
-                    <td>{{thisObj.email}}</td>
-                    <td>{{thisObj.phone}}</td>
-                    <td>{{thisObj.organization?.description}}</td>
-                    <td>
-                      <!-- active is true the ACTIVE or INACTIVE -->
-                      <span *ngIf="thisObj.active == true">Active</span>
-                      <span *ngIf="thisObj.active == false">Inactive</span>
-                    </td>
-                    <td>
-                      <!-- view -->
-                      <a  data-toggle="modal" (click)="getUserById(thisObj.id)" data-target="#userDetailsModal" class="btn btn-outline-secondary btn-sm"><i
-                          class="fa fa-eye"></i></a> &nbsp;&nbsp;
-                        <a class="btn btn-outline-info   btn-sm"  routerLink="/auth/role/edit/{{thisObj.id}}">
-                          <i class="bi bi-pencil-fill" title="Edit"></i>
-                          </a>&nbsp;&nbsp;
-                        <a class="btn btn-outline-secondary btn-sm"  data-toggle="modal" data-target="#deleteModal"
-                          (click)="tempId = thisObj.id">
-                          <i class="bi bi-trash3" title="Delete"></i>
-                        </a> &nbsp;
+                  <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
+                  <td class="d-none">{{thisObj.id}}</td>
+                  <td>{{thisObj.username}}</td>
+                  <td>{{thisObj.email}}</td>
+                  <td>{{thisObj.phone}}</td>
+                  <td>{{thisObj.organization?.description}}</td>
+                  <td>
+                    <!-- active is true the ACTIVE or INACTIVE -->
+                    <span *ngIf="thisObj.active == true">Active</span>
+                    <span *ngIf="thisObj.active == false">Inactive</span>
+                  </td>
+                  <td>
+                    <!-- view -->
+                    <a data-toggle="modal" (click)="getUserById(thisObj.id)" data-target="#userDetailsModal"
+                      class="btn btn-outline-secondary btn-sm"><i class="fa fa-eye"></i></a> &nbsp;&nbsp;
+                    <a class="btn btn-outline-info   btn-sm" routerLink="/auth/role/edit/{{thisObj.id}}">
+                      <i class="bi bi-pencil-fill" title="Edit"></i>
+                    </a>&nbsp;&nbsp;
+                    <a class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#deleteModal"
+                      (click)="tempId = thisObj.id">
+                      <i class="bi bi-trash3" title="Delete"></i>
+                    </a> &nbsp;
 
-                    </td>
-                  </tr>
+                  </td>
+                </tr>
 
-                  <tr *ngIf="user?.length === 0">
+                <tr *ngIf="user?.length === 0">
                   <td colspan="10">
                     <h5 style="text-align: center;">No data found</h5>
                   </td>
                 </tr>
-                </tbody>
-              </table>
+              </tbody>
+            </table>
 
 
-              <div class="d-flex justify-content-end ">
+            <div class="d-flex justify-content-end ">
 
-                <div class="" [formGroup]="myFromGroup">
-                  Items per Page
-                  <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
-                    <option *ngFor="let size of configPgn.pageSizes" [value]="size">
-                      {{ size }}
-                    </option>
-                  </select>
-                </div>
+              <div class="" [formGroup]="myFromGroup">
+                Items per Page
+                <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                  <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
 
-                <div class="pgn-pageSliceCt">
-                  <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
-                    (pageChange)="handlePageChange($event)">
-                  </pagination-controls>
-                </div>
-
+              <div class="pgn-pageSliceCt">
+                <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+                  (pageChange)="handlePageChange($event)">
+                </pagination-controls>
               </div>
 
             </div>
 
           </div>
+
         </div>
-
       </div>
+
     </div>
-
   </div>
+</div>
 
 
-
-  <!-- Delete Modal -->
-  <div class="modal custom-modal fade" id="deleteModal" role="dialog">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="form-header">
-            <h3>Delete Item</h3>
-            <p>Are you sure want to delete?</p>
-          </div>
-          <div class="modal-btn delete-action">
-            <div class="row">
-              <div class="col-6">
-                <a class="btn btn-primary continue-btn" (click)="deleteEntityData(tempId)">Delete</a>
-              </div>
-              <div class="col-6">
-                <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
-              </div>
+<!-- Delete Modal -->
+<div class="modal custom-modal fade" id="deleteModal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Item</h3>
+          <p>Are you sure want to delete?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a class="btn btn-primary continue-btn" (click)="deleteEntityData(tempId)">Delete</a>
+            </div>
+            <div class="col-6">
+              <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- /Delete Modal -->
+</div>
+<!-- /Delete Modal -->
 
-  <!-- User details view modal -->
-				<div id="user_details_modal" class="modal custom-modal fade" id="userDetailsModal" role="dialog">
-					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-						<div class="modal-content">
-							<div class="modal-header text-center border-dtd-btm pbtm-10">
-								<h5 class="modal-title ">User Details</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-
-
-
+<!-- User details view modal -->
+<div class="modal custom-modal fade" id="userDetailsModal" role="dialog">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center border-dtd-btm pbtm-10">
+        <h5 class="modal-title ">User Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
 
-							<div class="modal-body">
-
-                <!-- user photo on middle div -->
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="text-center">
-                      <img src="assets/img/bulbul.jpg" class="rounded-circle" width="75" height="75">
-                    </div>
-                  </div>
-                </div>
-
-                <br>
-                 <br>
-
-
-
-									<div class="row" style="border:1px solid #ddd;padding:10px;">
-										<div class="col-md-5" >
-											<!-- Name  view -->
-                      <h5 class="text-muted"><b>Name : </b>  {{singleUser?.username}}</h5>
-                      <h5 class="text-muted"><b>Email:</b> {{singleUser?.email}}</h5>
-                      <h5 class="text-muted"><b>Gender:</b> {{singleUser?.gender}}</h5>
-                      <h5 class="text-muted"><b>Phone:</b> {{singleUser?.phone}}</h5>
-										</div>
-
-                    <!-- vertical line of two div -->
-                    <div >
-
-                      <p class="vl"></p>
-
-                    </div>
-
-
-                    <div class="col-md-5">
-											<!-- Name  view -->
-                      <h5 class="text-muted"><b>Organization : </b>  {{singleUser?.organization?.description}}</h5>
-                      <h5 class="text-muted"><b>Operating Unit :</b> {{singleUser?.operatingUnit?.shortDescription}}</h5>
-                      <h5 class="text-muted"><b>Created By :</b> {{singleUser?.createdBy}}</h5>
-                      <h5 class="text-muted"><b>Created Date :</b> {{singleUser?.createdAt  | date: 'dd/MM/yyyy hh:mm a'}}</h5>
-										</div>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
+      <div class="modal-body">
+        <!-- user photo on middle div -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="text-center">
+              <img src="assets/img/bulbul.jpg" class="rounded-circle" width="75" height="75">
+            </div>
+          </div>
         </div>
-				<!-- /User Details -->
 
+        <br>
+        <br>
+        <div class="row" style="border:1px solid #ddd;padding:10px;">
+          <div class="col-md-5">
+            <!-- Name  view -->
+            <h5 class="text-muted"><b>Name : </b> {{singleUser?.username}}</h5>
+            <h5 class="text-muted"><b>Username : </b> {{singleUser?.username}}</h5>
+            <h5 class="text-muted"><b>Email:</b> {{singleUser?.email}}</h5>
+            <h5 class="text-muted"><b>Gender:</b> {{singleUser?.gender}}</h5>
+            <h5 class="text-muted"><b>Phone:</b> {{singleUser?.phone}}</h5>
+          </div>
+
+          <!-- vertical line of two div -->
+          <div>
+            <p class="vl"></p>
+          </div>
+          <div class="col-md-5">
+            <!-- Name  view -->
+            <h5 class="text-muted"><b>Organization : </b> {{singleUser?.organization?.description}}</h5>
+            <h5 class="text-muted"><b>Operating Unit :</b> {{singleUser?.operatingUnit?.shortDescription}}</h5>
+            <h5 class="text-muted"><b>Created By :</b> {{singleUser?.createdBy}}</h5>
+            <h5 class="text-muted"><b>Created Date :</b> {{singleUser?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</h5>
+            <h5 class="text-muted"><b>Updated By :</b> {{singleUser?.updatedBy}}</h5>
+            <h5 class="text-muted"><b>Updated Date :</b> {{singleUser?.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /User Details -->
