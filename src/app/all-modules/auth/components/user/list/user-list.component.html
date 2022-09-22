@@ -29,8 +29,8 @@
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select one</option>
-              <option value="authority">Authority</option>
-              <option value="apiUrl">Status</option>
+              <option value="phone">Phone</option>
+              <option value="email">Email</option>
             </select>
           </div>
         </div>
@@ -110,6 +110,9 @@
                       <span *ngIf="thisObj.active == false">Inactive</span>
                     </td>
                     <td>
+                      <!-- view -->
+                      <a  data-toggle="modal" (click)="getUserById(thisObj.id)" data-target="#userDetailsModal" class="btn btn-outline-secondary btn-sm"><i
+                          class="fa fa-eye"></i></a> &nbsp;&nbsp;
                         <a class="btn btn-outline-info   btn-sm"  routerLink="/auth/role/edit/{{thisObj.id}}">
                           <i class="bi bi-pencil-fill" title="Edit"></i>
                           </a>&nbsp;&nbsp;
@@ -185,3 +188,68 @@
     </div>
   </div>
   <!-- /Delete Modal -->
+
+  <!-- User details view modal -->
+				<div id="user_details_modal" class="modal custom-modal fade" id="userDetailsModal" role="dialog">
+					<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+						<div class="modal-content">
+							<div class="modal-header text-center border-dtd-btm pbtm-10">
+								<h5 class="modal-title ">User Details</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+
+
+
+
+							<div class="modal-body">
+
+                <!-- user photo on middle div -->
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="text-center">
+                      <img src="assets/img/bulbul.jpg" class="rounded-circle" width="75" height="75">
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+                 <br>
+
+
+
+									<div class="row" style="border:1px solid #ddd;padding:10px;">
+										<div class="col-md-5" >
+											<!-- Name  view -->
+                      <h5 class="text-muted"><b>Name : </b>  {{singleUser?.username}}</h5>
+                      <h5 class="text-muted"><b>Email:</b> {{singleUser?.email}}</h5>
+                      <h5 class="text-muted"><b>Gender:</b> {{singleUser?.gender}}</h5>
+                      <h5 class="text-muted"><b>Phone:</b> {{singleUser?.phone}}</h5>
+										</div>
+
+                    <!-- vertical line of two div -->
+                    <div >
+
+                      <p class="vl"></p>
+
+                    </div>
+
+
+                    <div class="col-md-5">
+											<!-- Name  view -->
+                      <h5 class="text-muted"><b>Organization : </b>  {{singleUser?.organization?.description}}</h5>
+                      <h5 class="text-muted"><b>Operating Unit :</b> {{singleUser?.operatingUnit?.shortDescription}}</h5>
+                      <h5 class="text-muted"><b>Created By :</b> {{singleUser?.createdBy}}</h5>
+                      <h5 class="text-muted"><b>Created Date :</b> {{singleUser?.createdAt  | date: 'dd/MM/yyyy hh:mm a'}}</h5>
+										</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+        </div>
+				<!-- /User Details -->
+

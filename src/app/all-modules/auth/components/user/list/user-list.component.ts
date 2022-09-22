@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { HeaderService } from 'src/app/header/header.service';
 import { LocalstorageService } from 'src/app/security/service/localstorage.service';
 import { SharedService } from 'src/app/sharing/service/shared.service';
+import Swal from 'sweetalert2';
 import { User } from '../../../model/user';
 import { AuthService } from '../../../service/auth.service';
 
@@ -19,6 +20,7 @@ declare const $: any;
 export class UserListComponent implements OnInit {
 
   public user : User[];
+  public singleUser : User;
 
   public pipe = new DatePipe('en-US');
   public myFromGroup: FormGroup;
@@ -34,6 +36,11 @@ export class UserListComponent implements OnInit {
 
   //search button click flag
   public searchClick: boolean = false;
+
+    //search data
+    private phone: string;
+    private email: string;
+
 
 
   constructor(
@@ -133,6 +140,23 @@ export class UserListComponent implements OnInit {
     this.getListData();
   }
 
+  //get user by id
+  getUserById(id: number) {
+    this.authService.getUserById(id).subscribe(
+      (response: any) => {
+        if(response.status === true){
+          this.singleUser = response.data;
+        }
+      },error => {
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+          this.router.navigate(['/error/error403']);
+        }
+      }
+    );
+  }
+
   private getUserQueryParams(page: number, pageSize: number): any {
 
     const params: any = {};
@@ -155,15 +179,80 @@ export class UserListComponent implements OnInit {
     if(this.active){
       params[`active`] = this.active;
     }
+
+    if(this.phone){
+      params[`phone`] = this.phone;
+    }
+    if(this.email){
+      params[`email`] = this.email;
+    }
+
     return params;
   }
 
   deleteEntityData(id: any) {
 
+    this.authService.deleteUser(id).subscribe(
+      (response: any) => {
+        $('#deleteModal').modal('hide');
+        if(response.status === true){
+          this.toastr.success('Success', 'User deleted successfully');
+          this.getListData();
+        }
+      },error => {
+        $('#deleteModal').modal('hide');
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+          this.router.navigate(['/error/error403']);
+        }
+      }
+    );
+
   }
 
   search(){
 
+    this.headerService.isLoadingSubject.next(true);
+    this.searchClick = true;
+    // get field name from dropdown list
+    const fieldName = $('#searchField').val();
+    // get field value from input
+    const fieldValue = $('#searchValue').val();
+    if(fieldName==='phone'){
+      this.phone = fieldValue;
+    }else if(fieldName==='email'){
+      this.email = fieldValue;
+    }else{
+      Swal.fire({
+        title: 'Info',
+        text: 'This field is not supported for search',
+        icon: 'info',
+      });
+    }
+
+    //if changes dropwon value then reset the input value from params
+    if(fieldName !== 'phone'){
+      this.phone = '';
+    }
+    if(fieldName !== 'email'){
+      this.email = '';
+    }
+
+
+
+    //if field value is empty then reset the value
+    if(!fieldValue){
+      this.phone = '';
+      this.email = '';
+    }
+
+
+    setTimeout(() => {
+
+      this.getListData();
+    } , 1000);
+    console.log(fieldName, fieldValue);
   }
 
 

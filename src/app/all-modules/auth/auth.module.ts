@@ -23,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RoleEditComponent } from './components/role/edit/role-edit.component';
 import { UserCreateComponent } from './components/user/create/user-create.component';
 import { UserListComponent } from './components/user/list/user-list.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { UserListComponent } from './components/user/list/user-list.component';
     MatButtonModule,
     MatProgressBarModule,
     NgxPaginationModule,
+    MatAutocompleteModule,
     BsDatepickerModule.forRoot(),
   ]
 })

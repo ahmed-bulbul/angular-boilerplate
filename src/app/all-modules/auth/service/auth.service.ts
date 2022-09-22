@@ -66,5 +66,19 @@ export class AuthService {
     return this.httpClient.get<User>(this.userApiEndPoint+'/getAll', {params: queryParams});
   }
 
+  //create user
+  createUser(payload: any) {
+    return this.httpClient.post<User>(this.userApiEndPoint+'/create', payload);
+  }
+
+  //delete user
+  deleteUser(id: number) {
+    return this.httpClient.delete(this.userApiEndPoint+'/delete/'+id);
+  }
+
+  // get user by id
+  getUserById(id: number) {
+    return this.httpClient.get<User>(this.userApiEndPoint+'/get/'+id);
+  }
 
 }

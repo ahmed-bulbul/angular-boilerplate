@@ -1,1 +1,228 @@
-<p>user-create works!</p>
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h2 class="page-title">User</h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
+          <li class="breadcrumb-item active">User</li>
+          <li class="breadcrumb-item active">Create</li>
+        </ul>
+      </div>
+      <!-- <div class="col-auto float-right ml-auto">
+        <a class="btn add-btn" routerLink="/system/menu/list"><i class="fa fa-share"></i> Back To List</a>
+      </div> -->
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <!-- back to list page -->
+          <a class="" routerLink="/auth/user/list">
+            <!--  arrow icon -->
+            <i class="fa fa-long-arrow-left"></i>
+            &nbsp;
+            Back to List
+          </a>
+        </div>
+        <div class="card-body">
+          <form novalidate (ngSubmit)="onSubmit()" [formGroup]="formGroup">
+
+
+            <div class="row">
+
+              <div class="col-md-3">
+
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Name</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.name.errors }"
+                    formControlName="name">
+                  <mat-error *ngIf="formSubmitted && f.name.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Name is required
+                  </mat-error>
+                </mat-form-field>
+                <br> <br>
+              </div>
+
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput type="email" [ngClass]="{ 'is-invalid': formSubmitted && f.email.errors }"
+                    formControlName="email">
+                  <mat-error *ngIf="formSubmitted && f.email.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Email is required
+                  </mat-error>
+                </mat-form-field>
+                <br> <br>
+
+              </div>
+
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Phone</mat-label>
+                  <input matInput type="text" [ngClass]="{ 'is-invalid': formSubmitted && f.phone.errors }"
+                    formControlName="phone">
+                  <mat-error *ngIf="formSubmitted && f.phone.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Phone is required
+                  </mat-error>
+                </mat-form-field>
+                <br> <br>
+
+              </div>
+
+
+
+
+              <!-- Select Active / inactive -->
+
+              <div class="col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select gender</mat-label>
+                  <mat-select formControlName="gender">
+                    <mat-option value="MALE">Male</mat-option>
+                    <mat-option value="FEMALE">Female</mat-option>
+                  </mat-select>
+
+                  <mat-error *ngIf="formSubmitted && f.gender.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Gender is required
+                  </mat-error>
+
+                </mat-form-field>
+                <br> <br>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-3">
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label >Select role</mat-label>
+                  <mat-select formControlName="roles" >
+                    <mat-option *ngFor="let role of roles" [value]="role.authority">
+                      {{role.description}}
+                    </mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+                <br> <br>
+              </div>
+
+              <!-- orgnatization -->
+              <div class="col-md-3">
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label >Select organization</mat-label>
+                  <mat-select formControlName="organization" (selectionChange)="getOuByOrgId($event.value)">
+                    <mat-option *ngFor="let organization of organizations" [value]="organization.id">
+                      {{organization.description}}
+                    </mat-option>
+                  </mat-select>
+
+                  <!-- <input type="text" matInput [formControl]="organizations">
+                <mat-autocomplete formControlName="organization" #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let organization of organizations " [value]="organization">
+                    {{organization.description}}
+                  </mat-option>
+                </mat-autocomplete> -->
+
+                  <mat-error *ngIf="formSubmitted && f.organization.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Organization is required
+                  </mat-error>
+
+                </mat-form-field>
+                <br> <br>
+              </div>
+
+              <!-- operating unit  -->
+              <div class="col-md-3">
+                <mat-form-field appearance="fill" class="w-100">
+                  <mat-label >Select operating unit</mat-label>
+                  <mat-select formControlName="operatingUnit">
+                    <mat-option *ngFor="let operatingUnit of operatingUnits" [value]="operatingUnit.id">
+                      {{operatingUnit.shortDescription}}
+                    </mat-option>
+                  </mat-select>
+
+                  <mat-error *ngIf="formSubmitted && f.operatingUnit.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Operating unit is required
+                  </mat-error>
+
+                </mat-form-field>
+                <br> <br>
+                </div>
+
+                <div class="col-md-3">
+
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
+                      formControlName="password">
+                    <mat-error *ngIf="formSubmitted && f.password.errors">
+                      <!-- error fa fa icon icon -->
+                      <i class="fa fa-exclamation-circle"></i>
+                      Password is required
+                    </mat-error>
+                  </mat-form-field>
+                  <br> <br>
+                </div>
+
+            </div>
+
+
+
+
+            <div class="text-right">
+              <!-- <button mat-raised-button color="primary">Primary</button> -->
+              <button  class="btn btn-outline-info btn-sm">
+                <span *ngIf="!formSubmitted">
+                  <!-- icon sign in -->
+                  <i class="fa fa-save"></i>&nbsp; Save
+                </span>
+                <span *ngIf="formSubmitted" class="indicator-progress">
+                  Please wait...
+                  <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </span>
+                &nbsp;&nbsp;&nbsp;
+              </button>
+
+              &nbsp; &nbsp;
+
+              <!-- <button class="btn btn-outline-warning btn-sm" (click)="resetForm()">
+                <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Reset
+              </button> -->
+            </div>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+</div>

@@ -2,12 +2,12 @@
 
 export class BaseModel {
 
- private id:number;
- private createdBy:string;
- private createdAt:Date;
- private updatedBy:string;
- private updatedAt:Date;
- private active:boolean;
+ public id:number;
+ public createdBy:string;
+ public createdAt:Date;
+ public updatedBy:string;
+ public updatedAt:Date;
+ public active:boolean;
 
 
 }
