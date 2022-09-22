@@ -205,7 +205,7 @@ export class UserListComponent implements OnInit {
           this.getListData();
         }
       },error => {
-
+        $('#deleteModal').modal('hide');
         if(error.status === 403){
           this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
           //redirect to 403 page

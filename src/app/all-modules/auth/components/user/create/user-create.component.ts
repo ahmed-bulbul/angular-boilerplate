@@ -17,6 +17,7 @@ import { Pagination } from './../../../../../sharing/constants/pagination.consta
 import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { User } from '../../../model/user';
+import { LocalstorageService } from 'src/app/security/service/localstorage.service';
 
 
 @Component({
@@ -33,13 +34,11 @@ export class UserCreateComponent implements OnInit {
   public roles : Role[];
   public organizations : Organization[];
   public operatingUnits : OperatingUnit[];
+  public loginUser: User;
 
 
 
   // filteredOptions: Observable<Organization[]>;
-
-
-
 
 
 
@@ -51,7 +50,8 @@ export class UserCreateComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private toastr: ToastrService,
-    private baseService : BaseService
+    private baseService : BaseService,
+    private localStorageService : LocalstorageService
 
   ) { }
 
@@ -59,10 +59,12 @@ export class UserCreateComponent implements OnInit {
     this.initForm();
     this.getRole();
     this.getOrganization();
+    this.getOuByOrgId(this.localStorageService.getUserOrganizationId());
+    this.loginUser = this.localStorageService.getUser();
 
     this.formGroup.valueChanges.subscribe(() => {
       this.user = Object.assign(this.formGroup.value, {
-        organization: this._getOrg().value ? { id: this._getOrg().value } : null,
+        organization:  { id: this.localStorageService.getUserOrganizationId() },
         operatingUnit: this._getOu().value ? { id: this._getOu().value } : null,
         //roll pass as array ["1","2"] push in array selectedRole
         roles: this._getRoles(),
@@ -86,10 +88,10 @@ export class UserCreateComponent implements OnInit {
   //   return organization && organization.description ? organization.description : '';
   // }
 
-  private _filter(name: string): Organization[] {
-    const filterValue = name.toLowerCase();
-    return this.organizations.filter(option => option.description.toLowerCase().includes(filterValue));
-  }
+  // private _filter(name: string): Organization[] {
+  //   const filterValue = name.toLowerCase();
+  //   return this.organizations.filter(option => option.description.toLowerCase().includes(filterValue));
+  // }
 
   initForm() {
     this.formGroup = this.formBuilder.group({
@@ -100,7 +102,7 @@ export class UserCreateComponent implements OnInit {
       gender:['', Validators.required],
       password: ['', Validators.required],
       roles : [''],
-      organization: ['', Validators.required],
+      organization: [''],
       operatingUnit : ['', Validators.required],
 
     });

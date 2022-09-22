@@ -207,7 +207,7 @@
 
         <br>
         <br>
-        <div class="row" style="border:1px solid #ddd;padding:10px;">
+        <div class="row" style="border:1px dotted #ddd;padding:10px;">
           <div class="col-md-5">
             <!-- Name  view -->
             <h5 class="text-muted"><b>Name : </b> {{singleUser?.username}}</h5>
@@ -215,6 +215,8 @@
             <h5 class="text-muted"><b>Email:</b> {{singleUser?.email}}</h5>
             <h5 class="text-muted"><b>Gender:</b> {{singleUser?.gender}}</h5>
             <h5 class="text-muted"><b>Phone:</b> {{singleUser?.phone}}</h5>
+            <h5 class="text-muted"><b>Active:</b> {{singleUser?.active}}</h5>
+
           </div>
 
           <!-- vertical line of two div -->
@@ -229,8 +231,15 @@
             <h5 class="text-muted"><b>Created Date :</b> {{singleUser?.createdAt | date: 'dd/MM/yyyy hh:mm a'}}</h5>
             <h5 class="text-muted"><b>Updated By :</b> {{singleUser?.updatedBy}}</h5>
             <h5 class="text-muted"><b>Updated Date :</b> {{singleUser?.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}</h5>
+            <h5 class="text-muted"><b>Enabled:</b> {{singleUser?.enabled}}</h5>
           </div>
         </div>
+
+        <!-- design and developed by -->
+        <div>
+              <p class="text-muted text-center">Design and Developed by <a href="https://www.github.com/bulbul-dev/" target="_blank">Bulbul Ahmed</a></p>
+        </div>
+
       </div>
     </div>
   </div>

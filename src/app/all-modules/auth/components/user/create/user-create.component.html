@@ -121,8 +121,8 @@
                 <br> <br>
               </div>
 
-              <!-- orgnatization -->
-              <div class="col-md-3">
+              <!-- orgnatization only for software owner username bulbul-dev -->
+              <div class="col-md-3" *ngIf="loginUser?.username=='bulbul-dev'">
                 <mat-form-field appearance="fill" class="w-100">
                   <mat-label >Select organization</mat-label>
                   <mat-select formControlName="organization" (selectionChange)="getOuByOrgId($event.value)">
@@ -131,15 +131,9 @@
                     </mat-option>
                   </mat-select>
 
-                  <!-- <input type="text" matInput [formControl]="organizations">
-                <mat-autocomplete formControlName="organization" #auto="matAutocomplete" [displayWith]="displayFn">
-                  <mat-option *ngFor="let organization of organizations " [value]="organization">
-                    {{organization.description}}
-                  </mat-option>
-                </mat-autocomplete> -->
+
 
                   <mat-error *ngIf="formSubmitted && f.organization.errors">
-                    <!-- error fa fa icon icon -->
                     <i class="fa fa-exclamation-circle"></i>
                     Organization is required
                   </mat-error>
