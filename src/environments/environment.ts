@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // baseUrl:"http://localhost:5555/springboiperplate",
-  baseUrl:"http://192.168.134.88:5555/springboiperplate",
+   baseUrl:"http://localhost:5555/springboiperplate",
+  //baseUrl:"http://192.168.134.88:5555/springboiperplate",
  // baseUrl:"https://spring-boot-boilerplate.herokuapp.com"
 };
 

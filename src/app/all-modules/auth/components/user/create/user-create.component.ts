@@ -1,3 +1,4 @@
+
 import { FormControl, Validators } from '@angular/forms';
 
 import { DatePipe } from '@angular/common';
@@ -18,6 +19,7 @@ import { Observable } from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { User } from '../../../model/user';
 import { LocalstorageService } from 'src/app/security/service/localstorage.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -182,10 +184,16 @@ export class UserCreateComponent implements OnInit {
       }
       this.headerService.isLoadingSubject.next(false);
     },(error) => {
-      this.formSubmitted = false;
       this.isLoading=false;
+      this.formSubmitted = false;
       this.headerService.isLoadingSubject.next(false);
       console.log(error);
+      Swal.fire({
+        icon: 'info',
+        title: 'Oops...',
+        text: error.error.message,
+
+      });
     });
 
   }

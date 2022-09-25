@@ -216,6 +216,13 @@
             <h5 class="text-muted"><b>Gender:</b> {{singleUser?.gender}}</h5>
             <h5 class="text-muted"><b>Phone:</b> {{singleUser?.phone}}</h5>
             <h5 class="text-muted"><b>Active:</b> {{singleUser?.active}}</h5>
+            <!-- roles separated by comma -->
+            <h5 class="text-muted"><b>Role:</b>
+              <!-- list of roles -->
+              <span *ngFor="let role of singleUser?.roles">
+                {{role.description}} ,
+              </span>
+            </h5>
 
           </div>
 

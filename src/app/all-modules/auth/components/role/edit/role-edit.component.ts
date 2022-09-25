@@ -86,7 +86,7 @@ export class RoleEditComponent implements OnInit {
       (error) => {
         this.headerService.isLoadingSubject.next(false);
         this.formSubmitted = false;
-        this.toastr.error(error.error.message);
+        this.toastr.info(error.error.message);
       }
     );
   }

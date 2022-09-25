@@ -84,7 +84,7 @@
                   <h5 class="text-muted">Role :
                     <!-- list of roles -->
                     <span *ngFor="let role of userProfile.roles">
-                      {{role.description}}
+                      {{role.description}} ,
                     </span>
                   </h5>
                   <h5 class="text-muted">Email : {{userProfile.email}}</h5>
@@ -130,7 +130,7 @@
 
                 </div>
                 <div class="col-md-6">
-                  <h5 class="text-muted"><b>Operating Unit :</b> {{userProfile.operatingUnit?.longDescription}}</h5>
+                  <h5 class="text-muted"><b>Operating Unit :</b> {{userProfile.operatingUnit?.shortDescription}}</h5>
                   <h5 class="text-muted"><b>Entry Date :</b> {{userProfile.createdAt | date: 'dd/MM/yyyy'}}</h5>
                 </div>
                 </div>

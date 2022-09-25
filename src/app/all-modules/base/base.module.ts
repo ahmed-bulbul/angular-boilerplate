@@ -6,11 +6,13 @@ import { BaseComponent } from './base.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { BaseOrgComponent } from './components/org/base-org.component';
+import { OrgCreateComponent } from './components/org/create/org-create.component';
+import { OrgListComponent } from './components/org/list/org-list.component';
+
 
 
 @NgModule({
-  declarations: [BaseComponent, BaseOrgComponent],
+  declarations: [BaseComponent, OrgCreateComponent, OrgListComponent],
   imports: [
     CommonModule,
     BaseRoutingModule,
