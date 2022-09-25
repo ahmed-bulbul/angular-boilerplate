@@ -155,19 +155,35 @@
               </div>
 
               <div class="col-md-3">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Select one</mat-label>
+                  <mat-select formControlName="active">
+                    <mat-option [value]="true">Active</mat-option>
+                    <mat-option [value]="false">Inactive</mat-option>
+                  </mat-select>
 
+                  <mat-error *ngIf="formSubmitted && f.active.errors">
+                    <!-- error fa fa icon icon -->
+                    <i class="fa fa-exclamation-circle"></i>
+                    Active is required
+                  </mat-error>
+
+                </mat-form-field>
+                <br> <br>
+              </div>
+
+              <!-- <div class="col-md-3">
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Password</mat-label>
                   <input matInput type="password" [ngClass]="{ 'is-invalid': formSubmitted && f.password.errors }"
                     formControlName="password">
                   <mat-error *ngIf="formSubmitted && f.password.errors">
-                    <!-- error fa fa icon icon -->
                     <i class="fa fa-exclamation-circle"></i>
                     Password is required
                   </mat-error>
                 </mat-form-field>
                 <br> <br>
-              </div>
+              </div> -->
             </div>
             <div class="text-right">
               <!-- <button mat-raised-button color="primary">Primary</button> -->

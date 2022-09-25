@@ -81,4 +81,9 @@ export class AuthService {
     return this.httpClient.get<User>(this.userApiEndPoint+'/get/'+id);
   }
 
+  //update user
+  updateUser(payload: any) {
+    return this.httpClient.put<User>(this.userApiEndPoint+'/update', payload);
+  }
+
 }

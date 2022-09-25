@@ -73,7 +73,7 @@ export class SidebarComponent implements OnInit {
         // make full url
         this.urlComplete.fullUrl = url[1]
         if (url.length > 3) this.urlComplete.fullUrl = url[2] + '/' + url[3];
-        console.log(this.urlComplete.fullUrl);
+
       }
     });
 
@@ -85,9 +85,6 @@ export class SidebarComponent implements OnInit {
 
     const self = this;
 
-
-
-    console.log('@Call getPermittedMenu()............');
     this.getPermittedMenu();
 
 
@@ -246,9 +243,6 @@ export class SidebarComponent implements OnInit {
     for (const k in menuData) {
 
       const menuNode = menuData[k];
-      console.log("menuNode..... key  : " + k);
-      console.log("menuNode..... level: " + level);
-
       let description = menuNode.description;
       let iconHtml = menuNode.iconHtml ? menuNode.iconHtml : "las la-angle-double-right la-sm";
       let openUrl = menuNode.openUrl;
@@ -298,9 +292,6 @@ export class SidebarComponent implements OnInit {
         menuHTML += this._renderSingleLinkHTML( level, description, openUrl, iconHtml );
 
       }
-
-      console.log("generated HTML string:");
-      console.log(menuHTML);
 
 
     }

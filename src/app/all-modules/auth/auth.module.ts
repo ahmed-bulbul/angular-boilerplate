@@ -24,10 +24,11 @@ import { RoleEditComponent } from './components/role/edit/role-edit.component';
 import { UserCreateComponent } from './components/user/create/user-create.component';
 import { UserListComponent } from './components/user/list/user-list.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { UserEditComponent } from './components/user/edit/user-edit.component';
 
 
 @NgModule({
-  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent, RoleEditComponent, UserCreateComponent, UserListComponent],
+  declarations: [AuthComponent, RequestAuthCreateComponent, UserProfileComponent, ChangePasswordComponent, RoleCreateComponent, RoleListComponent, RoleEditComponent, UserCreateComponent, UserListComponent, UserEditComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
