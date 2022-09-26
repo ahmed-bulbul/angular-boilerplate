@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { OrgCreateComponent } from './components/org/create/org-create.component';
 import { OrgListComponent } from './components/org/list/org-list.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -19,6 +20,7 @@ import { OrgListComponent } from './components/org/list/org-list.component';
     HttpClientModule,
     NgxSpinnerModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
   ]
 })

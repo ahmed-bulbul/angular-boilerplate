@@ -69,7 +69,6 @@ export class UserCreateComponent implements OnInit {
     }
 
 
-
     this.getOuByOrgId(this.localStorageService.getUserOrganizationId());
     this.loginUser = this.localStorageService.getUser();
 

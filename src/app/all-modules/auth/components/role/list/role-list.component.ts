@@ -58,12 +58,12 @@ export class RoleListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // set init params
-      this.myFromGroup = new FormGroup({
-        pageSize: new FormControl()
-      });
-      this.myFromGroup.get('pageSize').setValue(this.configPgn.pageSize);
-      // bind event & action
+    // set init params
+    this.myFromGroup = new FormGroup({
+      pageSize: new FormControl()
+    });
+    this.myFromGroup.get('pageSize').setValue(this.configPgn.pageSize);
+    // bind event & action
     this.bindFromFloatingLabel();
     //  this.pollData();
     this.getListData();
@@ -216,8 +216,6 @@ export class RoleListComponent implements OnInit {
     if(this.active){
       params[`active`] = this.active;
     }
-
-
 
     return params;
 

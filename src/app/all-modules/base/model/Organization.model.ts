@@ -3,19 +3,19 @@ import { BaseModel } from "src/app/sharing/model/BaseModel.model";
 
 export class Organization extends BaseModel {
 
-  public orgCode: string;
+  public code: string;
   public description:string;
-  private shortDescription:string;
-  private logoText:string;
-  private logoImage:string;
-  private organizationType:Organization;
-  private parent:Organization;
-  private rootOrganization:boolean;
-  private address:string;
-  private telephone:string;
-  private fax:string;
-  private email:string;
-  private tinNumber:string;
+  public shortDescription:string;
+  public logoText:string;
+  public logoImage:string;
+  public organizationType:Organization;
+  public parent:Organization;
+  public rootOrganization:boolean;
+  public address:string;
+  public telephone:string;
+  public fax:string;
+  public email:string;
+  public tinNumber:string;
 
 
 

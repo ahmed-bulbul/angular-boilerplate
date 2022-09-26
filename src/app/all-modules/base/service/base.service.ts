@@ -48,6 +48,11 @@ export class BaseService {
     return this.httpClient.get<Organization>(this.apiOrgEndpoints.getAll, {params: queryParams});
   }
 
+  //get org by id
+  getOrgById(orgId: number) {
+    return this.httpClient.get<Organization>(this.apiOrgEndpoints.getById+'/'+orgId);
+  }
+
   //get ou by org id
   getOuByOrgId(orgId: number) {
     return this.httpClient.get<OperatingUnit>(this.apiOuEndpoints.getByOrgId+'/'+orgId);
