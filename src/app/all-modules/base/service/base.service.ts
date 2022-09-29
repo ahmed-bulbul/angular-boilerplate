@@ -24,6 +24,8 @@ export class BaseService {
   // define appi url for org service
   private apiOrgEndpoints = {
     getAll: this.baseUrl + '/org/getAll',
+    getParentOrg: this.baseUrl + '/org/getParentOrg',
+    uploadLogo : this.baseUrl + '/org/uploadLogo',
     getById: this.baseUrl + '/org/get',
     create: this.baseUrl + '/org/create',
     update: this.baseUrl + '/org/update',
@@ -46,6 +48,30 @@ export class BaseService {
   //get org list
   getAllOrg(queryParams) {
     return this.httpClient.get<Organization>(this.apiOrgEndpoints.getAll, {params: queryParams});
+  }
+  //create org
+  createOrg(org: Organization) {
+    return this.httpClient.post<Organization>(this.apiOrgEndpoints.create, org);
+  }
+  //get parent org list
+  getParentOrg() {
+    return this.httpClient.get<Organization>(this.apiOrgEndpoints.getParentOrg);
+  }
+
+
+  //update org
+  updateOrg(org: Organization) {
+    return this.httpClient.put<Organization>(this.apiOrgEndpoints.update, org);
+  }
+
+  //upload logo
+  uploadLogo(formData: FormData, orgId: number) {
+    return this.httpClient.put( this.apiOrgEndpoints.uploadLogo + '/'+orgId, formData);
+  }
+
+  //delete org
+  deleteOrg(orgId: number) {
+    return this.httpClient.delete(this.apiOrgEndpoints.delete+'/'+orgId);
   }
 
   //get org by id

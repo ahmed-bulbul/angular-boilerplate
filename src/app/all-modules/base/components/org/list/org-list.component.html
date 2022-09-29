@@ -26,8 +26,8 @@
           <div class="form-group">
             <select class="form-control" id="searchField">
               <option value="">Select one</option>
-              <option value="authority">Authority</option>
-              <option value="apiUrl">Status</option>
+              <option value="description">Description </option>
+              <option value="active">Status</option>
             </select>
           </div>
         </div>
@@ -112,7 +112,7 @@
                     <a data-toggle="modal" (click)="getUserById(thisObj.id)" data-target="#objDetailsModal"
                       class="btn btn-outline-secondary btn-sm"><i class="fa fa-eye"></i></a> &nbsp;&nbsp;
 
-                    <a class="btn btn-outline-info   btn-sm" routerLink="/auth/role/edit/{{thisObj.id}}">
+                    <a class="btn btn-outline-info   btn-sm" routerLink="/base/org/edit/{{thisObj.id}}">
                       <i class="bi bi-pencil-fill" title="Edit"></i>
                     </a>&nbsp;&nbsp;
 
@@ -191,7 +191,7 @@
 
 
 
-<!-- User details view modal -->
+<!-- Org details view modal -->
 <div class="modal custom-modal fade" id="objDetailsModal" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
@@ -204,6 +204,22 @@
 
 
       <div class="modal-body">
+
+        <!-- show logo -->
+        <div class="row">
+          <div class="col-md-6">
+            <p *ngIf="obj?.logoText">Logo Text</p>
+            <img *ngIf="obj?.logoText" src="{{ baseUrl + obj?.logoText }}" class="rounded-circle" width="75" height="75">
+          </div>
+          <div class="col-md-6">
+            <p *ngIf="obj?.logoImage">Logo Image</p>
+            <img *ngIf="obj?.logoImage" [src]="baseUrl + obj?.logoImage" class="rounded-circle" width="75" height="75">
+          </div>
+        </div>
+        <br>
+        <br>
+
+
         <div class="row" style="border:1px dotted #ddd;padding:10px;">
           <div class="col-md-5">
             <!-- Name  view -->

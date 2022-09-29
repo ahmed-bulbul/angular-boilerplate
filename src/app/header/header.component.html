@@ -7,7 +7,8 @@
     <!-- Logo -->
     <div class="header-left">
         <a  class="logo">
-            <img src="assets/img/google-workspace-logo.svg" width="150" height="40" alt="">
+            <img *ngIf="!user?.organization?.logoImage" src="assets/img/google-workspace-logo.svg" width="150" height="40" alt="">
+            <img *ngIf="user?.organization?.logoImage" src="{{ baseUrl + user?.organization?.logoImage }}" width="85%" height="40" alt="Org Logo">
         </a>
     </div>
     <!-- /Logo -->
@@ -22,7 +23,7 @@
 
     <!-- Header Title -->
     <div class="page-title-box">
-        <h3> TechBitz</h3>
+        <h3> {{user.organization?.description}}</h3>
 
     </div>
     <!-- /Header Title -->

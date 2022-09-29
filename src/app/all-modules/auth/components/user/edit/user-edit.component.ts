@@ -173,10 +173,7 @@ export class UserEditComponent implements OnInit {
         //roll pass as array ["1","2"] push in array selectedRole
         roles: this._getRoles(),
     });
-
     console.log(this.user);
-
-
     this.authService.updateUser(this.user).subscribe(user=>{
       if(user['status'] == true){
         this.isLoading=false;

@@ -1,3 +1,4 @@
+import { environment } from './../../../../../../environments/environment';
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
@@ -28,9 +29,10 @@ export class OrgListComponent implements OnInit {
   public configPgn: any;
   public editId: any;
   public tempId: any;
+  public baseUrl = environment.baseUrl;
 
   //search data
-  private authority: string;
+  private description: string;
   private active: boolean;
 
   //search button click flag
@@ -137,8 +139,8 @@ export class OrgListComponent implements OnInit {
       params[`pageSize`] = pageSize;
     }
     // push other attributes
-    if (this.authority) {
-      params[`authority`] = this.authority;
+    if (this.description) {
+      params[`description`] = this.description;
     }
     if(this.active){
       params[`active`] = this.active;
@@ -168,7 +170,48 @@ export class OrgListComponent implements OnInit {
     );
   }
 
-  search(){}
+  search(){
+    this.headerService.isLoadingSubject.next(true);
+    this.searchClick = true;
+    // get field name from dropdown list
+    const fieldName = $('#searchField').val();
+    // get field value from input
+    const fieldValue = $('#searchValue').val();
+    if(fieldName==='description'){
+      this.description = fieldValue;
+    }else if(fieldName==='active'){
+      this.active = fieldValue;
+    }else{
+      Swal.fire({
+        title: 'Info',
+        text: 'This field is not supported for search',
+        icon: 'info',
+      });
+    }
+
+    //if changes dropwon value then reset the input value from params
+    if(fieldName !== 'description'){
+      this.description = '';
+    }
+    if(fieldName !== 'active'){
+      this.active = false;
+    }
+
+
+
+    //if field value is empty then reset the value
+    if(!fieldValue){
+      this.description = '';
+      this.active = false;
+    }
+
+
+    setTimeout(() => {
+
+      this.getListData();
+    } , 1000);
+    console.log(fieldName, fieldValue);
+  }
 
   deleteEntityData(id:number){}
 

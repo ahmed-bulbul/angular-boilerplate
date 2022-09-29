@@ -164,8 +164,8 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select Is Root Org? </mat-label>
                   <mat-select formControlName="rootOrganization">
-                    <mat-option value="true">Yes</mat-option>
-                    <mat-option value="false">No</mat-option>
+                    <mat-option [value]="true">Yes</mat-option>
+                    <mat-option [value]="false">No</mat-option>
                   </mat-select>
                   <mat-error *ngIf="formSubmitted && f.active.errors">
                     <i class="fa fa-exclamation-circle"></i>
@@ -182,8 +182,8 @@
                 <mat-form-field appearance="outline" class="w-100">
                   <mat-label>Select status</mat-label>
                   <mat-select formControlName="active">
-                    <mat-option value="true">Active</mat-option>
-                    <mat-option value="false">Inactive</mat-option>
+                    <mat-option [value]="true">Active</mat-option>
+                    <mat-option [value]="false">Inactive</mat-option>
                   </mat-select>
 
                   <mat-error *ngIf="formSubmitted && f.active.errors">
@@ -246,10 +246,6 @@
               </button>
 
               &nbsp; &nbsp;
-
-              <button class="btn btn-outline-warning btn-sm" (click)="resetForm()">
-                <i class="fa fa-undo" aria-hidden="true"></i>&nbsp; Reset
-              </button>
             </div>
 
           </form>
