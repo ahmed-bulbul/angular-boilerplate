@@ -17,11 +17,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { OrgEditComponent } from './components/org/edit/org-edit.component';
+import { OuCreateComponent } from './components/ou/create/ou-create.component';
+import { OuListComponent } from './components/ou/list/ou-list.component';
 
 
 
 @NgModule({
-  declarations: [BaseComponent, OrgCreateComponent, OrgListComponent, OrgEditComponent],
+  declarations: [BaseComponent, OrgCreateComponent, OrgListComponent, OrgEditComponent, OuCreateComponent, OuListComponent],
   imports: [
     CommonModule,
     BaseRoutingModule,

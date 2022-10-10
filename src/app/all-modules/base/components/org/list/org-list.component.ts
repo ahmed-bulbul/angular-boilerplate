@@ -213,7 +213,32 @@ export class OrgListComponent implements OnInit {
     console.log(fieldName, fieldValue);
   }
 
-  deleteEntityData(id:number){}
+  deleteEntityData(id:number){
+    this.baseService.deleteOrg(id).subscribe(
+      (response: any) => {
+        if(response.status === true){
+          //hide modal
+          $('#deleteModal').modal('hide');
+          this.toastr.success('Success', 'Organization deleted successfully');
+          this.getListData();
+        }
+      },error => {
+        $('#deleteModal').modal('hide');
+        if(error.status === 403){
+          this.toastr.error('Forbidden', 'You are not authorized to access this functionality');
+          //redirect to 403 page
+         // this.router.navigate(['/error/error403']);
+        }
+        if(error.status === 400){
+          Swal.fire({
+            title: 'Info',
+            text: error.error.message,
+            icon: 'info',
+          });
+        }
+      }
+    );
+  }
 
 
   // pagination handling methods start -----------------------------------------------------------------------

@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: DashboardComponent,
     children: [
-      { path: 'admin', component: AdminDashboardComponent },
+      { path: 'admin', component: AdminDashboardComponent, canActivate: [IsLoggedInGuard] },
     ],
   },
 ];
