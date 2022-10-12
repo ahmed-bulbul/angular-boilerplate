@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
 
     this.getUserProfile();
-    
+
 
   }
 
@@ -42,8 +42,19 @@ export class UserProfileComponent implements OnInit {
       }
     }, err => {
 
+      //if error code is 403
+      if (err.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'You are not authorized to access this page!',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.router.navigate(['']);
+            }
+          })
+      }
       console.log(err);
-     // Swal.fire({ title: 'Error', text: err.message, icon: 'error' });
     }
     );
   }

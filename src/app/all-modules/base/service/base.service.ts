@@ -83,4 +83,14 @@ export class BaseService {
   getOuByOrgId(orgId: number) {
     return this.httpClient.get<OperatingUnit>(this.apiOuEndpoints.getByOrgId+'/'+orgId);
   }
+
+  //get ou list
+  getAllOu(queryParams) {
+    return this.httpClient.get<OperatingUnit>(this.apiOuEndpoints.getAll, {params: queryParams});
+  }
+
+  //create ou
+  createOu(ou: OperatingUnit) {
+    return this.httpClient.post<OperatingUnit>(this.apiOuEndpoints.create, ou);
+  }
 }
