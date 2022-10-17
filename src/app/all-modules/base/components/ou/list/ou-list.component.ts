@@ -18,7 +18,7 @@ declare const $: any;
 })
 export class OuListComponent implements OnInit {
 
-  public ou: OperatingUnit[];
+  public ouList: OperatingUnit[];
   public obj : OperatingUnit;
 
   public pipe = new DatePipe('en-US');
@@ -103,8 +103,6 @@ export class OuListComponent implements OnInit {
     this.getListData();
   }
 
-
-
   getListData() {
     this.headerService.isLoadingSubject.next(true);
     this.baseService.getAllOu(this.getUserQueryParams(this.configPgn.pageNum, this.configPgn.pageSize)).subscribe(
@@ -113,7 +111,7 @@ export class OuListComponent implements OnInit {
         if(response.status === true){
           this.headerService.isLoadingSubject.next(false);
           this.searchClick = false;
-          this.ou = response.data;
+          this.ouList = response.data;
           this.configPgn.totalItem = response.totalItems;
           this.configPgn.totalItems = response.totalItems;
           this.setDisplayLastSequence();
@@ -150,17 +148,15 @@ export class OuListComponent implements OnInit {
     return params;
   }
 
+ //filtering
+  filter(){
 
-
-
-
-
-
+  }
 
     // pagination handling methods start -----------------------------------------------------------------------
     setDisplayLastSequence() {
       this.configPgn.pngDiplayLastSeq = (((this.configPgn.pageNum - 1) * this.configPgn.pageSize) + this.configPgn.pageSize);
-      if (this.ou.length < this.configPgn.pageSize) {
+      if (this.ouList.length < this.configPgn.pageSize) {
         this.configPgn.pngDiplayLastSeq = (((this.configPgn.pageNum - 1) * this.configPgn.pageSize) + this.configPgn.pageSize);
       }
       if (this.configPgn.totalItem < this.configPgn.pngDiplayLastSeq) {

@@ -1,1 +1,65 @@
-<p>ou-list works!</p>
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col">
+          <h2 class="page-title">Operating Unit</h2>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/dashboard/admin">Home</a></li>
+            <li class="breadcrumb-item active">Operating Unit</li>
+            <li class="breadcrumb-item active">List</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Header -->
+
+
+  <!-- Search Filter -->
+  <div class="card mb-2" style="background-color:transparent;">
+    <div class="card-body p-3">
+
+      <!-- search box by select dropdown field list -->
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <select class="form-control" id="searchField">
+              <option value="">Select one</option>
+              <option value="description">Description </option>
+              <option value="active">Status</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <input type="text" class="form-control" id="searchValue" placeholder="Search Value">
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+
+
+            <button class="btn btn-outline-info" (click)="filter()">
+              <span *ngIf="!searchClick">
+                <!-- icon sign in -->
+                <i class="fa fa-search"></i>&nbsp; Filter
+              </span>
+              <span *ngIf="searchClick" class="indicator-progress">
+                Please wait...
+                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+              </span>
+              &nbsp;&nbsp;&nbsp;
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- /Search Filter -->
+
+
+</div>
